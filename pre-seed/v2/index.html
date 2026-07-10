@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="format-detection" content="telephone=no">
+<title>Rovensky · Портфель автономных систем · Pre-Seed 2026</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23F3EEE5'/%3E%3Crect x='20' y='20' width='60' height='60' fill='none' stroke='%231B1A17' stroke-width='4'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-family='Georgia' font-size='44' fill='%231B1A17'%3ER%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3EEE5; --paper-2:#ECE5D8; --ink:#1B1A17; --ink-soft:#46443E;
+  --taupe:#8A8577; --line:rgba(27,26,23,.16); --line-soft:rgba(27,26,23,.08);
+  --term-bg:#12110E; --term-panel:#1A1813; --term-line:rgba(243,238,229,.12);
+  --amber:#E0A458; --amber-bright:#F2C078; --term-text:#D8D2C4; --term-dim:#7E7869;
+  --serif:'Fraunces', Georgia, serif;
+  --sans:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:'IBM Plex Mono', ui-monospace, monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+::selection{background:var(--ink);color:var(--paper)}
+a{color:inherit}
+strong{font-weight:500}
+
+/* ---------- progress + frame ---------- */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ink);z-index:100;transition:width .1s linear}
+.frame{position:fixed;inset:0;pointer-events:none;z-index:90;border:10px solid var(--paper)}
+@media(max-width:760px){.frame{border-width:5px}}
+
+/* ---------- typography utilities ---------- */
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--taupe)}
+.section-no{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--taupe)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.08;letter-spacing:-0.01em}
+h2{font-size:clamp(34px,4.6vw,56px)}
+h3{font-size:clamp(20px,2.2vw,26px);font-weight:500}
+.lede{font-size:clamp(17px,1.6vw,20px);color:var(--ink-soft);max-width:620px}
+.num-big{font-family:var(--serif);font-weight:300;font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-0.02em}
+.num-unit{font-family:var(--serif);font-size:.5em;color:var(--taupe);margin-left:.06em}
+.cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--taupe);line-height:1.55;text-transform:none}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+section{padding:110px 0}
+@media(max-width:760px){section{padding:72px 0}}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:54px;gap:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+@media(max-width:900px){.grid3,.grid4{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.grid2,.grid3,.grid4{grid-template-columns:1fr;gap:36px}}
+.hr{border:0;border-top:1px solid var(--line);margin:0}
+.hr-soft{border:0;border-top:1px solid var(--line-soft)}
+
+/* ---------- reveal motion ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+.rv.on{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;padding:34px 28px 44px;position:relative;overflow:hidden}
+.hero-top{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.logo-box{width:40px;height:40px;border:1.4px solid var(--ink);display:grid;place-items:center;font-family:var(--serif);font-size:21px}
+.logo span{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+.hero-mid{padding:40px 0}
+.hero h1{font-size:clamp(54px,9.5vw,124px);font-weight:300;letter-spacing:-0.025em}
+.hero h1 em{font-style:italic;font-weight:300}
+.hero-sub{margin-top:34px;display:flex;gap:48px;flex-wrap:wrap;align-items:flex-end}
+.hero-sub .lede{max-width:480px}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.hero-meta{display:flex;gap:40px;flex-wrap:wrap}
+.hero-meta div{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--taupe)}
+.hero-meta b{display:block;color:var(--ink);font-weight:500;font-size:13px;margin-top:4px;letter-spacing:.04em}
+.scroll-hint{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--taupe);text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.scroll-hint::after{content:"";width:1px;height:34px;background:var(--ink);display:block;animation:drop 2.2s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hero-lines{position:absolute;inset:0;z-index:-1;opacity:.5}
+
+/* ---------- ask band ---------- */
+.ask{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper-2)}
+.ask .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.ask .cell{padding:34px 28px;border-left:1px solid var(--line)}
+.ask .cell:first-child{border-left:0}
+@media(max-width:900px){.ask .wrap{grid-template-columns:1fr 1fr}.ask .cell:nth-child(3){border-left:0}}
+@media(max-width:560px){.ask .wrap{grid-template-columns:1fr}.ask .cell{border-left:0;border-top:1px solid var(--line)}.ask .cell:first-child{border-top:0}}
+
+/* ---------- stat blocks ---------- */
+.stat{border-top:1px solid var(--line);padding-top:18px}
+.stat .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--taupe);margin-top:10px}
+.stat p{color:var(--ink-soft);font-size:15px;margin-top:8px;line-height:1.5}
+
+/* ---------- variant cards ---------- */
+.vcard{border:1px solid var(--line);padding:40px 36px;background:var(--paper)}
+.vcard.hl{background:var(--ink);color:var(--paper)}
+.vcard.hl .cap,.vcard.hl .eyebrow{color:rgba(243,238,229,.55)}
+.vcard.hl .hr-soft{border-color:rgba(243,238,229,.15)}
+.vcard h3{font-size:clamp(24px,2.6vw,32px);font-weight:400;margin:10px 0 8px}
+.vcard .sub{color:var(--taupe);font-size:15px}
+.vcard.hl .sub{color:rgba(243,238,229,.65)}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:10px 24px;margin-top:28px;font-size:15px}
+.spec dt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);padding-top:3px}
+.vcard.hl .spec dt{color:rgba(243,238,229,.5)}
+.spec dd{font-weight:400}
+
+/* ---------- compare table ---------- */
+table{width:100%;border-collapse:collapse;font-size:15px}
+.cmp th,.cmp td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.cmp th{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);font-weight:500;border-bottom:1px solid var(--line)}
+.cmp td:first-child{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--taupe);text-transform:uppercase}
+.cmp td.agent{font-weight:400}
+.cmp td.bot{color:var(--taupe)}
+
+/* ---------- quotes ---------- */
+.quote-row{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+@media(max-width:860px){.quote-row{grid-template-columns:1fr}}
+.q{border-top:1px solid var(--line);padding-top:20px}
+.q p{font-family:var(--serif);font-size:19px;line-height:1.45;font-style:italic}
+.q .src{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--taupe);margin-top:14px;font-style:normal}
+
+/* ---------- stack list ---------- */
+.stack{border-top:1px solid var(--line)}
+.stack-row{display:grid;grid-template-columns:64px 220px 1fr 150px;gap:24px;padding:22px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.stack-row .n{font-family:var(--mono);font-size:12px;color:var(--taupe)}
+.stack-row .name{font-family:var(--serif);font-size:22px}
+.stack-row .desc{color:var(--ink-soft);font-size:15px}
+.stack-row .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);text-align:right}
+@media(max-width:860px){.stack-row{grid-template-columns:40px 1fr;gap:8px 16px}.stack-row .desc{grid-column:2}.stack-row .tag{grid-column:2;text-align:left}}
+
+/* ---------- market ---------- */
+.seg{border:1px solid var(--line);padding:36px}
+.tamline{display:flex;gap:0;margin-top:26px;border:1px solid var(--line)}
+.tamline div{padding:14px 16px;border-left:1px solid var(--line);flex:1}
+.tamline div:first-child{border-left:0}
+.tamline b{display:block;font-family:var(--serif);font-size:20px;font-weight:400}
+.tamline span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--taupe);text-transform:uppercase}
+
+/* ---------- phases ---------- */
+.phase{border:1px solid var(--line);padding:34px 30px;position:relative;background:var(--paper)}
+.phase .ph-no{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--taupe)}
+.phase h3{margin:8px 0 4px}
+.phase .mons{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--taupe);text-transform:uppercase}
+.phase ul{list-style:none;margin-top:20px}
+.phase li{padding:9px 0;border-top:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)}
+.phase .kpi{margin-top:20px;padding:12px 14px;background:var(--paper-2);font-family:var(--mono);font-size:12px;letter-spacing:.04em}
+
+/* ---------- agents (SMM) ---------- */
+.agents{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;counter-reset:ag}
+@media(max-width:1000px){.agents{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:640px){.agents{grid-template-columns:repeat(2,1fr)}}
+.agent-cell{border:1px solid var(--line);padding:18px 14px;aspect-ratio:1/1.15;display:flex;flex-direction:column;justify-content:space-between;transition:background .3s,color .3s}
+.agent-cell:hover{background:var(--ink);color:var(--paper)}
+.agent-cell:hover .cap{color:rgba(243,238,229,.6)}
+.agent-cell .an{font-family:var(--mono);font-size:11px;color:var(--taupe)}
+.agent-cell b{font-family:var(--serif);font-weight:500;font-size:17px;display:block}
+
+/* ---------- pricing rows ---------- */
+.price-row{display:grid;grid-template-columns:1fr auto auto auto;gap:24px;padding:18px 0;border-bottom:1px solid var(--line-soft);align-items:baseline;font-size:15px}
+.price-row b{font-family:var(--serif);font-size:19px;font-weight:400}
+.price-row .pr{font-family:var(--mono);font-size:14px}
+@media(max-width:680px){.price-row{grid-template-columns:1fr auto}}
+
+/* ---------- terminal section ---------- */
+.terminal{background:var(--term-bg);color:var(--term-text);position:relative}
+.terminal .sec-head{border-color:var(--term-line)}
+.terminal .eyebrow,.terminal .section-no{color:var(--term-dim)}
+.terminal .lede{color:#A8A293}
+.terminal h2,.terminal h3{color:var(--term-text)}
+.terminal::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.12) 3px 4px);pointer-events:none;opacity:.35}
+.term-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--amber);text-transform:uppercase;margin-bottom:18px}
+.term-tag::before{content:"";width:7px;height:7px;background:var(--amber);border-radius:50%;animation:blink 1.6s steps(2) infinite}
+@keyframes blink{50%{opacity:.2}}
+.term-panel{border:1px solid var(--term-line);background:var(--term-panel);padding:30px;position:relative;z-index:1}
+.term-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;align-items:stretch}
+@media(max-width:900px){.term-grid{grid-template-columns:1fr}}
+.term-stat{font-family:var(--mono)}
+.term-stat .v{font-size:clamp(26px,2.6vw,34px);color:var(--amber-bright);font-weight:500}
+.term-stat .l{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--term-dim);margin-top:6px;line-height:1.5}
+#chart{width:100%;height:auto;display:block}
+.ax{font-family:var(--mono);font-size:10px;fill:var(--term-dim)}
+.calc label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--term-dim);display:flex;justify-content:space-between;margin-bottom:10px}
+.calc label output{color:var(--amber-bright);font-size:13px}
+input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:2px;background:var(--term-line);outline:none;margin:6px 0 24px}
+input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--amber);cursor:pointer;border:3px solid var(--term-bg);box-shadow:0 0 0 1px var(--amber)}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--amber);cursor:pointer;border:2px solid var(--term-bg);box-shadow:0 0 0 1px var(--amber)}
+.calc-out{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:6px}
+.calc-out div{border-top:1px solid var(--term-line);padding-top:12px}
+.calc-out .v{font-family:var(--mono);font-size:21px;color:var(--amber-bright)}
+.calc-out .l{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--term-dim);margin-top:5px;line-height:1.5}
+.term-note{font-family:var(--mono);font-size:11.5px;color:var(--term-dim);margin-top:22px;line-height:1.7}
+.term-note b{color:var(--amber)}
+.pay-btn{background:transparent;border:1px solid var(--term-line);color:var(--term-dim);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;cursor:pointer}
+.pay-btn.on{border-color:var(--amber);color:var(--amber-bright)}
+
+/* ---------- team ---------- */
+.founder{display:grid;grid-template-columns:1fr 1.4fr;gap:56px}
+@media(max-width:860px){.founder{grid-template-columns:1fr}}
+.skill-row{padding:16px 0;border-bottom:1px solid var(--line-soft)}
+.skill-row b{font-family:var(--serif);font-size:18px;font-weight:500;display:block;margin-bottom:4px}
+.skill-row p{font-size:15px;color:var(--ink-soft)}
+.hire{display:grid;grid-template-columns:1fr auto auto;gap:16px;padding:13px 0;border-bottom:1px solid var(--line-soft);font-size:14px;align-items:baseline}
+.hire .m{font-family:var(--mono);font-size:12px;color:var(--taupe)}
+
+/* ---------- finance tables ---------- */
+.fin th,.fin td{padding:12px 14px;border-bottom:1px solid var(--line-soft);text-align:right;font-size:14.5px}
+.fin th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);font-weight:500;border-bottom:1px solid var(--line)}
+.fin td:first-child,.fin th:first-child{text-align:left}
+.fin td.mono{font-family:var(--mono);font-size:13px}
+.fin tr.total td{border-top:1px solid var(--ink);border-bottom:none;font-weight:500;font-family:var(--mono)}
+.fin-note{font-size:12.5px;color:var(--taupe);margin-top:14px;font-family:var(--mono)}
+
+/* ---------- risks ---------- */
+.risk{display:grid;grid-template-columns:120px 1fr 1.4fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--line-soft);font-size:15px}
+@media(max-width:760px){.risk{grid-template-columns:1fr}}
+.risk .lvl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;padding-top:4px}
+.lvl.hi{color:#9A3B1F}.lvl.md{color:#A37B2C}.lvl.lo{color:var(--taupe)}
+.risk b{font-family:var(--serif);font-weight:500;font-size:17px}
+.risk p{color:var(--ink-soft)}
+
+/* ---------- appendix ---------- */
+.app-card{border:1px solid var(--line);background:var(--paper)}
+.app-card summary{list-style:none;cursor:pointer;padding:30px 34px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:baseline}
+.app-card summary::-webkit-details-marker{display:none}
+.app-card summary .t{font-family:var(--serif);font-size:clamp(22px,2.4vw,30px)}
+.app-card summary .pl{font-family:var(--mono);font-size:18px;transition:transform .3s}
+.app-card[open] summary .pl{transform:rotate(45deg)}
+.app-body{padding:0 34px 36px;border-top:1px solid var(--line-soft)}
+.app-body .grid3{margin-top:28px}
+.app-body h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe);margin:26px 0 10px;font-weight:500}
+.app-body ul{list-style:none}
+.app-body li{padding:7px 0;border-top:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)}
+.app-quote{font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.5;color:var(--ink-soft);border-left:1px solid var(--ink);padding-left:20px;margin-top:22px}
+
+/* ---------- contact / form ---------- */
+.contact{background:var(--ink);color:var(--paper)}
+.contact .eyebrow,.contact .section-no{color:rgba(243,238,229,.5)}
+.contact h2{color:var(--paper)}
+.contact .lede{color:rgba(243,238,229,.7)}
+.c-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px}
+@media(max-width:860px){.c-grid{grid-template-columns:1fr}}
+.c-meta div{padding:18px 0;border-bottom:1px solid rgba(243,238,229,.14)}
+.c-meta .cap{color:rgba(243,238,229,.5)}
+.c-meta a{font-family:var(--serif);font-size:clamp(19px,2vw,24px);text-decoration:none;display:inline-block;margin-top:4px}
+.c-meta a:hover{font-style:italic}
+.f-row{margin-bottom:22px}
+.f-row label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,238,229,.55);margin-bottom:8px}
+input[type=text],input[type=email],textarea,select{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(243,238,229,.3);color:var(--paper);font-family:var(--sans);font-size:16px;font-weight:300;padding:8px 0;outline:none;border-radius:0}
+select{appearance:none;-webkit-appearance:none}
+select option{color:var(--ink)}
+input:focus,textarea:focus,select:focus{border-bottom-color:var(--paper)}
+textarea{resize:vertical;min-height:90px}
+.btn{display:inline-block;background:var(--paper);color:var(--ink);border:0;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:17px 34px;cursor:pointer;margin-top:8px;transition:letter-spacing .3s}
+.btn:hover{letter-spacing:.26em}
+#sent-msg{display:none;border:1px solid rgba(243,238,229,.3);padding:22px;font-size:15px;margin-bottom:26px}
+.foot{border-top:1px solid rgba(243,238,229,.14);margin-top:80px;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,238,229,.45)}
+
+/* ---------- v2 additions ---------- */
+.live-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--taupe)}
+.live-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#5C7A4A;animation:blink 1.8s steps(2) infinite}
+.vcard.hl .live-tag{color:rgba(243,238,229,.6)}
+.ascale{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:26px}
+@media(max-width:760px){.ascale{grid-template-columns:repeat(3,1fr)}}
+.ascale div{border:1px solid var(--term-line);padding:14px 12px;font-family:var(--mono)}
+.ascale .lv{font-size:13px;color:var(--term-dim);font-weight:500}
+.ascale p{font-size:11px;line-height:1.5;color:var(--term-dim);margin-top:8px;letter-spacing:.02em}
+.ascale div.now{border-color:var(--amber);background:rgba(224,164,88,.06)}
+.ascale div.now .lv{color:var(--amber-bright)}
+.ascale div.now p{color:#B9AE96}
+.mrow{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--term-line);font-size:14.5px}
+.mrow .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);padding-top:3px}
+.mrow p{color:#A8A293}
+@media(max-width:640px){.mrow{grid-template-columns:1fr;gap:4px}}
+.lrow{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:14px 0;border-bottom:1px solid var(--line-soft);font-size:14.5px}
+.lrow .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);padding-top:3px}
+.lrow p{color:var(--ink-soft)}
+@media(max-width:640px){.lrow{grid-template-columns:1fr;gap:4px}}
+.syn{border:1px solid var(--line);padding:28px;background:var(--paper)}
+.syn .cap{display:block;margin-bottom:8px}
+.syn b{font-family:var(--serif);font-size:19px;font-weight:500}
+.syn p{font-size:14.5px;color:var(--ink-soft);margin-top:8px}
+.tr-row{display:grid;grid-template-columns:auto 1fr auto;gap:24px;padding:20px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.tr-row .name{font-family:var(--serif);font-size:clamp(19px,2vw,24px)}
+.tr-row .desc{color:var(--ink-soft);font-size:15px}
+.tr-row a{text-decoration:none;border-bottom:1px solid var(--line)}
+.tr-row a:hover{border-color:var(--ink)}
+@media(max-width:680px){.tr-row{grid-template-columns:1fr;gap:6px}}
+
+@media (prefers-reduced-motion: reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  .scroll-hint::after{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="frame"></div>
+
+<!-- ================= HERO ================= -->
+<header class="hero wrap">
+  <svg class="hero-lines" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+    <line x1="0" y1="640" x2="1200" y2="430" stroke="rgba(27,26,23,.07)" stroke-width="1"/>
+    <line x1="0" y1="700" x2="1200" y2="380" stroke="rgba(27,26,23,.05)" stroke-width="1"/>
+    <line x1="0" y1="760" x2="1200" y2="330" stroke="rgba(27,26,23,.04)" stroke-width="1"/>
+  </svg>
+  <div class="hero-top rv on">
+    <a class="logo" href="https://rovensky.ru"><div class="logo-box">R</div><span>AI Agents<br>and Systems</span></a>
+    <div class="eyebrow">Pre-Seed · 2026 · Россия</div>
+  </div>
+  <div class="hero-mid">
+    <div id="dedication" class="rv on" hidden></div>
+    <h1 class="rv on">Системы,<br><em>которые работают сами</em></h1>
+    <div class="hero-sub rv on rv-d1">
+      <p class="lede">Портфель автономных агентных продуктов: <strong>AURA</strong> — объект недвижимости продаёт себя сам · <strong>MyBrain</strong> — операционная система соло&#8209;фаундера · <strong>SMM&nbsp;Engine</strong> — маркетинговый двигатель. Один основатель + ИИ.</p>
+    </div>
+  </div>
+  <div class="hero-bottom rv on rv-d2">
+    <div class="hero-meta">
+      <div>Запрос<b>₽ 1 500 000 · Pre-Seed</b></div>
+      <div>Возврат<b>Месяц 18 · выручка перекрывает долг к М11</b></div>
+      <div>Флагман<b>AURA · sochi.estate</b></div>
+      <div>Основатель<b>Михаил Ровенский · Founder & CEO</b></div>
+    </div>
+    <div class="scroll-hint">Листайте</div>
+  </div>
+</header>
+
+<!-- ================= 01 РЕЗЮМЕ ================= -->
+<section id="summary">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">01 / Резюме для инвестора</span><span class="eyebrow">Конфиденциально · только для адресата</span></div>
+    <div class="rv" style="max-width:680px;margin-bottom:54px">
+      <h2>Резюме<br>для инвестора</h2>
+      <p class="lede" style="margin-top:22px">Rovensky — студия автономных агентных систем. Один основатель с ИИ строит портфель продуктов на общем технологическом ядре — так, как раньше могла только команда.</p>
+    </div>
+    <div class="grid2" style="gap:64px">
+      <div class="rv">
+        <div class="lrow"><span class="k">Портфель</span><p><strong>AURA</strong> (флагман) — категория «объект недвижимости продаёт себя сам», живой сайт sochi.estate. <strong>MyBrain</strong> — операционная система соло-фаундера, живое приложение mybrain.rovensky.ru. <strong>SMM Engine</strong> — двигатель роста всех проектов и отдельный рыночный продукт. <strong>Кастомная разработка</strong> — денежный поток с первых месяцев.</p></div>
+        <div class="lrow"><span class="k">Тактика</span><p>Кастомная разработка и SMM дают выручку с Месяца 4 и закрывают модель возврата. AURA монетизируется с первого дня работы клина (Паспорт доверия), MyBrain — подписка после беты. Первая выручка — М4, возврат — М18.</p></div>
+        <div class="lrow" style="border-bottom:0"><span class="k">Честно</span><p>Выручки на сегодня нет. Есть три живых продукта в вебе, глубокие исследования рынков и метод, который делает темп: от идеи до задеплоенного продукта — дни.</p></div>
+      </div>
+      <div class="rv rv-d1">
+        <div class="lrow"><span class="k">Стек</span><p>Claude Code + Claude API + Supabase. Основатель с AI-разработчиком собирает production-системы за недели; код — собственность компании, без платформенных подписок и ограничений.</p></div>
+        <div class="lrow"><span class="k">Ядро</span><p>Одна архитектурная ДНК на все продукты: агентные обвязки, event sourcing, MCP-шина, «картриджи» для масштабирования. Каждый следующий продукт дешевле предыдущего.</p></div>
+        <div class="lrow" style="border-bottom:0"><span class="k">Горизонт</span><p><strong>MyUniverse</strong> — операционная система жизни (MyBrain — её двигатель и составная часть) и <strong>Meridian Terminal</strong>. Не финансируются этим раундом, но определяют траекторию 2028+.</p></div>
+      </div>
+    </div>
+    <div class="grid4" style="margin-top:80px">
+      <div class="stat rv"><div class="num-big">$<span data-count="4.4" data-dec="1">0</span><span class="num-unit">T</span></div><p>Ежегодный потенциал GenAI для мировой экономики</p><div class="src">McKinsey · 2024</div></div>
+      <div class="stat rv rv-d1"><div class="num-big"><span data-count="33">0</span><span class="num-unit">%</span></div><p>Корпоративного ПО получат AI-агентов к 2028</p><div class="src">Gartner</div></div>
+      <div class="stat rv rv-d2"><div class="num-big">+<span data-count="1445">0</span><span class="num-unit">%</span></div><p>Рост запросов на мультиагентные системы за 2025 год</p><div class="src">Индустриальная аналитика · 2026</div></div>
+      <div class="stat rv rv-d3"><div class="num-big"><span data-count="57">0</span><span class="num-unit">%</span></div><p>Организаций уже запускают агентные процессы в продакшене</p><div class="src">2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ASK BAND ================= -->
+<div class="ask">
+  <div class="wrap" style="padding:0">
+    <div class="cell rv"><span class="cap">Инвестиционный запрос</span><div class="num-big" style="font-size:clamp(30px,3vw,44px);margin-top:10px">₽ 1,5M</div><p class="cap" style="margin-top:8px">Формат Pre-Seed<br>R&D · 6 месяцев · Россия</p></div>
+    <div class="cell rv rv-d1"><span class="cap">К возврату к М18</span><div class="num-big" style="font-size:clamp(30px,3vw,44px);margin-top:10px">₽ 1,95M</div><p class="cap" style="margin-top:8px">долг + 20% годовых × 1,5 года</p></div>
+    <div class="cell rv rv-d2"><span class="cap">Долг перекрыт выручкой</span><div class="num-big" style="font-size:clamp(30px,3vw,44px);margin-top:10px">Месяц 11</div><p class="cap" style="margin-top:8px">за 7 месяцев до срока<br>только SMM + кастом, без AURA/MyBrain</p></div>
+    <div class="cell rv rv-d3"><span class="cap">Апсайд сверх модели</span><div class="num-big" style="font-size:clamp(30px,3vw,44px);margin-top:10px">AURA · MyBrain</div><p class="cap" style="margin-top:8px">их выручка в модель возврата не заложена — только усиливает запас</p></div>
+  </div>
+</div>
+
+<!-- ================= 02 УСЛОВИЯ ================= -->
+<section id="terms">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">02 / Условия для инвестора</span><span class="eyebrow">Pre-Seed · 2026</span></div>
+    <div class="rv" style="max-width:680px;margin-bottom:54px">
+      <h2>Два формата участия</h2>
+      <p class="lede" style="margin-top:22px">Выбираете тот, что ближе вашей логике: финансовый возврат — или AI-проект под ваш бизнес.</p>
+    </div>
+    <div class="grid2">
+      <div class="vcard hl rv">
+        <span class="eyebrow">Вариант А</span>
+        <h3>Займ с фиксированным процентом</h3>
+        <p class="sub">Инвестор предоставляет сумму как займ. Возврат — долг плюс фиксированный процент. Простой формат без корпоративных усложнений.</p>
+        <dl class="spec">
+          <dt>Сумма займа</dt><dd>₽ 1 500 000</dd>
+          <dt>Ставка</dt><dd>15–20% годовых · обсуждается</dd>
+          <dt>Срок возврата</dt><dd>18 месяцев с момента получения</dd>
+          <dt>Обеспечение</dt><dd>Личное поручительство основателя</dd>
+          <dt>Выплата %</dt><dd>В конце срока или ежеквартально</dd>
+        </dl>
+      </div>
+      <div class="vcard rv rv-d1">
+        <span class="eyebrow">Вариант Б</span>
+        <h3>Проект в счёт инвестиций</h3>
+        <p class="sub">Инвестор направляет средства, взамен получает реализованный AI-проект для своего бизнеса. Стоимость проекта = возврат инвестиций.</p>
+        <dl class="spec">
+          <dt>Сумма</dt><dd>₽ 1 500 000</dd>
+          <dt>Что получает</dt><dd>Кастомный AI-агент или система для бизнеса</dd>
+          <dt>Стоимость работ</dt><dd>Эквивалент рыночной цены</dd>
+          <dt>Срок реализации</dt><dd>До 6 месяцев с согласования ТЗ</dd>
+          <dt>Дополнительно</dt><dd>Поддержка системы 12 месяцев включена</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 СДВИГ ================= -->
+<section id="shift" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">03 / AI-агенты</span><span class="eyebrow">Контекст рынка</span></div>
+    <div class="grid2" style="align-items:end;margin-bottom:60px">
+      <div class="rv"><h2>Революция,<br>которая уже началась</h2></div>
+      <div class="rv rv-d1"><p class="lede">AI-агенты самостоятельно планируют шаги, используют инструменты — поиск, код, API, базы данных — и выполняют сложные многошаговые задачи. Они не просто отвечают. Они действуют.</p></div>
+    </div>
+    <div class="rv" style="overflow-x:auto">
+      <table class="cmp">
+        <tr><th></th><th>Чат-бот</th><th>AI-агент</th></tr>
+        <tr><td>Принцип</td><td class="bot">Вопрос → ответ</td><td class="agent">Цель → автономная цепочка</td></tr>
+        <tr><td>Инструменты</td><td class="bot">Только текст</td><td class="agent">Код, API, БД, поиск, сервисы</td></tr>
+        <tr><td>Память</td><td class="bot">Текущий диалог</td><td class="agent">Долгосрочная: факты, история</td></tr>
+        <tr><td>Человек</td><td class="bot">Каждый шаг</td><td class="agent">Только контроль результата</td></tr>
+        <tr><td>Масштаб</td><td class="bot">Один ответ</td><td class="agent">Бизнес-процессы</td></tr>
+      </table>
+    </div>
+    <p class="eyebrow rv" style="margin:64px 0 24px">— Позиции лидеров индустрии</p>
+    <div class="quote-row">
+      <div class="q rv"><p>AI сжимает десятилетия прогресса в годы — агентные системы он называет ключевым механизмом этого сжатия.</p><div class="src">Дарио Амодеи · CEO Anthropic</div></div>
+      <div class="q rv rv-d1"><p>Агентный AI — третья волна вычислений после ПК и интернета.</p><div class="src">Дженсен Хуанг · CEO NVIDIA</div></div>
+      <div class="q rv rv-d2"><p>Агенты будут выполнять работу целых команд — и это происходит уже сейчас.</p><div class="src">Сэм Альтман · CEO OpenAI</div></div>
+    </div>
+    <div class="rv" style="margin-top:70px;border:1px solid var(--line);padding:36px;background:var(--paper)">
+      <span class="eyebrow">Наш вывод из этого сдвига</span>
+      <p style="font-family:var(--serif);font-size:clamp(20px,2.4vw,28px);line-height:1.35;margin-top:14px">Если агенты выполняют работу команд — компания из одного человека с ИИ перестаёт быть компромиссом и становится <em style="font-weight:400">форматом</em>. Мы строим по этому принципу и сами продукты: системы, которым не нужен оператор.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 МЕТОД И ЯДРО ================= -->
+<section id="stack">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">04 / Метод и технологическое ядро</span><span class="eyebrow">AI-first разработка</span></div>
+    <div class="grid2" style="align-items:start;margin-bottom:64px">
+      <div class="rv">
+        <h2>Студия одного<br>человека с ИИ</h2>
+        <p class="lede" style="margin-top:22px">Rovensky — AI-лаборатория на pre-seed стадии. Все продукты портфеля собираются из одной архитектурной ДНК — поэтому каждый следующий дешевле и быстрее предыдущего.</p>
+      </div>
+      <div class="rv rv-d1">
+        <div class="lrow"><span class="k">Бренд</span><p>Rovensky · rovensky.ru · ровенский.рф · rovensky.com</p></div>
+        <div class="lrow"><span class="k">Стадия</span><p>Pre-Seed — от прототипов к первым продажам</p></div>
+        <div class="lrow"><span class="k">Фокус</span><p>Автономные агентные системы: недвижимость, продуктивность, маркетинг, кастом</p></div>
+        <div class="lrow"><span class="k">Рынок</span><p>Россия → СНГ и БРИКС с Года 2 → Европа/США с 2028+</p></div>
+        <div class="lrow" style="border-bottom:0"><span class="k">Принцип</span><p>Код — собственность компании. Без аренды no-code-платформ: тот же инструментарий, которым пользуются инженеры Anthropic</p></div>
+      </div>
+    </div>
+    <p class="eyebrow rv" style="margin-bottom:8px">— Архитектурная ДНК · общая для всех продуктов</p>
+    <div class="grid4 rv" style="gap:24px;margin-bottom:64px">
+      <div class="syn"><span class="cap">01</span><b>Агентные обвязки</b><p>Оркестратор + специалисты с острыми ролями + ревьюер с правом вето. Память принадлежит объекту работы, агенты — сменный персонал.</p></div>
+      <div class="syn"><span class="cap">02</span><b>Event sourcing</b><p>Каждое действие — событие в журнале. Состояние = свёртка событий. Аудит-трейл и обучающая выборка в одном.</p></div>
+      <div class="syn"><span class="cap">03</span><b>Картриджи</b><p>Ядро универсально, специфика рынка — сменные модули данных. Новый рынок = новый картридж, не новая система.</p></div>
+      <div class="syn"><span class="cap">04</span><b>Холодный + горячий контуры</b><p>Batch-аналитика в сессиях Claude Code; always-on слой (Telegram, Edge Functions) отвечает 24/7 независимо от основателя.</p></div>
+    </div>
+    <p class="eyebrow rv" style="margin-bottom:8px">— Технологический стек</p>
+    <div class="stack rv">
+      <div class="stack-row"><span class="n">01</span><span class="name">Claude Code</span><span class="desc">AI-разработчик и оркестратор: проектирует, пишет, тестирует и разворачивает код агентов в паре с основателем</span><span class="tag">Anthropic</span></div>
+      <div class="stack-row"><span class="n">02</span><span class="name">Claude API · Agent SDK</span><span class="desc">LLM-ядро: генерация, анализ, принятие решений; SDK — превращение прототипов в автономных production-агентов</span><span class="tag">LLM-ядро</span></div>
+      <div class="stack-row"><span class="n">03</span><span class="name">Supabase</span><span class="desc">PostgreSQL + векторный поиск (pgvector) + аутентификация + Edge Functions для горячего контура</span><span class="tag">БД + Auth</span></div>
+      <div class="stack-row"><span class="n">04</span><span class="name">Mac mini M4 Pro · VPS</span><span class="desc">Собственный runtime: агенты работают 24/7 на своей инфраструктуре, production клиентов — на VPS</span><span class="tag">Runtime 24/7</span></div>
+      <div class="stack-row"><span class="n">05</span><span class="name">Прямые API-интеграции</span><span class="desc">Telegram, VK, ЕГРН-провайдеры, CRM, платёжные и любые внешние сервисы — напрямую, через MCP-шину</span><span class="tag">Интеграции</span></div>
+      <div class="stack-row" style="border-bottom:0"><span class="n">06</span><span class="name">Генеративный контент</span><span class="desc">DALL·E 3 / Midjourney — визуал · ElevenLabs Scribe / Whisper — распознавание речи, включая русский</span><span class="tag">Контент</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 ПОРТФЕЛЬ ================= -->
+<section id="portfolio" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">05 / Портфель</span><span class="eyebrow">Четыре потока · одно ядро</span></div>
+    <div class="rv" style="max-width:720px;margin-bottom:54px">
+      <h2>Портфель, а не ставка<br>на один продукт</h2>
+      <p class="lede" style="margin-top:22px">Кастом и SMM зарабатывают сейчас и закрывают возврат. AURA строит категорию. MyBrain растит venture-апсайд и ведёт к MyUniverse. Всё — на одном ядре и одном моторе роста.</p>
+    </div>
+    <div class="grid2" style="gap:32px">
+      <div class="vcard hl rv">
+        <span class="eyebrow">Флагман · недвижимость</span>
+        <h3>AURA</h3>
+        <p class="sub">Первая система, в которой объект недвижимости продаёт себя сам: устанавливает юридическую истину о себе, вычисляет покупателя и охотится на него глобально. Клин — Паспорт доверия: деньги с первого дня.</p>
+        <dl class="spec">
+          <dt>Категория</dt><dd>Объект как субъект рынка — пустая клетка во всём мире</dd>
+          <dt>Рынок РФ</dt><dd>₽150–500 млрд/год риэлторских комиссий</dd>
+          <dt>Статус</dt><dd><span class="live-tag">Live</span> &nbsp;sochi.estate · полигон Сочи</dd>
+        </dl>
+      </div>
+      <div class="vcard rv rv-d1">
+        <span class="eyebrow">Продукт · продуктивность</span>
+        <h3>MyBrain</h3>
+        <p class="sub">Операционная система соло-фаундера: выбросил мысль голосом — система сама превратила её в задачу и проект и сама следит, чтобы не застряло. Рыночный продукт — и двигатель будущего MyUniverse.</p>
+        <dl class="spec">
+          <dt>Ниша</dt><dd>Полный цикл «мысль → результат» — не делает никто</dd>
+          <dt>Рынок</dt><dd>TAM $10+ млрд → $36 млрд к 2033 · SAM $4,3 млрд</dd>
+          <dt>Статус</dt><dd><span class="live-tag">Live</span> &nbsp;mybrain.rovensky.ru · фаза 0 закрыта</dd>
+        </dl>
+      </div>
+      <div class="vcard rv">
+        <span class="eyebrow">Инфраструктура + продукт · маркетинг</span>
+        <h3>SMM Engine</h3>
+        <p class="sub">7 AI-агентов производят контент-машину. Двойная роль: мотор роста всех проектов портфеля (CAC → 0) — и самостоятельный продукт для МСБ по подписке.</p>
+        <dl class="spec">
+          <dt>Для портфеля</dt><dd>Кейсы, премьеры, SEO — маркетинг как побочный продукт систем</dd>
+          <dt>Для рынка</dt><dd>₽15–30k/мес против штатного SMM за ₽80–150k</dd>
+          <dt>Статус</dt><dd>MVP в разработке · выручка с М4</dd>
+        </dl>
+      </div>
+      <div class="vcard rv rv-d1">
+        <span class="eyebrow">Денежный поток · услуги</span>
+        <h3>Кастомная разработка</h3>
+        <p class="sub">AI-агенты под задачи конкретного бизнеса. Высокая маржа, короткий цикл продажи, тёплый нетворк. Финансирует портфель и приносит кейсы.</p>
+        <dl class="spec">
+          <dt>Чек</dt><dd>₽80k–1,5M за проект · маржа 55–80%</dd>
+          <dt>Цикл продажи</dt><dd>2–4 недели · спрос опережает предложение в 3–5×</dd>
+          <dt>Статус</dt><dd>Продажи с М3–М4 · воронка из нетворка</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 AURA ================= -->
+<section id="aura" class="terminal">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div class="sec-head rv"><span class="section-no">06 / AURA · флагман</span><span class="eyebrow">sochi.estate · Autonomous Urban Realty Agents</span></div>
+    <div class="term-tag rv">Категория · объект как субъект рынка</div>
+    <div class="rv" style="max-width:760px;margin-bottom:56px">
+      <h2>Недвижимость перестаёт<br>ждать покупателя</h2>
+      <p class="lede" style="margin-top:22px">Каждому объекту присваивается автономный цифровой субъект: он устанавливает юридическую истину о себе, вычисляет цену по живому отклику рынка, охотится на своего покупателя глобально — и отчитывается собственнику фактами, а не обещаниями.</p>
+    </div>
+    <div class="grid2" style="gap:48px;margin-bottom:64px">
+      <div class="rv">
+        <p class="eyebrow" style="color:var(--amber);margin-bottom:14px">— Два уровня ценности · перемножаются</p>
+        <div class="mrow"><span class="k">Охотник</span><p>Не покупатель ищет объект — объект вычисляет своего покупателя и идёт к нему: портрет персон → карта обитания → экспедиции → обучение на отклике. Разведцикл, применённый к продаже.</p></div>
+        <div class="mrow"><span class="k">Паспорт доверия</span><p>Машиночитаемый сертификат объекта на данных ЕГРН: назначение, обременения, локальные риски, правило первоисточника в каждом вердикте. Причина сказать «да» незнакомому объекту дистанционно.</p></div>
+        <div class="mrow"><span class="k">Клин · деньги в день 1</span><p>Паспорт продаётся с первого дня: покупателю — пакеты проверок 3/5/10 объектов (частотный клиент), собственнику — режимы «Знак» (публичный) и «Аудит» (приватный) + «Клиника объектов» с протоколом лечения.</p></div>
+        <div class="mrow" style="border-bottom:0"><span class="k">Экономика</span><p>Себестоимость обслуживания объекта — API-вызовы. Success fee — только по факту сделки. Ни рубля за «попытку» — прививка от судьбы Purplebricks.</p></div>
+      </div>
+      <div class="rv rv-d1">
+        <p class="eyebrow" style="color:var(--amber);margin-bottom:14px">— Ров · почему не скопируют быстро</p>
+        <div class="mrow"><span class="k">Юр-граф</span><p>«Антитела» к рискам юрисдикции (мансарды, реестры сноса, ИЖС-доли) собираются только полевой работой. Этих данных нет в весах ни одной модели — и не будет.</p></div>
+        <div class="mrow"><span class="k">Данные циклов</span><p>Каждый проданный объект оставляет полный след: заголовки → CTR, цены → лиды, дни → этапы. Обучающая выборка, которой не существует больше нигде.</p></div>
+        <div class="mrow"><span class="k">Дилемма инноватора</span><p>Классифайды не могут атаковать источник своей выручки (риэлтора), ИИ-инструменты продают лопаты посреднику. Клетка «автономный продавец» структурно пуста.</p></div>
+        <div class="mrow" style="border-bottom:0"><span class="k">Полигон</span><p>Сочи — «мягкий Северный полюс»: 70%+ покупателей нелокальны, юридическая токсичность максимальна. Докажем здесь — работает везде. Дальше — круги: РФ-курорты → миллионники → русскоязычный мир → мировой стандарт.</p></div>
+      </div>
+    </div>
+    <p class="eyebrow rv" style="color:var(--amber);margin-bottom:6px">— Шкала автономности продажи · дорожная карта продукта в одной строке</p>
+    <div class="ascale rv">
+      <div><span class="lv">A0</span><p>Всё делает человек — риэлтор сегодня</p></div>
+      <div><span class="lv">A1</span><p>Машина ассистирует — потолок нынешнего рынка</p></div>
+      <div class="now"><span class="lv">A2 · старт</span><p>Машина готовит, человек исполняет: пакет + ручная публикация</p></div>
+      <div><span class="lv">A3</span><p>Машина исполняет, человек утверждает гейты</p></div>
+      <div><span class="lv">A4</span><p>Машина ведёт цикл, человек — по исключениям</p></div>
+      <div><span class="lv">A5</span><p>Полный автоном до нотариального действия</p></div>
+    </div>
+    <div class="grid4" style="margin-top:56px;gap:24px">
+      <div class="term-stat rv"><div class="v">₽150–500<span style="font-size:.55em">млрд</span></div><div class="l">Риэлторские комиссии РФ в год · наш SAM 30–100+ млрд (сложные и дистанционные сделки)</div></div>
+      <div class="term-stat rv rv-d1"><div class="v">$100<span style="font-size:.55em">млрд</span></div><div class="l">Комиссии агентов только в США · глобальный горизонт кругов 4–5</div></div>
+      <div class="term-stat rv rv-d2"><div class="v">0 ₽</div><div class="l">Недвижимости на балансе · вся ценность — в ИИ и данных (урок iBuying)</div></div>
+      <div class="term-stat rv rv-d3"><div class="v">Live</div><div class="l">sochi.estate — тизер категории уже в эфире · мастер-документ v3.2 · питч-разнос пройден</div></div>
+    </div>
+    <div class="term-note rv" style="margin-top:40px">Проект прошёл адверсарную питч-сессию из пяти «инвесторов»: по каждому удару — аргумент, изменение проекта или честная запись в Красную папку открытых рисков (см. раздел «Риски»). Вскрытие Purplebricks — единорога, проданного за £1, — дало четыре прививки, зашитые в конструкцию.</div>
+  </div>
+</section>
+
+<!-- ================= 07 MYBRAIN ================= -->
+<section id="mybrain">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">07 / MyBrain</span><span class="eyebrow">mybrain.rovensky.ru · операционная система соло-фаундера</span></div>
+    <div class="rv" style="max-width:760px;margin-bottom:56px">
+      <h2>Мысли теряются. Заметки умирают.<br>Проекты застревают молча.</h2>
+      <p class="lede" style="margin-top:22px">У солопренёра нет операционного директора — и ни один инструмент его не заменяет. MyBrain закрывает полный цикл: выброси мысль голосом — система превратит её в проект и доведёт до результата.</p>
+    </div>
+    <div class="grid4" style="margin-bottom:64px;gap:24px">
+      <div class="syn rv"><span class="cap">Шаг 1</span><b>Захват без трения</b><p>Голос или текст в Telegram, на ходу, без папок и форм. Смешанная русско-английская речь — сценарий первого класса.</p></div>
+      <div class="syn rv rv-d1"><span class="cap">Шаг 2</span><b>ИИ-конвейер</b><p>Классификация, задача по GTD, привязка к проекту, декомпозиция идей. Всё — предложения с подтверждением в один тап; исходный текст неприкосновенен.</p></div>
+      <div class="syn rv rv-d2"><span class="cap">Шаг 3</span><b>Проактивный надзор</b><p>Утренний брифинг, недельный ИИ-обзор, детектор стагнации: «проект стоит 12 дней — застряло, отложить, разбить?». Инкубатор идей.</p></div>
+      <div class="syn rv rv-d3"><span class="cap">Шаг 4</span><b>Окно управления</b><p>Весь портфель проектов одним взглядом — философия Bloomberg Terminal. Чат со своим вторым мозгом со ссылками на источники.</p></div>
+    </div>
+    <div class="grid2" style="align-items:start;gap:56px;margin-bottom:64px">
+      <div class="rv" style="overflow-x:auto">
+        <p class="eyebrow" style="margin-bottom:14px">— Рынок распался на 4 лагеря · полный цикл не делает никто</p>
+        <table class="cmp">
+          <tr><th>Лагерь</th><th>Умеют</th><th>Не умеют</th></tr>
+          <tr><td>Заметочники</td><td class="agent">захватить, найти</td><td class="bot">превратить в действие</td></tr>
+          <tr><td>Планировщики</td><td class="agent">управлять задачами</td><td class="bot">принять поток мыслей</td></tr>
+          <tr><td>Голосовые</td><td class="agent">речь → текст</td><td class="bot">текст умирает в архиве</td></tr>
+          <tr><td>Chief of staff</td><td class="agent">проактивные брифы</td><td class="bot">работают от почты, не от мыслей</td></tr>
+        </table>
+        <p class="fin-note" style="margin-top:18px">Разведка ~20 продуктов с источниками · ближайший аналог по связке — 7 человек, рейтинг 2.4: ниша подтверждена, качественного исполнения нет</p>
+      </div>
+      <div class="rv rv-d1">
+        <p class="eyebrow" style="margin-bottom:14px">— Свободные территории · подтверждено исследованием</p>
+        <div class="lrow"><span class="k">Стагнация</span><p>Детектор «у проекта нет следующего шага / не двигался N дней» — нет ни у одного продукта на рынке.</p></div>
+        <div class="lrow"><span class="k">Telegram</span><p>Нативный захват в мессенджере, который всегда открыт, — нет ни у одного лидера. Он же — канал обратной доставки.</p></div>
+        <div class="lrow"><span class="k">Русский язык</span><p>First-class RU/EN — нигде не сценарий первого класса. Для нас — требование ядра.</p></div>
+        <div class="lrow" style="border-bottom:0"><span class="k">Валидация</span><p>>$300 млн венчурных денег в категории за 18 месяцев; гиганты идут в нашу сторону (Todoist Ramble), но связку не собрал никто.</p></div>
+      </div>
+    </div>
+    <div class="grid2" style="align-items:center;gap:56px">
+      <div class="rv">
+        <p class="eyebrow" style="margin-bottom:12px">— Рынок и модель</p>
+        <div class="tamline">
+          <div><b>$10+ млрд</b><span>TAM сегодня → $36 млрд к 2033</span></div>
+          <div><b>$4,3 млрд</b><span>SAM · 30 млн соло-профи × $144/год</span></div>
+          <div><b>$5–8,6M</b><span>SOM · ARR к концу года 3</span></div>
+        </div>
+        <p style="font-size:15px;color:var(--ink-soft);margin-top:20px">Подписка $8–20/мес (коридор валидирован рынком) · себестоимость ИИ на пользователя — единицы долларов · маржа с первого платящего · рост product-led.</p>
+      </div>
+      <div class="vcard rv rv-d1">
+        <span class="eyebrow">Северная звезда</span>
+        <h3>MyUniverse</h3>
+        <p class="sub">Та же петля «захват → ИИ → цели → надзор» масштабируется с проектов на всю жизнь: 9 сфер, баланс, дневниковые практики, финансовый контур. MyBrain — двигатель и составная часть. Путь из ниши «продуктивность» в категорию «личный ИИ-компаньон» — архитектурно заложен с первого дня.</p>
+        <dl class="spec">
+          <dt>Статус</dt><dd><span class="live-tag">Live</span> &nbsp;mybrain.rovensky.ru · фаза 0 закрыта за 2 дня</dd>
+          <dt>Ближайшее</dt><dd>Фазы 1–2: Telegram-захват + ИИ-конвейер · 4–6 недель</dd>
+          <dt>К открытию</dt><dd>Закрытая бета ~М6 · публичный запуск ~М9–12</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 SMM ENGINE ================= -->
+<section id="smm" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">08 / SMM Engine</span><span class="eyebrow">Мотор портфеля + рыночный продукт</span></div>
+    <div class="grid2" style="align-items:end;margin-bottom:60px">
+      <div class="rv"><h2>Маркетинг<br>как система</h2></div>
+      <div class="rv rv-d1"><p class="lede">7 AI-агентов в связке: от мониторинга конкурентов до публикации и аналитики. Одна и та же машина крутит контент наших проектов — и продаётся бизнесу по подписке.</p></div>
+    </div>
+    <div class="agents rv" style="margin-bottom:56px">
+      <div class="agent-cell"><span class="an">01</span><div><b>Разведчик</b><span class="cap">Мониторинг</span></div></div>
+      <div class="agent-cell"><span class="an">02</span><div><b>Планировщик</b><span class="cap">Контент-план</span></div></div>
+      <div class="agent-cell"><span class="an">03</span><div><b>Копирайтер</b><span class="cap">Claude + RAG</span></div></div>
+      <div class="agent-cell"><span class="an">04</span><div><b>Визуалист</b><span class="cap">DALL·E 3</span></div></div>
+      <div class="agent-cell"><span class="an">05</span><div><b>Ревьюер</b><span class="cap">Tone of voice</span></div></div>
+      <div class="agent-cell"><span class="an">06</span><div><b>Публикатор</b><span class="cap">TG / VK</span></div></div>
+      <div class="agent-cell"><span class="an">07</span><div><b>Аналитик</b><span class="cap">AI-отчёты</span></div></div>
+    </div>
+    <div class="grid2" style="gap:32px;margin-bottom:64px">
+      <div class="vcard rv">
+        <span class="eyebrow">Роль 1 · внутри портфеля</span>
+        <h3>Двигатель роста с CAC → 0</h3>
+        <p class="sub">Маркетинг наших систем — побочный продукт их работы: у AURA каждый Паспорт рождает кейс-«мину», каждый лот — премьеру; у MyBrain продукт работает на глазах у аудитории. SMM Engine индустриализирует этот поток: кейсы, премьеры, SEO — без платного трафика.</p>
+        <dl class="spec">
+          <dt>Принцип</dt><dd>Платного привлечения не существует до доказанной юнит-экономики</dd>
+          <dt>Эффект</dt><dd>Один мотор амортизируется на все проекты портфеля</dd>
+        </dl>
+      </div>
+      <div class="vcard rv rv-d1">
+        <span class="eyebrow">Роль 2 · на рынке</span>
+        <h3>Продукт для МСБ</h3>
+        <p class="sub">6+ млн субъектов МСБ. Штатный SMM-специалист — ₽80–150k/мес; AI SMM System закрывает те же задачи за ₽15–30k. Клиент тратит 15 минут в неделю на согласование.</p>
+        <dl class="spec">
+          <dt>Setup</dt><dd>₽60–150k разово · внедрение и настройка</dd>
+          <dt>Подписка</dt><dd>₽15–30k/мес · работа системы, поддержка, отчёты</dd>
+          <dt>Сегмент</dt><dd>TAM ₽120 млрд · SAM ₽8 млрд · SOM год 1: ₽2–5 млн</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="grid4" style="gap:24px">
+      <div class="stat rv"><div class="num-big" style="font-size:clamp(28px,3vw,42px)">₽80–150k</div><p>Штатный SMM-специалист / мес</p></div>
+      <div class="stat rv rv-d1"><div class="num-big" style="font-size:clamp(28px,3vw,42px)">₽15–30k</div><p>AI SMM System / мес · экономия 5–10×</p></div>
+      <div class="stat rv rv-d2"><div class="num-big" style="font-size:clamp(28px,3vw,42px)">24/7</div><p>Работа без перерывов · RAG по базе знаний клиента</p></div>
+      <div class="stat rv rv-d3"><div class="num-big" style="font-size:clamp(28px,3vw,42px)">15 мин</div><p>В неделю от клиента на согласование</p></div>
+    </div>
+    <p class="fin-note rv" style="margin-top:28px">Целевые клиенты: юрфирмы · клиники · финтех · e-commerce — сегменты, где контент напрямую влияет на привлечение, но нет ресурсов на штатного специалиста</p>
+  </div>
+</section>
+
+<!-- ================= 09 КАСТОМ ================= -->
+<section id="custom">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">09 / Кастомная разработка</span><span class="eyebrow">Денежный поток портфеля</span></div>
+    <div class="grid2" style="align-items:start;gap:64px">
+      <div class="rv">
+        <h2 style="margin-bottom:22px">Высокая маржа,<br>короткий цикл</h2>
+        <p class="lede">Спрос опережает предложение в 3–5×. Средний чек ₽150–500k, маржа 60–75%, цикл продажи 2–4 недели. Каждый проект — кейс для маркетинга и паттерн в общую кодовую базу.</p>
+        <div style="margin-top:36px">
+          <div class="price-row"><b>Базовый агент</b><span class="pr">1 workflow</span><span class="pr">₽80–150k</span><span class="pr">маржа ~70%</span></div>
+          <div class="price-row"><b>Мультиагент</b><span class="pr">4–8 недель</span><span class="pr">₽200–500k</span><span class="pr">~65%</span></div>
+          <div class="price-row"><b>Корпоративный</b><span class="pr">2–4 месяца</span><span class="pr">₽500k–1,5M</span><span class="pr">~55%</span></div>
+          <div class="price-row" style="border-bottom:0"><b>Ретейнер</b><span class="pr">постоянно</span><span class="pr">₽30–80k/мес</span><span class="pr">~80%</span></div>
+        </div>
+      </div>
+      <div class="rv rv-d1">
+        <p class="eyebrow" style="margin-bottom:14px">— Типичные кейсы</p>
+        <ul style="list-style:none">
+          <li style="padding:9px 0;border-top:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)">Агент квалификации лидов — юрфирмы, финуслуги</li>
+          <li style="padding:9px 0;border-top:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)">HR-агент: скрининг резюме, расписание интервью</li>
+          <li style="padding:9px 0;border-top:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)">AI-ассистент клиентского сервиса на RAG</li>
+          <li style="padding:9px 0;border-top:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)">Агент дайджеста новостей для руководства</li>
+          <li style="padding:9px 0;border-top:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)">Документооборот: договоры, генерация форм</li>
+          <li style="padding:9px 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);font-size:15px;color:var(--ink-soft)">Автоматизация внутренних и внешних процессов</li>
+        </ul>
+        <p class="fin-note" style="margin-top:22px">— Как бизнес зарабатывает: ↓ затраты (support, HR) · ↑ конверсия (sales) · ↑ скорость (operations) · ↑ качество (analytics)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10 СИНЕРГИЯ ================= -->
+<section id="synergy" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">10 / Синергия</span><span class="eyebrow">Почему портфель — сила, а не распыление</span></div>
+    <div class="rv" style="max-width:720px;margin-bottom:54px">
+      <h2>Один человек не смог бы.<br>Одна система — может.</h2>
+      <p class="lede" style="margin-top:22px">Вопрос «как соло-фаундер тянет четыре продукта» — правильный. Ответ — в конструкции: продукты делят ядро, мотор роста и даже… самого фаундера как первого пользователя.</p>
+    </div>
+    <div class="grid4" style="gap:24px">
+      <div class="syn rv"><span class="cap">01 · Ядро</span><b>Общая архитектура</b><p>Обвязки, event sourcing, картриджи, MCP — написаны один раз, работают во всех продуктах. Новый продукт = сборка, не стройка.</p></div>
+      <div class="syn rv rv-d1"><span class="cap">02 · Рост</span><b>Один мотор — все проекты</b><p>SMM Engine производит контент-машину для AURA и MyBrain бесплатно, как побочный продукт. CAC → 0 заложен в конструкцию, а не в надежду.</p></div>
+      <div class="syn rv rv-d2"><span class="cap">03 · Деньги</span><b>Кэшфлоу страхует R&D</b><p>Кастом и SMM зарабатывают с М4 и закрывают модель возврата целиком. AURA и MyBrain строят категории, не сжигая займ.</p></div>
+      <div class="syn rv rv-d3"><span class="cap">04 · Петля</span><b>Фаундер = первый пользователь</b><p>MyBrain управляет портфелем, в котором живёт AURA. Каждый продукт валидируется на живых делах ежедневно — dogfooding по построению.</p></div>
+    </div>
+    <div class="rv" style="margin-top:56px;border:1px solid var(--line);padding:32px 36px;background:var(--paper);font-family:var(--mono);font-size:13px;line-height:2;color:var(--ink-soft);overflow-x:auto">
+      <span class="eyebrow" style="display:block;margin-bottom:14px">— Схема потоков</span>
+      КАСТОМ + SMM&nbsp;&nbsp;──&nbsp;выручка М4+&nbsp;──▶&nbsp;&nbsp;возврат займа к М11–М18<br>
+      SMM ENGINE&nbsp;&nbsp;&nbsp;&nbsp;──&nbsp;контент-машина&nbsp;──▶&nbsp;&nbsp;рост AURA · MyBrain · CAC → 0<br>
+      ОБЩЕЕ ЯДРО&nbsp;&nbsp;&nbsp;&nbsp;──&nbsp;код и паттерны&nbsp;──▶&nbsp;&nbsp;каждый продукт дешевле предыдущего<br>
+      AURA + MYBRAIN&nbsp;──&nbsp;категории&nbsp;────▶&nbsp;&nbsp;venture-апсайд · Seed 2027 · MyUniverse
+    </div>
+  </div>
+</section>
+
+<!-- ================= 11 ТРЕКШН ================= -->
+<section id="traction">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">11 / Трекшн</span><span class="eyebrow">Построено и проверяемо · июль 2026</span></div>
+    <div class="grid2" style="align-items:end;margin-bottom:50px">
+      <div class="rv"><h2>Не обещания —<br>ссылки</h2></div>
+      <div class="rv rv-d1"><p class="lede">Всё перечисленное открывается в браузере или лежит в репозиториях. Выручки на сегодня нет — это честная точка отсчёта: построено, исследовано, задеплоено. Продажи — следующая фаза.</p></div>
+    </div>
+    <div class="rv">
+      <div class="tr-row"><span class="live-tag">Live</span><div><div class="name">rovensky.ru</div><div class="desc">Бренд-хаб студии · заглушка-манифест + инвесторские материалы</div></div><a href="https://rovensky.ru" target="_blank" rel="noopener" class="cap">открыть ↗</a></div>
+      <div class="tr-row"><span class="live-tag">Live</span><div><div class="name">sochi.estate</div><div class="desc">AURA · тизер категории «объект продаёт себя сам» · полигон Сочи</div></div><a href="https://www.sochi.estate" target="_blank" rel="noopener" class="cap">открыть ↗</a></div>
+      <div class="tr-row"><span class="live-tag">Live</span><div><div class="name">mybrain.rovensky.ru</div><div class="desc">MyBrain · приложение с БД, multi-tenant изоляцией и CI/CD · фаза 0 — за 2 дня</div></div><a href="https://mybrain.rovensky.ru" target="_blank" rel="noopener" class="cap">открыть ↗</a></div>
+      <div class="tr-row"><span class="cap" style="letter-spacing:.16em;text-transform:uppercase">Docs</span><div><div class="name">Исследования</div><div class="desc">AURA Master v3.2 (рынок · технологии · архитектура · питч-разнос) · MyBrain RESEARCH (~20 конкурентов, 4 категории, TAM/SAM/SOM с источниками) · вскрытие Purplebricks и iBuying</div></div><span class="cap">по запросу</span></div>
+      <div class="tr-row" style="border-bottom:0"><span class="cap" style="letter-spacing:.16em;text-transform:uppercase">Метод</span><div><div class="name">Фазовые ворота</div><div class="desc">Каждая фаза каждого продукта заканчивается работающим задеплоенным результатом — так проект живёт с первого дня</div></div><span class="cap">дисциплина</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 12 СТРАТЕГИЯ · ФАЗЫ ================= -->
+<section id="phases" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">12 / Стратегия</span><span class="eyebrow">Каждая фаза финансирует следующую</span></div>
+    <div class="rv" style="max-width:680px;margin-bottom:54px">
+      <h2>Три фазы роста</h2>
+      <p class="lede" style="margin-top:22px">Не строить всё сразу. Сначала — денежные потоки (SMM + кастом), параллельно — флагманы малыми фазами. Модель возврата опирается только на первое.</p>
+    </div>
+    <div class="grid3">
+      <div class="phase rv">
+        <div class="ph-no">Фаза 01 · Фундамент</div>
+        <h3>Среда и прото-агенты</h3>
+        <div class="mons">М1–М2 · выручка ₽0</div>
+        <ul>
+          <li>Оборудование, сервисы, домены</li>
+          <li>Claude Code: первые агенты, RAG, пайплайны данных</li>
+          <li>Архитектура AI SMM System · прото-агенты</li>
+          <li>AURA: скелет + память + картридж Сочи (этапы 0–1)</li>
+          <li>MyBrain: Telegram-захват + ИИ-конвейер (фазы 1–2)</li>
+          <li>Воронка: 3–5 тёплых контактов</li>
+        </ul>
+        <div class="kpi">KPI · рабочие прототипы + первые демо</div>
+      </div>
+      <div class="phase rv rv-d1">
+        <div class="ph-no">Фаза 02 · Запуск</div>
+        <h3>MVP, пилоты, первый кастом</h3>
+        <div class="mons">М3–М4 · выручка ₽20–80k</div>
+        <ul>
+          <li>MVP AI SMM: все 7 агентов в связке</li>
+          <li>Пилоты с 2 клиентами (setup + подписка)</li>
+          <li>Старт 1-го кастомного проекта</li>
+          <li>AURA: первые Паспорта доверия — деньги клина вне модели</li>
+          <li>MyBrain: окно управления · ежедневное использование</li>
+          <li>Кейс-стади для маркетинга</li>
+        </ul>
+        <div class="kpi">KPI · 2 платящих клиента + 1 кастом</div>
+      </div>
+      <div class="phase rv rv-d2">
+        <div class="ph-no">Фаза 03 · Выручка</div>
+        <h3>Стабильный доход и Seed</h3>
+        <div class="mons">М5–М6 · ₽80–205k/мес</div>
+        <ul>
+          <li>4–6 клиентов AI SMM, MRR ₽60–120k</li>
+          <li>Завершение 1-го кастома, старт 2-го</li>
+          <li>AURA: первые объекты в обвязке · журнал событий</li>
+          <li>MyBrain: закрытая бета первых внешних пользователей</li>
+          <li>Публичные кейсы, PR: статьи, Telegram, AI-ивенты</li>
+          <li>Подготовка к Seed-раунду</li>
+        </ul>
+        <div class="kpi">KPI · MRR &gt;₽100k + Seed-готовность</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 13 ОПЕРАЦИОННЫЙ ПЛАН · ТЕРМИНАЛ ================= -->
+<section id="plan" class="terminal">
+  <div class="wrap" style="position:relative;z-index:1">
+    <div class="sec-head rv"><span class="section-no">13 / Операционный план</span><span class="eyebrow">ROVENSKY · TERMINAL VIEW</span></div>
+    <div class="term-tag rv">Live · модель возврата</div>
+    <div class="rv" style="max-width:720px;margin-bottom:46px">
+      <h2 style="color:var(--paper)">Когда выручка<br>перекрывает долг</h2>
+      <p class="lede" style="margin-top:22px">Накопленная выручка достигает суммы возврата к Месяцу 11 — за семь месяцев до срока. Сдвигайте ставку и смотрите, как меняется ваша линия на графике.</p>
+    </div>
+    <div class="term-grid">
+      <div class="term-panel rv">
+        <svg id="chart" viewBox="0 0 640 360" role="img" aria-label="График накопленной выручки против суммы долга">
+          <g id="grid"></g>
+          <g id="bars"></g>
+          <line id="debt-line" x1="52" x2="620" y1="0" y2="0" stroke="#9A5B3C" stroke-width="1.4" stroke-dasharray="6 5"/>
+          <text id="debt-label" class="ax" x="58" y="0" text-anchor="start" fill="#C98B6A"></text>
+          <path id="cum-path" fill="none" stroke="#E0A458" stroke-width="2.2"/>
+          <g id="cum-dots"></g>
+          <circle id="cover-dot" r="6" fill="none" stroke="#F2C078" stroke-width="2"></circle>
+          <text id="cover-label" class="ax" fill="#F2C078" text-anchor="middle"></text>
+          <g id="xaxis"></g>
+        </svg>
+        <div class="term-note">— янтарная линия — накопленная выручка (план, ₽k) · пунктир — сумма к возврату · столбцы — выручка по месяцам</div>
+      </div>
+      <div class="term-panel rv rv-d1 calc">
+        <div class="term-tag" style="margin-bottom:26px">Калькулятор инвестора</div>
+        <label>Сумма займа<output>₽ 1 500 000 · фикс.</output></label>
+        <label for="rate" style="margin-top:18px">Ставка, % годовых<output id="rate-out">20,0%</output></label>
+        <input type="range" id="rate" min="15" max="20" step="0.5" value="20">
+        <label for="payout">Выплата процентов</label>
+        <div style="display:flex;gap:10px;margin:4px 0 22px">
+          <button class="pay-btn on" data-mode="end" type="button">В конце срока</button>
+          <button class="pay-btn" data-mode="q" type="button">Ежеквартально</button>
+        </div>
+        <div class="calc-out">
+          <div><div class="v" id="o-interest">—</div><div class="l">Ваш доход за 18 мес.</div></div>
+          <div><div class="v" id="o-total">—</div><div class="l">Итого к возврату</div></div>
+          <div><div class="v" id="o-month">—</div><div class="l">Выручка перекрывает долг</div></div>
+          <div><div class="v" id="o-margin">—</div><div class="l">Запас до срока возврата</div></div>
+        </div>
+        <div class="term-note">Расчёт по плановой выручке М4–М12 (далее консервативно ₽450k/мес). Личное поручительство основателя. Параметры фиксируются в договоре займа.</div>
+      </div>
+    </div>
+    <div class="grid4" style="margin-top:46px;gap:24px">
+      <div class="term-stat rv"><div class="v">М4</div><div class="l">Первый setup fee · запуск пилота, старт кастома</div></div>
+      <div class="term-stat rv rv-d1"><div class="v">₽2 195k</div><div class="l">Накоплено к М11 — больше ₽1,95M долга</div></div>
+      <div class="term-stat rv rv-d2"><div class="v">10+ · 6+</div><div class="l">SMM-клиентов и кастом-проектов к М12</div></div>
+      <div class="term-stat rv rv-d3"><div class="v">М18</div><div class="l">Срок возврата · ₽1 950 000 при ставке 20%</div></div>
+    </div>
+    <div class="term-note rv" style="margin-top:36px"><b>Консервативность модели:</b> в план возврата заложены только SMM Engine и кастомная разработка. Выручка AURA (паспорта, success fee) и MyBrain (подписка) в модель не включена — она только увеличивает запас прочности.</div>
+  </div>
+</section>
+
+<!-- ================= 14 КОМАНДА ================= -->
+<section id="team">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">14 / Команда</span><span class="eyebrow">Solo на pre-seed — осознанный выбор</span></div>
+    <div class="founder">
+      <div class="rv">
+        <h2>Михаил<br>Ровенский</h2>
+        <p class="cap" style="margin-top:16px;font-size:13px">Founder & CEO · Solo AI Developer</p>
+        <p class="lede" style="margin-top:24px;font-size:17px">Solo — сила на pre-seed: нулевые расходы на ФОТ, максимальная скорость итераций, полный контроль над продуктом. Метод «фаундер + Claude Code» — скорость команды из пяти при затратах одного.</p>
+        <p style="margin-top:22px;font-size:14.5px;color:var(--taupe)">Финансовая Академия при Правительстве РФ · ВШ телевидения МГУ · Школа продюсирования Н. Картозии</p>
+      </div>
+      <div class="rv rv-d1">
+        <div class="skill-row"><b>Финансы и инвестиции — 15+ лет</b><p>Хедж-фонды, профучастник РЦБ, операционное и юридическое управление, M&A-сделка по продаже бизнеса, работа с крупнейшими банками. Отсюда ДНК продуктов: «Bloomberg Terminal» как эталон и дисциплина раскрытия.</p></div>
+        <div class="skill-row"><b>AI-разработка</b><p>Claude Code, Claude API, Supabase — ежедневная практика AI-first разработки: основатель строит системы сам, в паре с AI-инженером. Три живых продукта в вебе — результат этого метода.</p></div>
+        <div class="skill-row"><b>Продюсирование и нарратив</b><p>МГУ, школа Картозии: storytelling и контент-стратегия — напрямую применяются в SMM Engine, премьерах AURA и упаковке продуктов</p></div>
+        <div class="skill-row" style="border-bottom:0"><b>Нетворк</b><p>Широкая сеть в финтехе, юридической сфере, недвижимости и медиа — основа первых продаж</p></div>
+      </div>
+    </div>
+    <p class="eyebrow rv" style="margin:60px 0 18px">— План найма · первый сотрудник при MRR &gt;₽150k (М7–М8)</p>
+    <div class="rv">
+      <div class="hire"><b style="font-family:var(--serif);font-size:18px;font-weight:400">AI Backend Developer</b><span class="m">М7–М9</span><span class="m">₽80–150k/мес</span></div>
+      <div class="hire"><b style="font-family:var(--serif);font-size:18px;font-weight:400">Frontend (React)</b><span class="m">М9–М11</span><span class="m">₽60–100k/мес</span></div>
+      <div class="hire" style="border-bottom:0"><b style="font-family:var(--serif);font-size:18px;font-weight:400">Sales / BizDev</b><span class="m">М10+</span><span class="m">₽60k + %</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 15 ФИНАНСОВЫЙ ПЛАН ================= -->
+<section id="finance" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">15 / Финансовый план</span><span class="eyebrow">Структура раунда · ₽1 500 000</span></div>
+    <div class="grid2" style="gap:64px;align-items:start">
+      <div class="rv">
+        <p class="eyebrow" style="margin-bottom:16px">— Структура инвестиций</p>
+        <table class="fin">
+          <tr><th>Категория</th><th>₽</th><th>%</th></tr>
+          <tr><td>Оборудование · Mac mini M4 Pro, 2× Dell, мебель</td><td class="mono">464 500</td><td class="mono">31,0</td></tr>
+          <tr><td>Ядро продукта · Claude API, Agent SDK, Supabase, API-резерв</td><td class="mono">89 052</td><td class="mono">5,9</td></tr>
+          <tr><td>Рабочие инструменты · Claude Max, Notion</td><td class="mono">45 920</td><td class="mono">3,1</td></tr>
+          <tr><td>Инфраструктура · VPN, VPS, домены</td><td class="mono">8 200</td><td class="mono">0,5</td></tr>
+          <tr><td>Компенсация основателя (ниже рынка) и операционный резерв · 6 мес.</td><td class="mono">742 328</td><td class="mono">49,5</td></tr>
+          <tr><td>Резерв на курсовые и непредвиденные расходы</td><td class="mono">150 000</td><td class="mono">10,0</td></tr>
+          <tr class="total"><td>Итого</td><td class="mono">1 500 000</td><td class="mono">100</td></tr>
+        </table>
+        <p class="fin-note">Курс USD/RUB = 82 · инфраструктура AURA и MyBrain — free-tier и API-вызовы: отдельного бюджета не требует, живёт в статье «Ядро продукта»</p>
+      </div>
+      <div class="rv rv-d1">
+        <p class="eyebrow" style="margin-bottom:16px">— Трёхлетний горизонт · консервативный сценарий</p>
+        <table class="fin">
+          <tr><th>Показатель</th><th>Год 1</th><th>Год 2</th><th>Год 3</th></tr>
+          <tr><td>Выручка, ₽M</td><td class="mono">2,0–3,5</td><td class="mono">7–12</td><td class="mono">18–30</td></tr>
+          <tr><td>MRR к концу года</td><td class="mono">200–350k</td><td class="mono">500–900k</td><td class="mono">1,2–2,5M</td></tr>
+          <tr><td>SMM-клиентов</td><td class="mono">6–10</td><td class="mono">20–35</td><td class="mono">60–100</td></tr>
+          <tr><td>Кастом-проектов / год</td><td class="mono">3–6</td><td class="mono">10–18</td><td class="mono">25–40</td></tr>
+          <tr><td>Команда</td><td class="mono">1–2</td><td class="mono">3–7</td><td class="mono">10–18</td></tr>
+          <tr><td>Рынки</td><td class="mono">РФ</td><td class="mono">+СНГ/БРИКС</td><td class="mono">+EU/US</td></tr>
+        </table>
+        <p class="fin-note">Сценарий не включает выручку AURA и MyBrain — их вклад учитывается как апсайд к Seed-раунду. Оптимистичный сценарий: +40% при ускоренном найме с М6</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 16 РИСКИ ================= -->
+<section id="risks">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">16 / Риски и митигация</span><span class="eyebrow">Честная оценка · включая Красную папку AURA</span></div>
+    <div class="rv">
+      <div class="risk"><span class="lvl hi">Высокий</span><b>Риск одного основателя · bus factor</b><p>Полная документация процессов с М1 (уже практика: вся архитектура и решения — в репозиториях). С М4 — shadow developer на фрилансе. Первый fulltime при MRR &gt;₽150k (М7–М8).</p></div>
+      <div class="risk"><span class="lvl hi">Высокий</span><b>Распыление фокуса портфеля</b><p>Митигация в конструкции: общее ядро (код пишется один раз), SMM-мотор один на всех, фазовые ворота с критериями приёмки. Кастом и SMM — приоритет по деньгам; AURA и MyBrain идут малыми проверяемыми фазами.</p></div>
+      <div class="risk"><span class="lvl md">Средний</span><b>Медленный старт продаж</b><p>Старт с тёплого нетворка (3–5 контактов). Сниженная цена для первых 2 клиентов. Кастомная разработка — параллельный поток выручки.</p></div>
+      <div class="risk"><span class="lvl md">Средний</span><b>AURA: «пустой рынок» вместо белого пятна</b><p>Красная папка R-1: клин (Паспорт доверия) даёт деньги и проверку спроса в первый же месяц продаж — стоимость эксперимента копеечная, вопрос закрывается журналом, а не аргументами.</p></div>
+      <div class="risk"><span class="lvl md">Средний</span><b>AURA: правила классифайдов</b><p>Красная папка R-3: аудит ToS четырёх площадок до запуска горячего контура; ответы от аккаунтов собственников — только в разрешённых форматах, иначе перевод в собственный канал (бот/сайт).</p></div>
+      <div class="risk"><span class="lvl md">Средний</span><b>Рост стоимости API-сервисов · зависимость от вендора</b><p>Архитектура с заменяемым LLM-слоем: Yandex GPT, GigaChat, Llama. Ров портфеля — в данных (юр-графы, журналы циклов), не в промптах. Отдельный API-резерв в бюджете.</p></div>
+      <div class="risk"><span class="lvl md">Средний</span><b>Курсовые риски · USD/RUB</b><p>Резервная статья бюджета покрывает колебания курса. Цены клиентам пересматриваются ежеквартально.</p></div>
+      <div class="risk" style="border-bottom:0"><span class="lvl lo">Низкий</span><b>Усиление конкуренции</b><p>Преимущество — скорость кастомизации, RAG-база под нишу клиента, накапливаемые данные (ров №2 AURA, личный слой MyBrain). Крупные игроки не работают с МСБ; категории «объект-субъект» и «полный цикл мысль→результат» пусты.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 17 ГОРИЗОНТ ================= -->
+<section id="appendix" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">17 / Горизонт 2028+</span><span class="eyebrow">Не финансируются этим раундом</span></div>
+    <div class="rv" style="max-width:720px;margin-bottom:44px">
+      <h2>Куда ведёт<br>эта инфраструктура</h2>
+      <p class="lede" style="margin-top:22px">Текущий раунд финансирует денежные потоки и флагманы. Но та же кодовая база, данные и метод открывают следующий масштаб.</p>
+    </div>
+    <details class="app-card rv" style="margin-bottom:18px">
+      <summary><span class="eyebrow">Гор. 1</span><span class="t">MyUniverse — операционная система жизни</span><span class="pl">+</span></summary>
+      <div class="app-body">
+        <p style="margin-top:26px;font-size:16px;color:var(--ink-soft);max-width:760px">Персональный ИИ-компаньон: та же петля MyBrain «захват → ИИ → цели → надзор», масштабированная на всю жизнь. Девять сфер (здоровье, работа, семья, финансы, цели…), баланс между ними, дневниковые практики, финансовый контур. MyBrain — двигатель и составная часть: сферы жизни зашиты в его модель данных с первого дня, поэтому расширение — эволюция, не переписывание.</p>
+        <div class="grid3">
+          <div class="stat"><div class="num-big" style="font-size:clamp(26px,2.6vw,38px)">$66 млрд</div><p>Глобальный рынок digital wellness</p></div>
+          <div class="stat"><div class="num-big" style="font-size:clamp(26px,2.6vw,38px)">20–35%</div><p>CAGR рынков AI-компаньонов и ассистентов</p></div>
+          <div class="stat"><div class="num-big" style="font-size:clamp(26px,2.6vw,38px)">М12+</div><p>Фундамент закладывается параллельно фазе 6 MyBrain</p></div>
+        </div>
+        <p class="app-quote">«Продуктивность — наш плацдарм, не потолок».</p>
+      </div>
+    </details>
+    <details class="app-card rv rv-d1">
+      <summary><span class="eyebrow">Гор. 2</span><span class="t">Meridian Terminal — Bloomberg для маркетинга</span><span class="pl">+</span></summary>
+      <div class="app-body">
+        <p style="margin-top:26px;font-size:16px;color:var(--ink-soft);max-width:760px">See the whole market. Терминал для маркетологов, стратегов и growth-команд — единый экран рыночных данных с AI-воркбенчем: Market Pulse, Consumer Intent, Web Radar, Brand Sonar, Ad Intelligence, Price Radar, Commerce Signals. Естественное продолжение SMM Engine: от исполнения контента — к рыночной разведке.</p>
+        <div class="grid3">
+          <div class="stat"><div class="num-big" style="font-size:clamp(26px,2.6vw,38px)">$37 млрд</div><p>Рынок CDP к 2030 · терминал-формата для маркетинга не существует</p></div>
+          <div class="stat"><div class="num-big" style="font-size:clamp(26px,2.6vw,38px)">$3.6–42k</div><p>SaaS-подписка в год · модель Bloomberg</p></div>
+          <div class="stat"><div class="num-big" style="font-size:clamp(26px,2.6vw,38px)">12–18 мес</div><p>Реалистичный MVP после раунда · на той же инфраструктуре</p></div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ================= 18 КОНТАКТЫ ================= -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head rv" style="border-color:rgba(243,238,229,.14)"><span class="section-no">18 / Контакты</span><span class="eyebrow">Открыты к вопросам, встречам и партнёрствам</span></div>
+    <div class="c-grid">
+      <div class="rv">
+        <h2>Будем рады<br>обсудить детали</h2>
+        <p class="lede" style="margin-top:24px">Оставьте контакт — отвечу лично в течение дня. Или напишите напрямую.</p>
+        <div class="c-meta" style="margin-top:40px">
+          <div><span class="cap">E-mail</span><br><a href="mailto:michael@rovensky.ru">michael@rovensky.ru</a></div>
+          <div><span class="cap">Телефон · Telegram</span><br><a href="tel:+79628848009">+7 962 884-80-09</a></div>
+          <div style="border-bottom:0"><span class="cap">Сайты</span><br><a href="https://rovensky.ru">rovensky.ru</a><span class="cap" style="margin-left:14px">· sochi.estate · mybrain.rovensky.ru</span></div>
+        </div>
+      </div>
+      <div class="rv rv-d1">
+        <div id="sent-msg">Спасибо — сообщение отправлено. Отвечу лично в течение дня.<br><span class="cap" style="color:rgba(243,238,229,.5)">Михаил Ровенский</span></div>
+        <form id="invest-form" action="https://formsubmit.co/michael@rovensky.ru" method="POST">
+          <input type="hidden" name="_subject" value="Заявка инвестора · rovensky.ru/pre-seed (v2)">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" id="next-url" value="https://rovensky.ru/pre-seed/v2/?sent=1">
+          <input type="text" name="_honey" style="display:none">
+          <div class="f-row"><label for="f-name">Имя</label><input type="text" id="f-name" name="Имя" required autocomplete="name"></div>
+          <div class="f-row"><label for="f-org">Компания / фонд</label><input type="text" id="f-org" name="Компания"></div>
+          <div class="f-row"><label for="f-contact">E-mail или Telegram</label><input type="text" id="f-contact" name="Контакт" required></div>
+          <div class="f-row"><label for="f-fmt">Интересующий формат</label>
+            <select id="f-fmt" name="Формат">
+              <option>Вариант А — займ</option>
+              <option>Вариант Б — проект в счёт инвестиций</option>
+              <option>Хочу обсудить — пока выбираю</option>
+            </select>
+          </div>
+          <div class="f-row"><label for="f-msg">Сообщение</label><textarea id="f-msg" name="Сообщение" placeholder="Вопрос, удобное время для звонка — что угодно"></textarea></div>
+          <button class="btn" type="submit">Отправить — обсудим</button>
+        </form>
+      </div>
+    </div>
+    <div class="foot">
+      <span>© 2026 Rovensky AI Agents</span>
+      <span>Конфиденциально · материалы предназначены только адресату ссылки</span>
+      <span>Сделано с Claude Code</span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- персонализация ?to=Имя ---------- */
+try{
+  var p=new URLSearchParams(location.search);
+  var to=p.get("to")||p.get("for");
+  if(to&&to.length<60){
+    var d=document.getElementById("dedication");
+    d.textContent="Подготовлено лично для: "+decodeURIComponent(to);
+    d.hidden=false;
+  }
+  if(p.get("sent")==="1"){
+    var sm=document.getElementById("sent-msg");
+    sm.style.display="block";
+    document.getElementById("invest-form").style.display="none";
+    setTimeout(function(){document.getElementById("contact").scrollIntoView();},300);
+  }
+}catch(e){}
+
+/* _next возвращает на этот же адрес (работает при любом пути) */
+try{
+  document.getElementById("next-url").value=location.origin+location.pathname+"?sent=1";
+}catch(e){}
+
+/* ---------- progress bar ---------- */
+var prog=document.getElementById("progress");
+function onScroll(){
+  var h=document.documentElement;
+  var sc=h.scrollTop/(h.scrollHeight-h.clientHeight);
+  prog.style.width=(sc*100)+"%";
+}
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+
+/* ---------- reveal ---------- */
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target);
+      e.target.querySelectorAll("[data-count]").forEach(countUp);
+      if(e.target.querySelector("[data-count]"))return;
+      if(e.target.hasAttribute("data-count"))countUp(e.target);
+    }
+  });
+},{threshold:.15});
+document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
+
+/* ---------- count-up ---------- */
+function countUp(el){
+  if(el.dataset.done)return;el.dataset.done=1;
+  var target=parseFloat(el.dataset.count),dec=parseInt(el.dataset.dec||"0");
+  if(reduce){el.textContent=target.toFixed(dec).replace(".",",");return}
+  var t0=null,dur=1400;
+  function step(ts){
+    if(!t0)t0=ts;
+    var k=Math.min((ts-t0)/dur,1);k=1-Math.pow(1-k,3);
+    el.textContent=(target*k).toFixed(dec).replace(".",",");
+    if(k<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---------- терминал: график + калькулятор ---------- */
+var monthly=[0,0,0,60,80,205,280,300,400,440,430,450];           // М1..М12, ₽k
+var cumul=[];monthly.reduce(function(a,v,i){cumul[i]=a+v;return a+v},0);
+function cumAt(m){ // m: 1..24
+  if(m<=12)return cumul[m-1];
+  return cumul[11]+(m-12)*450;
+}
+var PRINCIPAL=1500; // ₽k
+var W=640,H=360,PL=52,PR=20,PT=26,PB=34;
+var maxY=3000; // ₽k шкала
+function X(i){return PL+(W-PL-PR)*(i)/(11)}           // i: 0..11 (М1..М12)
+function Y(v){return PT+(H-PT-PB)*(1-v/maxY)}
+var svgNS="http://www.w3.org/2000/svg";
+function el(n,attrs){var e=document.createElementNS(svgNS,n);for(var k in attrs)e.setAttribute(k,attrs[k]);return e}
+
+// сетка + ось Y
+var grid=document.getElementById("grid");
+[0,750,1500,2250,3000].forEach(function(v){
+  grid.appendChild(el("line",{x1:PL,x2:W-PR,y1:Y(v),y2:Y(v),stroke:"rgba(243,238,229,.08)","stroke-width":1}));
+  var t=el("text",{x:PL-8,y:Y(v)+3,"text-anchor":"end","class":"ax"});t.textContent=v;grid.appendChild(t);
+});
+// ось X
+var xax=document.getElementById("xaxis");
+for(var i=0;i<12;i++){
+  var t=el("text",{x:X(i),y:H-12,"text-anchor":"middle","class":"ax"});t.textContent="М"+(i+1);xax.appendChild(t);
+}
+// бары месячной выручки
+var bars=document.getElementById("bars");
+monthly.forEach(function(v,i){
+  if(!v)return;
+  var bw=14,b=el("rect",{x:X(i)-bw/2,y:Y(v),width:bw,height:Y(0)-Y(v),fill:"rgba(224,164,88,.22)"});
+  bars.appendChild(b);
+});
+// накопленная линия
+var pathD=cumul.map(function(v,i){return(i?"L":"M")+X(i)+" "+Y(v)}).join(" ");
+var cp=document.getElementById("cum-path");cp.setAttribute("d",pathD);
+var plen=cp.getTotalLength();
+cp.style.strokeDasharray=plen;cp.style.strokeDashoffset=reduce?0:plen;
+var dots=document.getElementById("cum-dots");
+cumul.forEach(function(v,i){if(i>=3)dots.appendChild(el("circle",{cx:X(i),cy:Y(v),r:2.6,fill:"#E0A458"}))});
+// анимация линии при появлении
+var chartIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting&&!reduce){
+      cp.style.transition="stroke-dashoffset 2.2s cubic-bezier(.3,.6,.3,1)";
+      requestAnimationFrame(function(){cp.style.strokeDashoffset=0});
+      chartIO.disconnect();
+    }
+  });
+},{threshold:.4});
+chartIO.observe(document.getElementById("chart"));
+
+// калькулятор
+var rateInput=document.getElementById("rate");
+var mode="end";
+var fmt=function(n){return "₽ "+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g," ")};
+function recalc(){
+  var rate=parseFloat(rateInput.value);
+  document.getElementById("rate-out").textContent=rate.toFixed(1).replace(".",",")+"%";
+  var interestK=PRINCIPAL*(rate/100)*1.5;          // ₽k за 18 мес
+  var totalK=PRINCIPAL+interestK;
+  var cover=null;
+  for(var m=4;m<=24;m++){if(cumAt(m)>=totalK){cover=m;break}}
+  document.getElementById("o-interest").textContent=fmt(interestK*1000);
+  document.getElementById("o-total").textContent=fmt(totalK*1000);
+  document.getElementById("o-month").textContent=cover?("Месяц "+cover):"—";
+  document.getElementById("o-margin").textContent=cover?((18-cover)+" мес."):"—";
+  var dl=document.getElementById("debt-line"),y=Y(Math.min(totalK,maxY));
+  dl.setAttribute("y1",y);dl.setAttribute("y2",y);
+  var lbl=document.getElementById("debt-label");
+  lbl.setAttribute("y",y-7);lbl.textContent="к возврату "+Math.round(totalK)+"k";
+  var cd=document.getElementById("cover-dot"),cl=document.getElementById("cover-label");
+  if(cover&&cover<=12){
+    cd.setAttribute("cx",X(cover-1));cd.setAttribute("cy",Y(cumul[cover-1]));cd.style.display="";
+    cl.setAttribute("x",X(cover-1));cl.setAttribute("y",Y(cumul[cover-1])-14);
+    cl.textContent="М"+cover+" · долг перекрыт";cl.style.display="";
+  }else{cd.style.display="none";cl.style.display="none"}
+}
+rateInput.addEventListener("input",recalc);
+document.querySelectorAll(".pay-btn").forEach(function(b){
+  b.addEventListener("click",function(){
+    document.querySelectorAll(".pay-btn").forEach(function(x){x.classList.remove("on")});
+    b.classList.add("on");mode=b.dataset.mode;recalc();
+  });
+});
+recalc();
+})();
+</script>
+</body>
+</html>
