@@ -156,7 +156,7 @@ table{width:100%;border-collapse:collapse;font-size:14.5px}
 @media(max-width:900px){.tgrid4{grid-template-columns:1fr 1fr}}
 #chart{width:100%;height:auto;display:block}
 .ax{font-family:var(--mono);font-size:10px;fill:var(--term-dim)}
-.calc label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--term-dim);display:flex;justify-content:space-between;margin-bottom:10px}
+.calc label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--term-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin-bottom:10px}
 .calc label output{color:var(--amber-bright);font-size:13px}
 input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:2px;background:var(--term-line);outline:none;margin:6px 0 24px}
 input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--amber);cursor:pointer;border:3px solid var(--term-bg);box-shadow:0 0 0 1px var(--amber)}
@@ -215,7 +215,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 @media(max-width:640px){.tamline{flex-direction:column}.tamline div{border-left:0;border-top:1px solid var(--line)}.tamline div:first-child{border-top:0}}
 
 /* traction rows */
-.tr-row{display:grid;grid-template-columns:auto 1fr auto;gap:22px;padding:18px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.tr-row{display:grid;grid-template-columns:110px 1fr auto;gap:22px;padding:18px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
 .tr-row .name{font-family:var(--serif);font-size:clamp(19px,2vw,23px)}
 .tr-row .desc{color:var(--ink-soft);font-size:15px}
 .tr-row a{text-decoration:none;border-bottom:1px solid var(--line)}
@@ -248,9 +248,34 @@ textarea{resize:vertical;min-height:90px}
 #sent-msg{display:none;border:1px solid rgba(243,238,229,.3);padding:22px;font-size:15px;margin-bottom:26px}
 .foot{border-top:1px solid rgba(243,238,229,.14);margin-top:70px;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,238,229,.45)}
 
-/* floating TG button (mobile) */
-.fab{display:none;position:fixed;right:16px;bottom:16px;z-index:96;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:14px 18px;text-decoration:none;border:1px solid var(--paper)}
-@media(max-width:760px){.fab{display:block}}
+/* floating TG button (mobile, appears after first screen, hides over plan/contact) */
+.fab{display:none;position:fixed;right:14px;bottom:14px;z-index:96;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:13px 16px;text-decoration:none;border:1px solid var(--paper);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;pointer-events:none}
+@media(max-width:760px){.fab{display:block}.fab.show{opacity:1;transform:none;pointer-events:auto}body{padding-bottom:72px}}
+
+/* nav states */
+.nav{transition:background .3s,border-color .3s}
+.nav.dark{background:var(--term-bg);border-color:var(--term-line)}
+.nav.dark a{color:var(--term-dim)}
+.nav a.act{color:var(--ink)}
+.nav.dark a.act{color:var(--amber-bright)}
+
+/* chart scrub */
+#chart{touch-action:pan-y;cursor:crosshair}
+#scrub-hint{transition:opacity .4s}
+#scrub-hint.off{opacity:0}
+#scrub-stamp rect{transform-box:fill-box;transform-origin:center;transform:rotate(-4deg)}
+#scrub-stamp text{transform-box:fill-box;transform-origin:center;transform:rotate(-4deg)}
+
+/* mobile refinements */
+@media(max-width:680px){
+  .fin th,.fin td{padding:9px 8px;font-size:13px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:4px}
+  .spec{grid-template-columns:1fr}
+  .spec dt{padding-top:8px}
+  .pipe i{display:none}
+  .pipe{gap:8px}
+  .ax{font-size:17px}
+}
 
 @media (prefers-reduced-motion: reduce){
   .rv{opacity:1;transform:none;transition:none}
@@ -290,9 +315,8 @@ textarea{resize:vertical;min-height:90px}
   <div class="hero-bottom rv on rv-d2">
     <div class="hero-meta">
       <div>Формат<b>Займ ₽1 500 000 · 15–20% годовых</b></div>
-      <div>Срок<b>18 месяцев · долг перекрыт к М11</b></div>
+      <div>Срок<b>18 месяцев · по плану перекрыт к М11</b></div>
       <div>Обеспечение<b>Личное поручительство основателя</b></div>
-      <div>Основатель<b>Михаил Ровенский · 15+ лет в финансах</b></div>
     </div>
     <div class="scroll-hint">Листайте</div>
   </div>
@@ -322,10 +346,10 @@ textarea{resize:vertical;min-height:90px}
       <h2>Пять фактов<br>вместо презентации</h2>
     </div>
     <div class="rv" style="max-width:860px">
-      <div class="lrow"><span class="k">Кто берёт</span><p><b>Михаил Ровенский</b> — 15+ лет в финансах: хедж-фонды, профучастник рынка ценных бумаг, M&A. Строю студию AI-продуктов в паре с Claude Code (ИИ-инструмент разработки Anthropic): три проекта уже опубликованы в вебе — ссылки в разделе «Трекшн».</p></div>
+      <div class="lrow"><span class="k">Кто берёт</span><p><b>Михаил Ровенский</b> — 15+ лет в финансах: хедж-фонды, профучастник рынка ценных бумаг, M&A. Строю студию AI-продуктов в паре с Claude Code (ИИ-инструмент разработки Anthropic): два продуктовых сайта и бренд-хаб студии уже в вебе — ссылки в разделе «Трекшн».</p></div>
       <div class="lrow"><span class="k">Что прошу</span><p><b>₽1,5 млн на 18 месяцев под 15–20% годовых</b> — или AI-проект для вашего бизнеса в счёт этой суммы (вариант Б). Личное поручительство. Проект договора и детали обеспечения — при личной встрече.</p></div>
-      <div class="lrow"><span class="k">Откуда возврат</span><p>Два направления с быстрой выручкой: <b>разработка AI-агентов под заказ</b> (средний чек ₽150–500k) и <b>SMM-система по подписке</b> (₽15–30k/мес). Первая выручка — 4-й месяц; по плану накопленная выручка перекрывает долг к 11-му месяцу — за 7 месяцев до срока.</p></div>
-      <div class="lrow"><span class="k">Запас прочности</span><p>Сверх плана возврата — флагманский проект <b>AURA</b> (автономная продажа недвижимости): предварительная договорённость об эксклюзивной продаже портфеля недвижимости <b>~₽100 млн в Сочи с комиссией 5%</b>. Комиссия с продажи одного объекта сопоставима со всей суммой возврата. В план не заложено — только усиливает запас.</p></div>
+      <div class="lrow"><span class="k">Откуда возврат</span><p>Два направления с быстрой выручкой: <b>разработка AI-агентов под заказ</b> (чек ₽80–500k, корпоративные — до ₽1,5 млн) и <b>SMM-система по подписке</b> (₽15–30k/мес). Первая выручка — 4-й месяц; по плану накопленная выручка перекрывает долг к 11-му месяцу — за 7 месяцев до срока.</p></div>
+      <div class="lrow"><span class="k">Запас прочности</span><p>Сверх плана возврата — флагманский проект <b>AURA</b> (автономная продажа недвижимости): предварительная договорённость об эксклюзивной продаже портфеля недвижимости <b>~₽100 млн в Сочи с комиссией 5%</b>. Комиссия по портфелю — до ₽5 млн: в два с половиной раза больше всей суммы возврата. В план не заложено — только усиливает запас.</p></div>
       <div class="lrow" style="border-bottom:0"><span class="k">Честно</span><p><b>Выручки на сегодня нет, продукты — в разработке.</b> В эфире — их сайты и техническая база. Есть глубокие исследования рынков, темп «от идеи до публикации — дни» — и план, в котором возврат не зависит от успеха амбициозных ставок.</p></div>
     </div>
   </div>
@@ -346,13 +370,13 @@ textarea{resize:vertical;min-height:90px}
           <dt>Срок возврата</dt><dd>18 месяцев с момента получения</dd>
           <dt>Обеспечение</dt><dd>Личное поручительство основателя</dd>
           <dt>Выплата %</dt><dd>В конце срока или ежеквартально</dd>
-          <dt>Договор</dt><dd>Проект договора и детали обеспечения — при личной встрече</dd>
+          <dt>Форма</dt><dd>Договор займа по ГК РФ · проект договора и детали обеспечения — при личной встрече</dd>
         </dl>
       </div>
       <div class="vcard rv rv-d1">
         <span class="eyebrow">Вариант Б</span>
         <h3>Проект в счёт инвестиций</h3>
-        <p class="sub">Вместо процентов — AI-система для вашего бизнеса. Выгода: в пакет входит уровень «Корпоративный» плюс 12 месяцев поддержки и развития — по обычным тарифам сопровождения это ещё ₽360–960k ценности сверх суммы.</p>
+        <p class="sub">Вместо денежного возврата — AI-система для вашего бизнеса в зачёт всей суммы. Выгода: в пакет входит уровень «Корпоративный» (системы за ₽500k–1,5 млн — тарифы в разделе 07) плюс 12 месяцев поддержки и развития: по тарифам сопровождения это ещё ₽360–960k ценности сверх суммы.</p>
         <dl class="spec">
           <dt>Сумма</dt><dd>₽ 1 500 000</dd>
           <dt>Что получаете</dt><dd>Кастомный AI-агент или система под ваши задачи</dd>
@@ -362,7 +386,7 @@ textarea{resize:vertical;min-height:90px}
       </div>
     </div>
     <div class="cta-band rv">
-      <p>Вопрос по условиям — быстрее всего голосом или в переписке.</p>
+      <p>«Чем это лучше вклада?» — правильный вопрос. Отвечу цифрами в переписке.</p>
       <a class="hbtn" href="https://t.me/+79628848009" target="_blank" rel="noopener">Написать в Telegram</a>
     </div>
   </div>
@@ -390,11 +414,11 @@ textarea{resize:vertical;min-height:90px}
           <text id="cover-label" class="ax" fill="#F2C078" text-anchor="middle"></text>
           <g id="xaxis"></g>
         </svg>
-        <div class="term-note">— янтарная линия — накопленная выручка (план, ₽k) · пунктир — сумма к возврату · столбцы — выручка по месяцам</div>
+        <div class="term-note">— янтарная линия — накопленная выручка (план, ₽k) · пунктир — сумма к возврату · столбцы — выручка по месяцам<br><span id="scrub-hint" style="color:var(--amber)">— проведите пальцем или курсором по графику</span></div>
       </div>
       <div class="term-panel rv rv-d1 calc">
         <div class="term-tag" style="margin-bottom:26px">Калькулятор инвестора</div>
-        <label>Сумма займа<output>₽ 1 500 000 · фикс.</output></label>
+        <label>Сумма займа<output>₽1 500 000 · фикс.</output></label>
         <label for="rate" style="margin-top:18px">Ставка, % годовых<output id="rate-out">20,0%</output></label>
         <input type="range" id="rate" min="15" max="20" step="0.5" value="20">
         <label for="payout">Выплата процентов</label>
@@ -403,21 +427,21 @@ textarea{resize:vertical;min-height:90px}
           <button class="pay-btn" data-mode="q" type="button">Ежеквартально</button>
         </div>
         <div class="calc-out">
-          <div><div class="v" id="o-interest">₽ 450 000</div><div class="l">Ваш доход за 18 мес.</div></div>
-          <div><div class="v" id="o-total">₽ 1 950 000</div><div class="l">Итого к возврату</div></div>
+          <div><div class="v" id="o-interest">₽450 000</div><div class="l" id="o-interest-l">Ваш доход за 18 мес.</div></div>
+          <div><div class="v" id="o-total">₽1 950 000</div><div class="l">Итого к возврату</div></div>
           <div><div class="v" id="o-month">Месяц 11</div><div class="l">Выручка перекрывает долг</div></div>
           <div><div class="v" id="o-margin">7 мес.</div><div class="l">Запас до срока возврата</div></div>
         </div>
-        <div class="term-note">Расчёт по плановой выручке М4–М12, далее ₽350k/мес — нижняя граница трёхлетнего плана. Параметры фиксируются в договоре займа.</div>
+        <div class="term-note">Расчёт по плановой выручке М4–М12, далее — консервативно ₽350k/мес. Модель оперирует выручкой; помесячный план с расходами вышлю по запросу. Параметры фиксируются в договоре займа.</div>
       </div>
     </div>
     <div class="tgrid4" style="margin-top:42px">
       <div class="term-stat rv"><div class="v">М4</div><div class="l">Первая выручка: внедрение SMM-системы, старт заказной разработки</div></div>
       <div class="term-stat rv rv-d1"><div class="v">М11</div><div class="l">Накоплено ₽2 195k — больше ₽1 950k долга при ставке 20%</div></div>
-      <div class="term-stat rv rv-d2"><div class="v">6–10 · 3–6</div><div class="l">Клиентов подписки и заказных проектов в первый год</div></div>
-      <div class="term-stat rv rv-d3"><div class="v">М18</div><div class="l">Срок возврата · до ₽1 950 000 при максимальной ставке</div></div>
+      <div class="term-stat rv rv-d2"><div class="v">М18</div><div class="l">Срок возврата · до ₽1 950 000 при максимальной ставке</div></div>
+      <div class="term-stat rv rv-d3"><div class="v">Год 1</div><div class="l">6–10 клиентов подписки · 3–6 заказных проектов</div></div>
     </div>
-    <div class="term-note rv" style="margin-top:34px"><b>Консервативность модели.</b> В план возврата заложены только два сервисных направления — подписка и заказная разработка. Выручка флагманов в модель не входит и только увеличивает запас: <b>AURA</b> — предварительная договорённость об эксклюзивной продаже портфеля недвижимости ~₽100 млн (Сочи, комиссия 5%): одна сделка по объекту из портфеля сопоставима со всей суммой возврата; <b>MyBrain</b> — подписочный продукт после закрытой беты.</div>
+    <div class="term-note rv" style="margin-top:34px"><b>Консервативность модели.</b> В план возврата заложены только два сервисных направления — подписка и заказная разработка. Выручка флагманов в модель не входит и только увеличивает запас: <b>AURA</b> — пайплайн ₽100 млн с комиссией до ₽5 млн (раздел 01); <b>MyBrain</b> — подписочный продукт, сейчас в разработке.</div>
   </div>
 </section>
 
@@ -430,26 +454,24 @@ textarea{resize:vertical;min-height:90px}
         <p class="eyebrow" style="margin-bottom:16px">— Структура инвестиций</p>
         <div style="overflow-x:auto"><table class="fin">
           <tr><th>Категория</th><th>₽</th><th>%</th></tr>
-          <tr><td>Оборудование · рабочая станция-сервер для агентов 24/7 (Mac mini M4 Pro), мониторы, рабочее место</td><td class="mono">464 500</td><td class="mono">31,0</td></tr>
-          <tr><td>Ядро продукта · Claude API, Agent SDK, базы данных, резерв на API-вызовы</td><td class="mono">89 052</td><td class="mono">5,9</td></tr>
-          <tr><td>Рабочие инструменты · подписки разработки</td><td class="mono">45 920</td><td class="mono">3,1</td></tr>
-          <tr><td>Инфраструктура · серверы, домены, VPN</td><td class="mono">8 200</td><td class="mono">0,5</td></tr>
-          <tr><td>Обеспечение работы основателя 6 месяцев (компенсация ниже рынка) и операционный резерв</td><td class="mono">742 328</td><td class="mono">49,5</td></tr>
+          <tr><td>Оборудование — сервер для агентов 24/7</td><td class="mono">464 500</td><td class="mono">31,0</td></tr>
+          <tr><td>Ядро продукта — Claude API и базы данных</td><td class="mono">89 052</td><td class="mono">5,9</td></tr>
+          <tr><td>Рабочие инструменты — подписки разработки</td><td class="mono">45 920</td><td class="mono">3,1</td></tr>
+          <tr><td>Инфраструктура — серверы, домены, VPN</td><td class="mono">8 200</td><td class="mono">0,5</td></tr>
+          <tr><td>Работа основателя 6 мес (ниже рынка) + операционный резерв</td><td class="mono">742 328</td><td class="mono">49,5</td></tr>
           <tr><td>Резерв на курсовые и непредвиденные расходы</td><td class="mono">150 000</td><td class="mono">10,0</td></tr>
           <tr class="total"><td>Итого</td><td class="mono">1 500 000</td><td class="mono">100</td></tr>
         </table></div>
-        <p class="fin-note">Раунд покрывает первые 6 месяцев; с М4 компания живёт на собственную выручку. Оборудование — это сервер: агенты работают на собственной машине круглосуточно, без аренды облака. Инфраструктура флагманов — бесплатные тарифы и оплата по факту вызовов.</p>
+        <p class="fin-note">Раунд покрывает первые 6 месяцев; выручка идёт с М4, с М7 она покрывает операционные расходы. Оборудование (Mac mini M4 Pro, мониторы, рабочее место) — это сервер: агенты работают на собственной машине круглосуточно, без аренды облака. Инфраструктура флагманов — бесплатные тарифы и оплата по факту вызовов.</p>
       </div>
       <div class="rv rv-d1">
         <p class="eyebrow" style="margin-bottom:16px">— Трёхлетний горизонт · консервативный сценарий</p>
         <div style="overflow-x:auto"><table class="fin">
           <tr><th>Показатель</th><th>Год 1</th><th>Год 2</th><th>Год 3</th></tr>
           <tr><td>Выручка, ₽M</td><td class="mono">2,0–3,5</td><td class="mono">7–12</td><td class="mono">18–30</td></tr>
-          <tr><td>Месячная выручка к концу года</td><td class="mono">200–350k</td><td class="mono">500–900k</td><td class="mono">1,2–2,5M</td></tr>
+          <tr><td>Месячная выручка к концу года</td><td class="mono">200–450k</td><td class="mono">500–900k</td><td class="mono">1,2–2,5M</td></tr>
           <tr><td>Клиентов подписки</td><td class="mono">6–10</td><td class="mono">20–35</td><td class="mono">60–100</td></tr>
           <tr><td>Заказных проектов / год</td><td class="mono">3–6</td><td class="mono">10–18</td><td class="mono">25–40</td></tr>
-          <tr><td>Команда</td><td class="mono">1–2</td><td class="mono">3–7</td><td class="mono">10–18</td></tr>
-          <tr><td>Рынки</td><td class="mono">РФ</td><td class="mono">+СНГ/БРИКС</td><td class="mono">+EU/US</td></tr>
         </table></div>
         <p class="fin-note">Сценарий построен только на сервисных направлениях. Оптимистичный: +40% при ускоренном найме со второго полугодия.</p>
       </div>
@@ -461,12 +483,18 @@ textarea{resize:vertical;min-height:90px}
 <section id="founder" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="wrap">
     <div class="sec-head rv"><span class="section-no">05 / Кому вы даёте деньги</span><span class="eyebrow">Один основатель — осознанный выбор</span></div>
+    <div class="grid3 rv" style="margin-bottom:56px">
+      <div class="stat"><div class="num-big" style="font-size:clamp(30px,3.4vw,46px)">15+<span class="num-unit">лет</span></div><p>в финансах: хедж-фонды, рынок ценных бумаг</p></div>
+      <div class="stat"><div class="num-big" style="font-size:clamp(30px,3.4vw,46px)">1<span class="num-unit">сделка</span></div><p>M&A по продаже бизнеса — от переговоров до закрытия</p></div>
+      <div class="stat"><div class="num-big" style="font-size:clamp(30px,3.4vw,46px)">3<span class="num-unit">сайта</span></div><p>опубликованы в паре с ИИ — метод работает</p></div>
+    </div>
     <div class="founder">
       <div class="rv">
         <h2>Михаил<br>Ровенский</h2>
         <p class="cap" style="margin-top:16px;font-size:13px">Founder & CEO</p>
         <p class="lede" style="margin-top:22px;font-size:17px">Один человек в паре с ИИ — сила на ранней стадии: нулевые расходы на штат, максимальная скорость, полный контроль. Первый сотрудник — при устойчивой выручке (план: месяцы 7–8).</p>
         <p style="margin-top:20px;font-size:14.5px;color:var(--taupe)">Финансовая Академия при Правительстве РФ · Высшая школа телевидения МГУ · Школа продюсирования Н. Картозии</p>
+        <p class="cap" style="margin-top:14px">Названия компаний и рекомендации — по запросу при встрече</p>
       </div>
       <div class="rv rv-d1">
         <div class="skill-row"><b>Финансы и обязательства — 15+ лет</b><p>Хедж-фонды, профучастник рынка ценных бумаг, операционное и юридическое управление, сделка M&A по продаже бизнеса, работа с крупнейшими банками. Я знаю, что такое долг, график платежей и ответственность по обязательствам.</p></div>
@@ -485,7 +513,7 @@ textarea{resize:vertical;min-height:90px}
     <div class="rv">
       <div class="risk"><span class="lvl hi">Высокий</span><b>Один основатель · bus factor</b><p>Вся архитектура и решения документируются в репозиториях с первого дня. С М4 — резервный разработчик на фрилансе. Первый сотрудник в штат — при выручке от ₽150k/мес (М7–М8).</p></div>
       <div class="risk"><span class="lvl hi">Высокий</span><b>Распыление между проектами</b><p>Защита в конструкции: все продукты собраны на одном технологическом ядре, маркетинг у них общий, а приоритет по времени жёсткий — сначала то, что возвращает займ (подписка + заказы), флагманы идут малыми проверяемыми фазами.</p></div>
-      <div class="risk"><span class="lvl md">Средний</span><b>Медленный старт продаж</b><p>Старт с тёплых контактов нетворка, сниженная цена первым двум клиентам, заказная разработка — параллельный поток. Плюс резерв: даже при сдвиге продаж на квартал запас в 7 месяцев покрывает задержку.</p></div>
+      <div class="risk"><span class="lvl md">Средний</span><b>Медленный старт продаж</b><p>Старт с тёплых контактов нетворка, сниженная цена первым двум клиентам, заказная разработка — параллельный поток. При сдвиге продаж на квартал срок возврата держит запас в 7 месяцев, а кассовый разрыв закрывает операционный резерв из бюджета раунда.</p></div>
       <div class="risk"><span class="lvl md">Средний</span><b>Спрос на продукты флагманов не подтверждён</b><p>Проверяется дёшево и быстро: первый платный продукт AURA (юридическая проверка объекта) даёт ответ в первый месяц продаж. На возврат займа этот риск не влияет — флагманы в модели не участвуют.</p></div>
       <div class="risk"><span class="lvl md">Средний</span><b>Рост стоимости AI-сервисов · зависимость от вендора</b><p>Слой моделей заменяемый (Яндекс, Сбер, открытые модели). Главный актив — накопленные данные и код, они не зависят от поставщика. В бюджете отдельный резерв на API.</p></div>
       <div class="risk" style="border-bottom:0"><span class="lvl lo">Низкий</span><b>Курсовые колебания · конкуренция</b><p>Резервная статья бюджета покрывает курс; цены пересматриваются ежеквартально. Преимущество перед конкурентами — скорость и себестоимость: крупные игроки не работают с малым бизнесом, а ниши флагманов пусты.</p></div>
@@ -516,7 +544,7 @@ textarea{resize:vertical;min-height:90px}
       </div>
       <div class="rv rv-d1">
         <h3 style="margin-bottom:10px">AI-агенты под заказ</h3>
-        <p style="font-size:15.5px;color:var(--ink-soft);margin-bottom:10px">Системы под задачи конкретного бизнеса: квалификация заявок, клиентский сервис, документооборот, HR. Средний чек ₽150–500k, маржа 60–75%, цикл продажи 2–4 недели. Каждый проект — кейс и код в общую копилку.</p>
+        <p style="font-size:15.5px;color:var(--ink-soft);margin-bottom:10px">Системы под задачи конкретного бизнеса: квалификация заявок, клиентский сервис, документооборот, HR. Чек от ₽80k до ₽1,5 млн, маржа 55–80% в зависимости от уровня, цикл продажи 2–4 недели. Каждый проект — кейс и код в общую копилку.</p>
         <div class="price-row"><b>Базовый агент</b><span class="pr">один процесс</span><span class="pr">₽80–150k</span><span class="pr">маржа ~70%</span></div>
         <div class="price-row"><b>Мультиагент</b><span class="pr">4–8 недель</span><span class="pr">₽200–500k</span><span class="pr">~65%</span></div>
         <div class="price-row"><b>Корпоративный</b><span class="pr">2–4 месяца</span><span class="pr">₽500k–1,5M</span><span class="pr">~55%</span></div>
@@ -549,7 +577,7 @@ textarea{resize:vertical;min-height:90px}
         <h3>AURA</h3>
         <p class="sub">Первая система, в которой объект недвижимости продаёт себя сам: проверяет юридическую чистоту, вычисляет покупателя и ведёт продажу. Первый платный продукт — юридическая проверка объекта, платится с первого дня.</p>
         <dl class="spec">
-          <dt>Пайплайн</dt><dd>Портфель ~₽100 млн (Сочи) — предварительная договорённость об эксклюзиве, комиссия 5%</dd>
+          <dt>Пайплайн</dt><dd>Портфель ~₽100 млн · Сочи · комиссия 5% (раздел 01)</dd>
           <dt>Рынок РФ</dt><dd>₽150–500 млрд/год комиссий посредников</dd>
           <dt>Статус</dt><dd><span class="live-tag">В эфире</span>&nbsp;sochi.estate — тизер · система в разработке</dd>
         </dl>
@@ -597,7 +625,7 @@ textarea{resize:vertical;min-height:90px}
           <div><span class="lv">A5</span><p>Полный автоном до нотариального действия</p></div>
         </div>
         <h4>Проверка на прочность</h4>
-        <p style="font-size:15.5px;color:var(--ink-soft)">Проект прошёл стресс-тест: пять ИИ-оппонентов в ролях жёстких инвесторов атаковали модель по 13 направлениям — по каждому удару внесена правка в проект или риск честно записан в открытый реестр. Главные открытые вопросы: подтверждение спроса на Паспорт (проверяется в первый месяц продаж) и правила рекламных площадок (аудит до запуска). Полный разбор — в мастер-документе, вышлю по запросу.</p>
+        <p style="font-size:15.5px;color:var(--ink-soft)">Модель прошла стресс-тест по 13 направлениям атаки — от юнит-экономики до «почему эту нишу ещё никто не занял»; по каждому пункту внесена правка в проект или риск честно записан в открытый реестр. Главные открытые вопросы: подтверждение спроса на Паспорт (проверяется в первый месяц продаж) и правила рекламных площадок (аудит до запуска). Полный разбор — в мастер-документе, вышлю по запросу.</p>
       </div>
     </details>
 
@@ -722,6 +750,36 @@ function onScroll(){
 }
 addEventListener("scroll",onScroll,{passive:true});onScroll();
 
+/* плавающая кнопка TG: после первого экрана, скрыта над калькулятором и контактами */
+var fab=document.querySelector(".fab");
+var fabBlocked=false;
+function fabUpd(){
+  var past=document.documentElement.scrollTop>innerHeight*0.8;
+  fab.classList.toggle("show",past&&!fabBlocked);
+}
+addEventListener("scroll",fabUpd,{passive:true});
+var fabIO=new IntersectionObserver(function(es){
+  fabBlocked=es.some(function(e){return e.isIntersecting});
+  fabUpd();
+},{threshold:.05});
+["plan","contact"].forEach(function(id){fabIO.observe(document.getElementById(id))});
+
+/* навигация: тёмное состояние над тёмными секциями + активный пункт */
+var nav=document.querySelector(".nav");
+var navLinks=[].slice.call(document.querySelectorAll(".nav a"));
+var darkIO=new IntersectionObserver(function(es){
+  var dark=es.some(function(e){return e.isIntersecting});
+  nav.classList.toggle("dark",dark);
+},{rootMargin:"-48px 0px -85% 0px"});
+["plan","contact"].forEach(function(id){darkIO.observe(document.getElementById(id))});
+var secIO=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting)return;
+    navLinks.forEach(function(a){a.classList.toggle("act",a.getAttribute("href")==="#"+e.target.id)});
+  });
+},{rootMargin:"-45% 0px -50% 0px"});
+navLinks.forEach(function(a){var t=document.querySelector(a.getAttribute("href"));if(t)secIO.observe(t)});
+
 /* reveal */
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 var io=new IntersectionObserver(function(es){
@@ -740,19 +798,21 @@ function cumAt(m){
 }
 var PRINCIPAL=1500;
 var W=640,H=360,PL=52,PR=20,PT=26,PB=34;
-var maxY=3000;
+var maxY=2800;
+var isNarrow=matchMedia("(max-width:640px)").matches;
 function X(i){return PL+(W-PL-PR)*(i)/(11)}
 function Y(v){return PT+(H-PT-PB)*(1-v/maxY)}
 var svgNS="http://www.w3.org/2000/svg";
 function el(n,attrs){var e=document.createElementNS(svgNS,n);for(var k in attrs)e.setAttribute(k,attrs[k]);return e}
 
 var grid=document.getElementById("grid");
-[0,750,1500,2250,3000].forEach(function(v){
+(isNarrow?[0,1400,2800]:[0,700,1400,2100,2800]).forEach(function(v){
   grid.appendChild(el("line",{x1:PL,x2:W-PR,y1:Y(v),y2:Y(v),stroke:"rgba(243,238,229,.08)","stroke-width":1}));
   var t=el("text",{x:PL-8,y:Y(v)+3,"text-anchor":"end","class":"ax"});t.textContent=v;grid.appendChild(t);
 });
 var xax=document.getElementById("xaxis");
 for(var i=0;i<12;i++){
+  if(isNarrow&&i%2===0)continue;
   var t=el("text",{x:X(i),y:H-12,"text-anchor":"middle","class":"ax"});t.textContent="М"+(i+1);xax.appendChild(t);
 }
 var bars=document.getElementById("bars");
@@ -778,17 +838,74 @@ var chartIO=new IntersectionObserver(function(es){
 },{threshold:.4});
 chartIO.observe(document.getElementById("chart"));
 
+/* ---------- скраб: инвестор щупает модель пальцем ---------- */
+var svg=document.getElementById("chart");
+var TOTALK=1950;
+var scrub={g:null,line:null,dot:null,box:null,t1:null,t2:null,i:-1,touched:false};
+function scrubBuild(){
+  var g=el("g",{id:"scrub",style:"display:none"});
+  scrub.line=el("line",{y1:PT,y2:H-PB,stroke:"rgba(242,192,120,.4)","stroke-width":1});
+  scrub.dot=el("circle",{r:4.5,fill:"#F2C078"});
+  var stamp=el("g",{id:"scrub-stamp"});
+  scrub.box=el("rect",{rx:2,fill:"rgba(18,17,14,.92)",stroke:"var(--amber, #E0A458)","stroke-width":1});
+  scrub.t1=el("text",{"class":"ax","font-size":"13","fill":"#F2C078","text-anchor":"middle"});
+  scrub.t2=el("text",{"class":"ax","font-size":"11","fill":"#D8D2C4","text-anchor":"middle"});
+  stamp.appendChild(scrub.box);stamp.appendChild(scrub.t1);stamp.appendChild(scrub.t2);
+  g.appendChild(scrub.line);g.appendChild(scrub.dot);g.appendChild(stamp);
+  svg.appendChild(g);scrub.g=g;
+}
+scrubBuild();
+function scrubShow(i){
+  scrub.i=i;
+  var x=X(i),v=cumul[i],y=Y(v);
+  var covered=v>=TOTALK;
+  scrub.g.style.display="";
+  scrub.line.setAttribute("x1",x);scrub.line.setAttribute("x2",x);
+  scrub.dot.setAttribute("cx",x);scrub.dot.setAttribute("cy",y);
+  var l1,l2;
+  if(covered){
+    l1="М"+(i+1)+" · ДОЛГ ПЕРЕКРЫТ";
+    l2="план: "+v+"k · запас +"+Math.round(v-TOTALK)+"k";
+  }else{
+    l1="М"+(i+1)+" · накоплено "+v+"k";
+    l2=v>0?("до покрытия "+Math.round(TOTALK-v)+"k"):"до первой выручки";
+  }
+  var bw=Math.max(l1.length,l2.length)*7.4+22, bh=42;
+  var bx=Math.min(Math.max(x-bw/2,PL),W-PR-bw);
+  var by=Math.max(y-bh-16,4);
+  scrub.box.setAttribute("x",bx);scrub.box.setAttribute("y",by);
+  scrub.box.setAttribute("width",bw);scrub.box.setAttribute("height",bh);
+  scrub.box.setAttribute("stroke-width",covered?2:1);
+  scrub.t1.setAttribute("x",bx+bw/2);scrub.t1.setAttribute("y",by+17);scrub.t1.textContent=l1;
+  scrub.t2.setAttribute("x",bx+bw/2);scrub.t2.setAttribute("y",by+33);scrub.t2.textContent=l2;
+  if(!scrub.touched){scrub.touched=true;var h=document.getElementById("scrub-hint");if(h)h.classList.add("off")}
+}
+function scrubMove(e){
+  var r=svg.getBoundingClientRect();
+  var xv=(e.clientX-r.left)*(W/r.width);
+  var i=Math.round((xv-PL)/((W-PL-PR)/11));
+  i=Math.max(0,Math.min(11,i));
+  if(i!==scrub.i)scrubShow(i);
+}
+svg.addEventListener("pointermove",scrubMove);
+svg.addEventListener("pointerdown",scrubMove);
+svg.addEventListener("pointerleave",function(e){
+  if(e.pointerType==="mouse"){scrub.g.style.display="none";scrub.i=-1}
+});
+
 var rateInput=document.getElementById("rate");
 var mode="end";
-var fmt=function(n){return "₽ "+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g," ")};
+var fmt=function(n){return "₽"+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g," ")};
 function recalc(){
   var rate=parseFloat(rateInput.value);
   document.getElementById("rate-out").textContent=rate.toFixed(1).replace(".",",")+"%";
   var interestK=PRINCIPAL*(rate/100)*1.5;
   var totalK=PRINCIPAL+interestK;
+  TOTALK=totalK;
   var cover=null;
   for(var m=4;m<=24;m++){if(cumAt(m)>=totalK){cover=m;break}}
   document.getElementById("o-interest").textContent=fmt(interestK*1000);
+  document.getElementById("o-interest-l").textContent=(mode==="q")?("Доход за 18 мес. · ~"+fmt(interestK*1000/6)+" в квартал"):"Ваш доход за 18 мес.";
   document.getElementById("o-total").textContent=fmt(totalK*1000);
   document.getElementById("o-month").textContent=cover?("Месяц "+cover):"—";
   document.getElementById("o-margin").textContent=cover?((18-cover)+" мес."):"—";
@@ -802,6 +919,7 @@ function recalc(){
     cl.setAttribute("x",X(cover-1));cl.setAttribute("y",Y(cumul[cover-1])-14);
     cl.textContent="М"+cover+" · долг перекрыт";cl.style.display="";
   }else{cd.style.display="none";cl.style.display="none"}
+  if(scrub.i>=0)scrubShow(scrub.i);
 }
 rateInput.addEventListener("input",recalc);
 document.querySelectorAll(".pay-btn").forEach(function(b){
