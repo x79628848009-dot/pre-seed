@@ -6,9 +6,9 @@
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="format-detection" content="telephone=no">
 <title>Rovensky · Займ ₽1,5 млн под портфель AI-продуктов · 2026</title>
-<link rel="icon" href="/favicon.ico" sizes="48x48">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -167,8 +167,6 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .calc-out .l{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--term-dim);margin-top:5px;line-height:1.5}
 .term-note{font-family:var(--mono);font-size:11.5px;color:var(--term-dim);margin-top:22px;line-height:1.7}
 .term-note b{color:var(--amber)}
-.pay-btn{background:transparent;border:1px solid var(--term-line);color:var(--term-dim);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:9px 14px;cursor:pointer}
-.pay-btn.on{border-color:var(--amber);color:var(--amber-bright)}
 
 /* founder */
 .founder{display:grid;grid-template-columns:1fr 1.4fr;gap:48px}
@@ -263,8 +261,6 @@ textarea{resize:vertical;min-height:90px}
 #chart{touch-action:pan-y;cursor:crosshair}
 #scrub-hint{transition:opacity .4s}
 #scrub-hint.off{opacity:0}
-#scrub-stamp rect{transform-box:fill-box;transform-origin:center;transform:rotate(-4deg)}
-#scrub-stamp text{transform-box:fill-box;transform-origin:center;transform:rotate(-4deg)}
 
 /* mobile refinements */
 @media(max-width:680px){
@@ -420,19 +416,14 @@ textarea{resize:vertical;min-height:90px}
         <div class="term-tag" style="margin-bottom:26px">Калькулятор инвестора</div>
         <label>Сумма займа<output>₽1 500 000 · фикс.</output></label>
         <label for="rate" style="margin-top:18px">Ставка, % годовых<output id="rate-out">20,0%</output></label>
-        <input type="range" id="rate" min="15" max="20" step="0.5" value="20">
-        <label for="payout">Выплата процентов</label>
-        <div style="display:flex;gap:10px;margin:4px 0 22px">
-          <button class="pay-btn on" data-mode="end" type="button">В конце срока</button>
-          <button class="pay-btn" data-mode="q" type="button">Ежеквартально</button>
-        </div>
+        <input type="range" id="rate" min="15" max="20" step="0.5" value="20" style="margin-bottom:30px">
         <div class="calc-out">
           <div><div class="v" id="o-interest">₽450 000</div><div class="l" id="o-interest-l">Ваш доход за 18 мес.</div></div>
           <div><div class="v" id="o-total">₽1 950 000</div><div class="l">Итого к возврату</div></div>
           <div><div class="v" id="o-month">Месяц 11</div><div class="l">Выручка перекрывает долг</div></div>
           <div><div class="v" id="o-margin">7 мес.</div><div class="l">Запас до срока возврата</div></div>
         </div>
-        <div class="term-note">Расчёт по плановой выручке М4–М12, далее — консервативно ₽350k/мес. Модель оперирует выручкой; помесячный план с расходами вышлю по запросу. Параметры фиксируются в договоре займа.</div>
+        <div class="term-note">Расчёт по плановой выручке М4–М12, далее — консервативно ₽350k/мес. Выплата процентов — в конце срока или ежеквартально, по договорённости. Модель оперирует выручкой; помесячный план с расходами вышлю по запросу. Параметры фиксируются в договоре займа.</div>
       </div>
     </div>
     <div class="tgrid4" style="margin-top:42px">
@@ -838,21 +829,24 @@ var chartIO=new IntersectionObserver(function(es){
 },{threshold:.4});
 chartIO.observe(document.getElementById("chart"));
 
-/* ---------- скраб: инвестор щупает модель пальцем ---------- */
+/* ---------- скраб: инвестор щупает модель пальцем ----------
+   Вертикальная линия и точка следуют за месяцем; значения печатаются
+   в фиксированном «терминальном» углу графика. Рамка-штамп появляется
+   только в состоянии «долг перекрыт» — как оттиск, а не тултип. */
 var svg=document.getElementById("chart");
 var TOTALK=1950;
-var scrub={g:null,line:null,dot:null,box:null,t1:null,t2:null,i:-1,touched:false};
+var scrub={g:null,line:null,dot:null,stamp:null,box:null,t1:null,t2:null,i:-1,touched:false};
 function scrubBuild(){
   var g=el("g",{id:"scrub",style:"display:none"});
-  scrub.line=el("line",{y1:PT,y2:H-PB,stroke:"rgba(242,192,120,.4)","stroke-width":1});
+  scrub.line=el("line",{y1:PT,y2:H-PB,stroke:"rgba(242,192,120,.35)","stroke-width":1});
   scrub.dot=el("circle",{r:4.5,fill:"#F2C078"});
   var stamp=el("g",{id:"scrub-stamp"});
-  scrub.box=el("rect",{rx:2,fill:"rgba(18,17,14,.92)",stroke:"var(--amber, #E0A458)","stroke-width":1});
-  scrub.t1=el("text",{"class":"ax","font-size":"13","fill":"#F2C078","text-anchor":"middle"});
-  scrub.t2=el("text",{"class":"ax","font-size":"11","fill":"#D8D2C4","text-anchor":"middle"});
+  scrub.box=el("rect",{rx:2,fill:"rgba(18,17,14,.85)",stroke:"#E0A458","stroke-width":2,style:"display:none"});
+  scrub.t1=el("text",{"class":"ax","font-size":"14","fill":"#F2C078","text-anchor":"start","font-weight":"500"});
+  scrub.t2=el("text",{"class":"ax","font-size":"12","fill":"#D8D2C4","text-anchor":"start"});
   stamp.appendChild(scrub.box);stamp.appendChild(scrub.t1);stamp.appendChild(scrub.t2);
   g.appendChild(scrub.line);g.appendChild(scrub.dot);g.appendChild(stamp);
-  svg.appendChild(g);scrub.g=g;
+  svg.appendChild(g);scrub.g=g;scrub.stamp=stamp;
 }
 scrubBuild();
 function scrubShow(i){
@@ -865,19 +859,23 @@ function scrubShow(i){
   var l1,l2;
   if(covered){
     l1="М"+(i+1)+" · ДОЛГ ПЕРЕКРЫТ";
-    l2="план: "+v+"k · запас +"+Math.round(v-TOTALK)+"k";
+    l2="план "+v+"k · запас +"+Math.round(v-TOTALK)+"k";
   }else{
     l1="М"+(i+1)+" · накоплено "+v+"k";
     l2=v>0?("до покрытия "+Math.round(TOTALK-v)+"k"):"до первой выручки";
   }
-  var bw=Math.max(l1.length,l2.length)*7.4+22, bh=42;
-  var bx=Math.min(Math.max(x-bw/2,PL),W-PR-bw);
-  var by=Math.max(y-bh-16,4);
-  scrub.box.setAttribute("x",bx);scrub.box.setAttribute("y",by);
-  scrub.box.setAttribute("width",bw);scrub.box.setAttribute("height",bh);
-  scrub.box.setAttribute("stroke-width",covered?2:1);
-  scrub.t1.setAttribute("x",bx+bw/2);scrub.t1.setAttribute("y",by+17);scrub.t1.textContent=l1;
-  scrub.t2.setAttribute("x",bx+bw/2);scrub.t2.setAttribute("y",by+33);scrub.t2.textContent=l2;
+  var bx=PL+14, by=PT+10, bw=Math.max(l1.length,l2.length)*7.6+26, bh=46;
+  scrub.t1.setAttribute("x",bx+13);scrub.t1.setAttribute("y",by+19);scrub.t1.textContent=l1;
+  scrub.t2.setAttribute("x",bx+13);scrub.t2.setAttribute("y",by+36);scrub.t2.textContent=l2;
+  if(covered){
+    scrub.box.style.display="";
+    scrub.box.setAttribute("x",bx);scrub.box.setAttribute("y",by);
+    scrub.box.setAttribute("width",bw);scrub.box.setAttribute("height",bh);
+    scrub.stamp.setAttribute("transform","rotate(-3 "+(bx+bw/2)+" "+(by+bh/2)+")");
+  }else{
+    scrub.box.style.display="none";
+    scrub.stamp.removeAttribute("transform");
+  }
   if(!scrub.touched){scrub.touched=true;var h=document.getElementById("scrub-hint");if(h)h.classList.add("off")}
 }
 function scrubMove(e){
@@ -894,7 +892,6 @@ svg.addEventListener("pointerleave",function(e){
 });
 
 var rateInput=document.getElementById("rate");
-var mode="end";
 var fmt=function(n){return "₽"+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g," ")};
 function recalc(){
   var rate=parseFloat(rateInput.value);
@@ -905,7 +902,6 @@ function recalc(){
   var cover=null;
   for(var m=4;m<=24;m++){if(cumAt(m)>=totalK){cover=m;break}}
   document.getElementById("o-interest").textContent=fmt(interestK*1000);
-  document.getElementById("o-interest-l").textContent=(mode==="q")?("Доход за 18 мес. · ~"+fmt(interestK*1000/6)+" в квартал"):"Ваш доход за 18 мес.";
   document.getElementById("o-total").textContent=fmt(totalK*1000);
   document.getElementById("o-month").textContent=cover?("Месяц "+cover):"—";
   document.getElementById("o-margin").textContent=cover?((18-cover)+" мес."):"—";
@@ -922,12 +918,6 @@ function recalc(){
   if(scrub.i>=0)scrubShow(scrub.i);
 }
 rateInput.addEventListener("input",recalc);
-document.querySelectorAll(".pay-btn").forEach(function(b){
-  b.addEventListener("click",function(){
-    document.querySelectorAll(".pay-btn").forEach(function(x){x.classList.remove("on")});
-    b.classList.add("on");mode=b.dataset.mode;recalc();
-  });
-});
 recalc();
 })();
 </script>
