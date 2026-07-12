@@ -830,53 +830,34 @@ var chartIO=new IntersectionObserver(function(es){
 chartIO.observe(document.getElementById("chart"));
 
 /* ---------- скраб: инвестор щупает модель пальцем ----------
-   Вертикальная линия и точка следуют за месяцем; значения печатаются
-   в фиксированном «терминальном» углу графика. Рамка-штамп появляется
-   только в состоянии «долг перекрыт» — как оттиск, а не тултип. */
+   На графике — только линия-прицел и точка. Значения печатаются
+   текстовой строкой под графиком (вместо подсказки). Никаких плашек. */
 var svg=document.getElementById("chart");
 var TOTALK=1950;
-var scrub={g:null,line:null,dot:null,stamp:null,box:null,t1:null,t2:null,i:-1,touched:false};
+var readout=document.getElementById("scrub-hint");
+var scrub={g:null,line:null,dot:null,i:-1};
 function scrubBuild(){
   var g=el("g",{id:"scrub",style:"display:none"});
   scrub.line=el("line",{y1:PT,y2:H-PB,stroke:"rgba(242,192,120,.35)","stroke-width":1});
   scrub.dot=el("circle",{r:4.5,fill:"#F2C078"});
-  var stamp=el("g",{id:"scrub-stamp"});
-  scrub.box=el("rect",{rx:2,fill:"rgba(18,17,14,.85)",stroke:"#E0A458","stroke-width":2,style:"display:none"});
-  scrub.t1=el("text",{"class":"ax","font-size":"14","fill":"#F2C078","text-anchor":"start","font-weight":"500"});
-  scrub.t2=el("text",{"class":"ax","font-size":"12","fill":"#D8D2C4","text-anchor":"start"});
-  stamp.appendChild(scrub.box);stamp.appendChild(scrub.t1);stamp.appendChild(scrub.t2);
-  g.appendChild(scrub.line);g.appendChild(scrub.dot);g.appendChild(stamp);
-  svg.appendChild(g);scrub.g=g;scrub.stamp=stamp;
+  g.appendChild(scrub.line);g.appendChild(scrub.dot);
+  svg.appendChild(g);scrub.g=g;
 }
 scrubBuild();
 function scrubShow(i){
   scrub.i=i;
-  var x=X(i),v=cumul[i],y=Y(v);
+  var x=X(i),v=cumul[i];
   var covered=v>=TOTALK;
   scrub.g.style.display="";
   scrub.line.setAttribute("x1",x);scrub.line.setAttribute("x2",x);
-  scrub.dot.setAttribute("cx",x);scrub.dot.setAttribute("cy",y);
-  var l1,l2;
+  scrub.dot.setAttribute("cx",x);scrub.dot.setAttribute("cy",Y(v));
   if(covered){
-    l1="М"+(i+1)+" · ДОЛГ ПЕРЕКРЫТ";
-    l2="план "+v+"k · запас +"+Math.round(v-TOTALK)+"k";
+    readout.textContent="— М"+(i+1)+" · долг перекрыт · план ₽"+v+"k · запас +₽"+Math.round(v-TOTALK)+"k";
+    readout.style.color="var(--amber-bright)";
   }else{
-    l1="М"+(i+1)+" · накоплено "+v+"k";
-    l2=v>0?("до покрытия "+Math.round(TOTALK-v)+"k"):"до первой выручки";
+    readout.textContent="— М"+(i+1)+" · накоплено ₽"+v+"k · "+(v>0?("до покрытия ₽"+Math.round(TOTALK-v)+"k"):"до первой выручки");
+    readout.style.color="var(--amber)";
   }
-  var bx=PL+14, by=PT+10, bw=Math.max(l1.length,l2.length)*7.6+26, bh=46;
-  scrub.t1.setAttribute("x",bx+13);scrub.t1.setAttribute("y",by+19);scrub.t1.textContent=l1;
-  scrub.t2.setAttribute("x",bx+13);scrub.t2.setAttribute("y",by+36);scrub.t2.textContent=l2;
-  if(covered){
-    scrub.box.style.display="";
-    scrub.box.setAttribute("x",bx);scrub.box.setAttribute("y",by);
-    scrub.box.setAttribute("width",bw);scrub.box.setAttribute("height",bh);
-    scrub.stamp.setAttribute("transform","rotate(-3 "+(bx+bw/2)+" "+(by+bh/2)+")");
-  }else{
-    scrub.box.style.display="none";
-    scrub.stamp.removeAttribute("transform");
-  }
-  if(!scrub.touched){scrub.touched=true;var h=document.getElementById("scrub-hint");if(h)h.classList.add("off")}
 }
 function scrubMove(e){
   var r=svg.getBoundingClientRect();
