@@ -212,6 +212,16 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .tamline span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--taupe);text-transform:uppercase}
 @media(max-width:640px){.tamline{flex-direction:column}.tamline div{border-left:0;border-top:1px solid var(--line)}.tamline div:first-child{border-top:0}}
 
+/* trajectory steps */
+.step{display:grid;grid-template-columns:150px 1.1fr 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line-soft);align-items:start}
+.step .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);padding-top:4px}
+.step .no b{display:block;font-family:var(--serif);font-size:26px;font-weight:400;color:var(--ink);letter-spacing:0;text-transform:none;margin-bottom:4px}
+.step h4{font-family:var(--serif);font-size:19px;font-weight:500;margin-bottom:6px}
+.step p{font-size:14.5px;color:var(--ink-soft)}
+.step .role{font-size:14.5px;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:20px}
+.step .role .cap{display:block;margin-bottom:4px}
+@media(max-width:760px){.step{grid-template-columns:1fr;gap:10px}.step .role{border-left:0;padding-left:0}}
+
 /* traction rows */
 .tr-row{display:grid;grid-template-columns:110px 1fr auto;gap:22px;padding:18px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
 .tr-row .name{font-family:var(--serif);font-size:clamp(19px,2vw,23px)}
@@ -641,7 +651,25 @@ textarea{resize:vertical;min-height:90px}
       </div>
     </details>
 
-    <p class="fin-note rv" style="margin-top:26px">Дальний горизонт студии (2028+) — MyUniverse и аналитический терминал для маркетинга Meridian: этим раундом не финансируются, расскажу при встрече.</p>
+    <p class="eyebrow rv" style="margin:64px 0 6px">— Траектория студии · от малых шагов к глобальным продуктам</p>
+    <div class="rv">
+      <div class="step">
+        <div class="no"><b>Ступень 1</b>сейчас · 2026</div>
+        <div><h4>Сервисы</h4><p>Заказная разработка AI-агентов и SMM-система по подписке. Быстрая выручка, короткий цикл, тёплый нетворк.</p></div>
+        <div class="role"><span class="cap">Роль в конструкции</span>Выручка с М4 — возврат этого займа целиком лежит здесь. Плюс кейсы, код и клиентская база для следующей ступени.</div>
+      </div>
+      <div class="step">
+        <div class="no"><b>Ступень 2</b>2026–2027</div>
+        <div><h4>Флагманы: AURA · MyBrain</h4><p>Продукты-категории на рынках, где ниша пуста: автономная продажа недвижимости (пайплайн ₽100 млн уже в проработке) и операционная система соло-предпринимателя.</p></div>
+        <div class="role"><span class="cap">Роль в конструкции</span>Стоимость компании к Seed-раунду. Для этого займа — только запас прочности: их выручка в модель возврата не заложена.</div>
+      </div>
+      <div class="step" style="border-bottom:0">
+        <div class="no"><b>Ступень 3</b>2028+</div>
+        <div><h4>Глобальные платформы: MyUniverse · Meridian</h4><p>MyUniverse — операционная система жизни, вырастает из MyBrain (архитектура заложена с первого дня). Meridian — аналитический терминал для маркетинга, вырастает из SMM Engine.</p></div>
+        <div class="role"><span class="cap">Роль в конструкции</span>Масштаб студии. Финансируются следующими раундами, не этим займом. Подробно — при встрече.</div>
+      </div>
+    </div>
+    <p class="fin-note rv" style="margin-top:22px">Каждая ступень финансирует следующую и собирается на одном технологическом ядре — поэтому это последовательность, а не распыление.</p>
   </div>
 </section>
 
