@@ -9,6 +9,8 @@
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://formsubmit.co">
+<link rel="preconnect" href="https://ntfy.sh">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -706,7 +708,7 @@ textarea{resize:vertical;min-height:90px}
         </div>
       </div>
       <div class="rv rv-d1">
-        <div id="sent-msg">Спасибо — сообщение отправлено. Отвечу лично в течение дня.<br><span class="cap" style="color:rgba(243,238,229,.5)">Михаил Ровенский</span></div>
+        <div id="sent-msg">Спасибо — сообщение отправлено. Отвечу лично в течение дня.<br><span class="cap" style="color:rgba(243,238,229,.5)">Михаил Ровенский · если срочно — <a href="https://t.me/+79628848009" target="_blank" rel="noopener" style="color:var(--amber, #E0A458)">Telegram</a></span></div>
         <form id="invest-form" action="https://formsubmit.co/michael@rovensky.ru" method="POST">
           <input type="hidden" name="_subject" value="Заявка инвестора · rovensky.ru/pre-seed">
           <input type="hidden" name="_template" value="table">
@@ -769,9 +771,20 @@ try{
   document.getElementById("next-url").value=location.origin+location.pathname+"?sent=1";
 }catch(e){}
 
-/* форма: отправка через FormSubmit с таймаутом; при сбое — письмо/Telegram, тупика нет */
+/* форма: заявка уходит двумя независимыми каналами параллельно
+   (FormSubmit → почта; ntfy.sh → пуш + дубль на почту). Успех = ответил
+   хотя бы один. Оба упали — панель с готовым письмом и Telegram.
+   Черновик полей хранится в localStorage: введённое не теряется никогда. */
 try{
   var form=document.getElementById("invest-form");
+  var DRAFT=["f-name","f-contact","f-msg","f-fmt"];
+  DRAFT.forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    try{var v=localStorage.getItem("ps_"+id);if(v)el.value=v;}catch(e){}
+    el.addEventListener("input",function(){try{localStorage.setItem("ps_"+id,el.value)}catch(e){}});
+  });
+  function anyOk(ps){return new Promise(function(res,rej){var left=ps.length;ps.forEach(function(p){p.then(res,function(){if(--left===0)rej()})})})}
+  function withTimeout(p,ms){return new Promise(function(res,rej){var t=setTimeout(function(){rej(new Error("timeout"))},ms);p.then(function(v){clearTimeout(t);res(v)},function(e){clearTimeout(t);rej(e)})})}
   form.addEventListener("submit",function(ev){
     ev.preventDefault();
     var btn=form.querySelector("button[type=submit]");
@@ -779,18 +792,20 @@ try{
     btn.disabled=true;btn.textContent="Отправляю…";
     var fd=new FormData(form);
     var body="Имя: "+fd.get("Имя")+"\nКонтакт: "+fd.get("Контакт")+"\nФормат: "+fd.get("Формат")+(fd.get("Сообщение")?"\n\n"+fd.get("Сообщение"):"");
-    var ctl=("AbortController" in window)?new AbortController():null;
-    var tm=ctl?setTimeout(function(){ctl.abort()},8000):null;
-    fetch("https://formsubmit.co/ajax/michael@rovensky.ru",{method:"POST",body:fd,headers:{Accept:"application/json"},signal:ctl?ctl.signal:undefined})
-      .then(function(r){if(tm)clearTimeout(tm);if(!r.ok)throw 0;return r.json()})
-      .then(function(j){
-        if(String(j.success)!=="true")throw 0;
+    var ch1=fetch("https://formsubmit.co/ajax/michael@rovensky.ru",{method:"POST",body:fd,headers:{Accept:"application/json"}})
+      .then(function(r){if(!r.ok)throw 0;return r.json()})
+      .then(function(j){if(String(j.success)!=="true")throw 0;return "formsubmit"});
+    var ch2=fetch("https://ntfy.sh/rovensky-preseed-lead-k9x2m7q4vt",{method:"POST",body:body,
+        headers:{"Title":"Zayavka investora - rovensky.ru/pre-seed","X-Email":"michael@rovensky.ru","Tags":"moneybag"}})
+      .then(function(r){if(!r.ok)throw 0;return "ntfy"});
+    withTimeout(anyOk([ch1,ch2]),9000)
+      .then(function(){
         form.style.display="none";
         document.getElementById("form-fallback").hidden=true;
         document.getElementById("sent-msg").style.display="block";
+        DRAFT.forEach(function(id){try{localStorage.removeItem("ps_"+id)}catch(e){}});
       })
       .catch(function(){
-        if(tm)clearTimeout(tm);
         btn.disabled=false;btn.textContent=t0;
         var fb=document.getElementById("form-fallback");
         document.getElementById("fb-mail").href="mailto:michael@rovensky.ru?subject="+encodeURIComponent("Заявка инвестора · rovensky.ru/pre-seed")+"&body="+encodeURIComponent(body);
