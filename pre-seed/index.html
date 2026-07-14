@@ -726,6 +726,7 @@ textarea{resize:vertical;min-height:90px}
           </div>
           <div class="f-row"><label for="f-msg">Сообщение</label><textarea id="f-msg" name="Сообщение" placeholder="Вопрос, удобное время для звонка — что угодно"></textarea></div>
           <button class="btn" type="submit">Отправить — обсудим</button>
+          <p id="form-status" hidden class="cap" style="margin-top:14px;color:var(--amber, #E0A458)"></p>
         </form>
         <div id="form-fallback" hidden style="border:1px solid rgba(224,164,88,.5);padding:22px;margin-top:26px;font-size:15px">
           <p style="margin-bottom:14px">Сервис доставки не ответил — бывает. Заявка не потерялась: отправьте её одним касанием любым способом.</p>
@@ -739,7 +740,7 @@ textarea{resize:vertical;min-height:90px}
       </div>
     </div>
     <div class="foot">
-      <span>© 2026 Rovensky AI Agents</span>
+      <span>© 2026 Rovensky AI Agents · сборка 2.1.3</span>
       <span>Материалы предназначены адресату ссылки</span>
       <span>Сделано с Claude Code</span>
     </div>
@@ -771,50 +772,6 @@ try{
   document.getElementById("next-url").value=location.origin+location.pathname+"?sent=1";
 }catch(e){}
 
-/* форма: заявка уходит двумя независимыми каналами параллельно
-   (FormSubmit → почта; ntfy.sh → пуш + дубль на почту). Успех = ответил
-   хотя бы один. Оба упали — панель с готовым письмом и Telegram.
-   Черновик полей хранится в localStorage: введённое не теряется никогда. */
-try{
-  var form=document.getElementById("invest-form");
-  var DRAFT=["f-name","f-contact","f-msg","f-fmt"];
-  DRAFT.forEach(function(id){
-    var el=document.getElementById(id);if(!el)return;
-    try{var v=localStorage.getItem("ps_"+id);if(v)el.value=v;}catch(e){}
-    el.addEventListener("input",function(){try{localStorage.setItem("ps_"+id,el.value)}catch(e){}});
-  });
-  function anyOk(ps){return new Promise(function(res,rej){var left=ps.length;ps.forEach(function(p){p.then(res,function(){if(--left===0)rej()})})})}
-  function withTimeout(p,ms){return new Promise(function(res,rej){var t=setTimeout(function(){rej(new Error("timeout"))},ms);p.then(function(v){clearTimeout(t);res(v)},function(e){clearTimeout(t);rej(e)})})}
-  form.addEventListener("submit",function(ev){
-    ev.preventDefault();
-    var btn=form.querySelector("button[type=submit]");
-    var t0=btn.textContent;
-    btn.disabled=true;btn.textContent="Отправляю…";
-    var fd=new FormData(form);
-    var body="Имя: "+fd.get("Имя")+"\nКонтакт: "+fd.get("Контакт")+"\nФормат: "+fd.get("Формат")+(fd.get("Сообщение")?"\n\n"+fd.get("Сообщение"):"");
-    var ch1=fetch("https://formsubmit.co/ajax/michael@rovensky.ru",{method:"POST",body:fd,headers:{Accept:"application/json"}})
-      .then(function(r){if(!r.ok)throw 0;return r.json()})
-      .then(function(j){if(String(j.success)!=="true")throw 0;return "formsubmit"});
-    var ch2=fetch("https://ntfy.sh/rovensky-preseed-lead-k9x2m7q4vt",{method:"POST",body:body,
-        headers:{"Title":"Zayavka investora - rovensky.ru/pre-seed","X-Email":"michael@rovensky.ru","Tags":"moneybag"}})
-      .then(function(r){if(!r.ok)throw 0;return "ntfy"});
-    withTimeout(anyOk([ch1,ch2]),9000)
-      .then(function(){
-        form.style.display="none";
-        document.getElementById("form-fallback").hidden=true;
-        document.getElementById("sent-msg").style.display="block";
-        DRAFT.forEach(function(id){try{localStorage.removeItem("ps_"+id)}catch(e){}});
-      })
-      .catch(function(){
-        btn.disabled=false;btn.textContent=t0;
-        var fb=document.getElementById("form-fallback");
-        document.getElementById("fb-mail").href="mailto:michael@rovensky.ru?subject="+encodeURIComponent("Заявка инвестора · rovensky.ru/pre-seed")+"&body="+encodeURIComponent(body);
-        document.getElementById("fb-text").value=body;
-        fb.hidden=false;
-        fb.scrollIntoView({block:"nearest",behavior:"smooth"});
-      });
-  });
-}catch(e){}
 
 /* progress bar */
 var prog=document.getElementById("progress");
@@ -984,6 +941,57 @@ function recalc(){
 }
 rateInput.addEventListener("input",recalc);
 recalc();
+})();
+</script>
+<script>
+/* === Форма (изолирована: ошибка в любом другом скрипте её не заденет) === */
+(function(){
+"use strict";
+var form=document.getElementById("invest-form");
+if(!form)return;
+var MAIL="michael@rovensky.ru";
+var SUBJ="Заявка инвестора · rovensky.ru/pre-seed";
+var DRAFT=["f-name","f-contact","f-msg","f-fmt"];
+DRAFT.forEach(function(id){
+  var el=document.getElementById(id);if(!el)return;
+  try{var v=localStorage.getItem("ps_"+id);if(v)el.value=v;}catch(e){}
+  el.addEventListener("input",function(){try{localStorage.setItem("ps_"+id,el.value)}catch(e){}});
+});
+function anyOk(ps){return new Promise(function(res,rej){var left=ps.length;ps.forEach(function(p){p.then(res,function(){if(--left===0)rej()})})})}
+function withTimeout(p,ms){return new Promise(function(res,rej){var t=setTimeout(function(){rej(new Error("timeout"))},ms);p.then(function(v){clearTimeout(t);res(v)},function(e){clearTimeout(t);rej(e)})})}
+var status=document.getElementById("form-status");
+form.addEventListener("submit",function(ev){
+  ev.preventDefault();
+  var btn=form.querySelector("button[type=submit]");
+  var t0=btn.textContent;
+  btn.disabled=true;btn.textContent="Отправляю…";
+  status.hidden=false;status.textContent="— соединяюсь с сервисом доставки (до 9 секунд)…";
+  var fd=new FormData(form);
+  var body="Имя: "+fd.get("Имя")+"\nКонтакт: "+fd.get("Контакт")+"\nФормат: "+fd.get("Формат")+(fd.get("Сообщение")?"\n\n"+fd.get("Сообщение"):"");
+  var ch1=fetch("https://formsubmit.co/ajax/"+MAIL,{method:"POST",body:fd,headers:{Accept:"application/json"}})
+    .then(function(r){if(!r.ok)throw 0;return r.json()})
+    .then(function(j){if(String(j.success)!=="true")throw 0;return "formsubmit"});
+  var ch2=fetch("https://ntfy.sh/rovensky-preseed-lead-k9x2m7q4vt",{method:"POST",body:body,
+      headers:{"Title":"Zayavka investora - rovensky.ru/pre-seed","X-Email":MAIL,"Tags":"moneybag"}})
+    .then(function(r){if(!r.ok)throw 0;return "ntfy"});
+  withTimeout(anyOk([ch1,ch2]),9000)
+    .then(function(){
+      form.style.display="none";
+      status.hidden=true;
+      document.getElementById("form-fallback").hidden=true;
+      document.getElementById("sent-msg").style.display="block";
+      DRAFT.forEach(function(id){try{localStorage.removeItem("ps_"+id)}catch(e){}});
+    })
+    .catch(function(){
+      btn.disabled=false;btn.textContent=t0;
+      status.textContent="— сервисы доставки не ответили; ниже — способы отправить напрямую";
+      var fb=document.getElementById("form-fallback");
+      document.getElementById("fb-mail").href="mailto:"+MAIL+"?subject="+encodeURIComponent(SUBJ)+"&body="+encodeURIComponent(body);
+      document.getElementById("fb-text").value=body;
+      fb.hidden=false;
+      try{fb.scrollIntoView({block:"nearest",behavior:"smooth"})}catch(e){fb.scrollIntoView()}
+    });
+});
 })();
 </script>
 </body>
