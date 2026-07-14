@@ -725,6 +725,15 @@ textarea{resize:vertical;min-height:90px}
           <div class="f-row"><label for="f-msg">Сообщение</label><textarea id="f-msg" name="Сообщение" placeholder="Вопрос, удобное время для звонка — что угодно"></textarea></div>
           <button class="btn" type="submit">Отправить — обсудим</button>
         </form>
+        <div id="form-fallback" hidden style="border:1px solid rgba(224,164,88,.5);padding:22px;margin-top:26px;font-size:15px">
+          <p style="margin-bottom:14px">Сервис доставки не ответил — бывает. Заявка не потерялась: отправьте её одним касанием любым способом.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a class="btn" id="fb-mail" href="#">Открыть готовое письмо</a>
+            <a class="btn" href="https://t.me/+79628848009" target="_blank" rel="noopener" style="background:transparent;color:var(--paper);border:1px solid rgba(243,238,229,.4)">Написать в Telegram</a>
+          </div>
+          <label for="fb-text" class="cap" style="display:block;margin:18px 0 6px;color:rgba(243,238,229,.5)">Текст заявки — можно скопировать</label>
+          <textarea id="fb-text" readonly style="width:100%;min-height:96px;background:transparent;border:1px solid rgba(243,238,229,.25);color:var(--paper);font-family:var(--mono);font-size:13px;padding:12px"></textarea>
+        </div>
       </div>
     </div>
     <div class="foot">
@@ -758,6 +767,38 @@ try{
 
 try{
   document.getElementById("next-url").value=location.origin+location.pathname+"?sent=1";
+}catch(e){}
+
+/* форма: отправка через FormSubmit с таймаутом; при сбое — письмо/Telegram, тупика нет */
+try{
+  var form=document.getElementById("invest-form");
+  form.addEventListener("submit",function(ev){
+    ev.preventDefault();
+    var btn=form.querySelector("button[type=submit]");
+    var t0=btn.textContent;
+    btn.disabled=true;btn.textContent="Отправляю…";
+    var fd=new FormData(form);
+    var body="Имя: "+fd.get("Имя")+"\nКонтакт: "+fd.get("Контакт")+"\nФормат: "+fd.get("Формат")+(fd.get("Сообщение")?"\n\n"+fd.get("Сообщение"):"");
+    var ctl=("AbortController" in window)?new AbortController():null;
+    var tm=ctl?setTimeout(function(){ctl.abort()},8000):null;
+    fetch("https://formsubmit.co/ajax/michael@rovensky.ru",{method:"POST",body:fd,headers:{Accept:"application/json"},signal:ctl?ctl.signal:undefined})
+      .then(function(r){if(tm)clearTimeout(tm);if(!r.ok)throw 0;return r.json()})
+      .then(function(j){
+        if(String(j.success)!=="true")throw 0;
+        form.style.display="none";
+        document.getElementById("form-fallback").hidden=true;
+        document.getElementById("sent-msg").style.display="block";
+      })
+      .catch(function(){
+        if(tm)clearTimeout(tm);
+        btn.disabled=false;btn.textContent=t0;
+        var fb=document.getElementById("form-fallback");
+        document.getElementById("fb-mail").href="mailto:michael@rovensky.ru?subject="+encodeURIComponent("Заявка инвестора · rovensky.ru/pre-seed")+"&body="+encodeURIComponent(body);
+        document.getElementById("fb-text").value=body;
+        fb.hidden=false;
+        fb.scrollIntoView({block:"nearest",behavior:"smooth"});
+      });
+  });
 }catch(e){}
 
 /* progress bar */
