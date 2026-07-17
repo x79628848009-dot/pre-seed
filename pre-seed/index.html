@@ -214,6 +214,13 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .tamline span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--taupe);text-transform:uppercase}
 @media(max-width:640px){.tamline{flex-direction:column}.tamline div{border-left:0;border-top:1px solid var(--line)}.tamline div:first-child{border-top:0}}
 
+/* industry quotes */
+.quote-row{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:56px}
+@media(max-width:860px){.quote-row{grid-template-columns:1fr;gap:18px}}
+.q{border-top:1px solid var(--ink);padding-top:18px}
+.q p{font-family:var(--serif);font-style:italic;font-size:17.5px;line-height:1.55;color:var(--ink-soft)}
+.q .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-top:14px}
+
 /* trajectory steps */
 .step{display:grid;grid-template-columns:150px 1.1fr 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line-soft);align-items:start}
 .step .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);padding-top:4px}
@@ -575,6 +582,12 @@ textarea{resize:vertical;min-height:90px}
     <div class="rv" style="max-width:700px;margin-bottom:48px">
       <h2>Портфель, а не ставка<br>на один продукт</h2>
       <p class="lede" style="margin-top:20px">Всё построено на одном технологическом ядре: каждое действие систем записывается в журнал (полный аудит), а под новый рынок меняется модуль данных, а не система. Поэтому один основатель тянет несколько продуктов — и каждый следующий обходится дешевле.</p>
+    </div>
+    <p class="eyebrow rv" style="margin:0 0 22px">— Позиции лидеров индустрии об агентных системах</p>
+    <div class="quote-row">
+      <div class="q rv"><p>AI сжимает десятилетия прогресса в годы — агентные системы он называет ключевым механизмом этого сжатия.</p><div class="src">Дарио Амодеи · CEO Anthropic</div></div>
+      <div class="q rv rv-d1"><p>Агентный AI — третья волна вычислений после ПК и интернета.</p><div class="src">Дженсен Хуанг · CEO NVIDIA</div></div>
+      <div class="q rv rv-d2"><p>Агенты будут выполнять работу целых команд — и это происходит уже сейчас.</p><div class="src">Сэм Альтман · CEO OpenAI</div></div>
     </div>
     <div class="grid3 rv">
       <div class="vcard hl">
