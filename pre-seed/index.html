@@ -221,6 +221,46 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .q p{font-family:var(--serif);font-style:italic;font-size:17.5px;line-height:1.55;color:var(--ink-soft)}
 .q .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-top:14px}
 
+
+/* product map */
+.pmap-wrap{overflow-x:auto;margin-bottom:12px;-webkit-overflow-scrolling:touch}
+#pmap{display:block;width:100%;min-width:760px}
+#pmap text{user-select:none}
+#pmap .zl{font-family:var(--mono);font-size:11px;letter-spacing:.16em;fill:var(--taupe)}
+#pmap .zsep{stroke:var(--line);stroke-dasharray:2 6}
+#pmap .bus-l{stroke:var(--ink);stroke-width:2.5}
+#pmap .bus-t{font-family:var(--mono);font-size:11px;letter-spacing:.2em;fill:var(--taupe)}
+#pmap .cn{stroke:var(--ink);stroke-width:1.3}
+#pmap .evo{stroke:var(--taupe);stroke-width:1.5;stroke-dasharray:7 5;opacity:0;transition:opacity .6s ease 1.2s}
+#pmap .evo-h{fill:var(--taupe);opacity:0;transition:opacity .6s ease 1.2s}
+#pmap.on .evo,#pmap.on .evo-h{opacity:1}
+#pmap .draw{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .9s ease}
+#pmap.on .bus-l.draw{stroke-dashoffset:0;transition-delay:.1s}
+#pmap.on .cn.draw{stroke-dashoffset:0;transition-delay:.75s}
+#pmap .mn{cursor:pointer;opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+#pmap.on .mn{opacity:1;transform:none}
+#pmap.on .mn-d1{transition-delay:.55s}#pmap.on .mn-d2{transition-delay:.7s}#pmap.on .mn-d3{transition-delay:.85s}#pmap.on .mn-d4{transition-delay:1s}#pmap.on .mn-d5{transition-delay:1.15s}#pmap.on .mn-d6{transition-delay:1.3s}
+#pmap .n1 rect{fill:var(--ink)}
+#pmap .n1 .mn-name{fill:var(--paper)}
+#pmap .n1 .mn-sub{fill:rgba(243,238,229,.62)}
+#pmap .n2 rect{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+#pmap .n2 .mn-name{fill:var(--ink)}
+#pmap .n2 .mn-sub{fill:var(--taupe)}
+#pmap .n3 rect{fill:none;stroke:var(--taupe);stroke-width:1.3;stroke-dasharray:6 5}
+#pmap .n3 .mn-name{fill:var(--taupe)}
+#pmap .n3 .mn-sub{fill:var(--taupe)}
+#pmap .mn-name{font-family:var(--serif);font-size:17px}
+#pmap .mn-sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em}
+#pmap .pulse{fill:var(--amber);animation:mpulse 1.6s infinite}
+@keyframes mpulse{0%,100%{opacity:1}50%{opacity:.25}}
+#pmap .mn.act rect{stroke:var(--amber);stroke-width:2;stroke-dasharray:none}
+#pmap .mn.act .mn-name{fill:var(--amber)}
+#pmap .n1.act .mn-name{fill:var(--amber-bright, #F2C078)}
+#pmap .evo.lit{stroke:var(--amber);opacity:1}
+#map-read{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);min-height:1.8em;margin-bottom:52px}
+#map-read b{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){#pmap .draw,#pmap .mn,#pmap .evo,#pmap .evo-h{transition:none;opacity:1;transform:none;stroke-dashoffset:0}#pmap .pulse{animation:none}}
+
 /* trajectory steps */
 .step{display:grid;grid-template-columns:150px 1.1fr 1fr;gap:24px;padding:24px 0;border-bottom:1px solid var(--line-soft);align-items:start}
 .step .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);padding-top:4px}
@@ -598,6 +638,35 @@ textarea{resize:vertical;min-height:90px}
       <h2>Портфель, а не ставка<br>на один продукт</h2>
       <p class="lede" style="margin-top:20px">Всё построено на одном технологическом ядре: каждое действие систем записывается в журнал (полный аудит), а под новый рынок меняется модуль данных, а не система. Поэтому один основатель тянет несколько продуктов — и каждый следующий обходится дешевле.</p>
     </div>
+    <p class="eyebrow rv" style="margin:8px 0 18px">— Карта портфеля · наведите или тапните узел</p>
+    <div class="pmap-wrap rv">
+      <svg id="pmap" viewBox="0 0 920 470" role="img" aria-label="Карта продуктов: сервисы сегодня, флагманы строятся, платформы на горизонте — всё на одном технологическом ядре">
+        <text class="zl" x="130" y="32" text-anchor="middle">СЕЙЧАС · 2026</text>
+        <text class="zl" x="460" y="32" text-anchor="middle">СТРОИТСЯ · 2026–2027</text>
+        <text class="zl" x="770" y="32" text-anchor="middle">ГОРИЗОНТ · 2028+</text>
+        <line class="zsep" x1="305" y1="52" x2="305" y2="408"/>
+        <line class="zsep" x1="625" y1="52" x2="625" y2="408"/>
+        <line class="bus-l draw" pathLength="1" x1="30" y1="430" x2="890" y2="430"/>
+        <text class="bus-t" x="460" y="458" text-anchor="middle">ТЕХНОЛОГИЧЕСКОЕ ЯДРО · ЖУРНАЛ ДЕЙСТВИЙ · МОДУЛИ ДАННЫХ</text>
+        <line class="cn draw" pathLength="1" x1="130" y1="154" x2="130" y2="210"/>
+        <line class="cn draw" pathLength="1" x1="130" y1="274" x2="130" y2="430"/>
+        <line class="cn draw" pathLength="1" x1="460" y1="214" x2="460" y2="250"/>
+        <line class="cn draw" pathLength="1" x1="460" y1="314" x2="460" y2="430"/>
+        <line class="cn draw" pathLength="1" x1="770" y1="154" x2="770" y2="250"/>
+        <line class="cn draw" pathLength="1" x1="770" y1="314" x2="770" y2="430"/>
+        <line id="evo1" class="evo" x1="222" y1="122" x2="670" y2="122"/>
+        <polygon id="evo1h" class="evo-h" points="670,116 682,122 670,128"/>
+        <line id="evo2" class="evo" x1="552" y1="282" x2="670" y2="282"/>
+        <polygon id="evo2h" class="evo-h" points="670,276 682,282 670,288"/>
+        <g class="mn n1 mn-d1" data-read="SMM Engine — семь агентов ведут соцсети клиента целиком · ₽15–30k/мес · первая выручка портфеля" data-link="evo1" tabindex="0"><rect x="40" y="90" width="180" height="64" rx="10"/><text class="mn-name" x="56" y="118">SMM Engine</text><text class="mn-sub" x="56" y="138">ПОДПИСКА · ВЫРУЧКА С М4</text></g>
+        <g class="mn n1 mn-d2" data-read="Заказная разработка — системы под задачи бизнеса · чек ₽80k–1,5 млн · возврат займа лежит здесь" data-link="" tabindex="0"><rect x="40" y="210" width="180" height="64" rx="10"/><text class="mn-name" x="56" y="238">AI-агенты под заказ</text><text class="mn-sub" x="56" y="258">ЧЕК ₽80K–1,5M</text></g>
+        <g class="mn n2 mn-d3" data-read="AURA — автономная продажа недвижимости · пайплайн ₽100 млн · первый платный продукт — юрпроверка объекта" data-link="" tabindex="0"><rect x="370" y="150" width="180" height="64" rx="10"/><text class="mn-name" x="386" y="178">AURA</text><text class="mn-sub" x="386" y="198">СТРОИТСЯ · НЕДВИЖИМОСТЬ</text><circle class="pulse" cx="532" cy="166" r="4"/></g>
+        <g class="mn n2 mn-d4" data-read="MyBrain — полный цикл от мысли до результата · подписка $8–20/мес · мировой рынок" data-link="evo2" tabindex="0"><rect x="370" y="250" width="180" height="64" rx="10"/><text class="mn-name" x="386" y="278">MyBrain</text><text class="mn-sub" x="386" y="298">СТРОИТСЯ · ПРОДУКТИВНОСТЬ</text><circle class="pulse" cx="532" cy="266" r="4"/></g>
+        <g class="mn n3 mn-d5" data-read="Meridian — аналитический терминал маркетинга · вырастает из SMM Engine · финансируется следующими раундами" data-link="evo1" tabindex="0"><rect x="680" y="90" width="180" height="64" rx="10"/><text class="mn-name" x="696" y="118">Meridian</text><text class="mn-sub" x="696" y="138">ВЫРАСТАЕТ ИЗ SMM ENGINE</text></g>
+        <g class="mn n3 mn-d6" data-read="MyUniverse — операционная система жизни · вырастает из MyBrain · финансируется следующими раундами" data-link="evo2" tabindex="0"><rect x="680" y="250" width="180" height="64" rx="10"/><text class="mn-name" x="696" y="278">MyUniverse</text><text class="mn-sub" x="696" y="298">ВЫРАСТАЕТ ИЗ MYBRAIN</text></g>
+      </svg>
+    </div>
+    <p id="map-read" class="rv">— одно ядро, три горизонта: тап по узлу покажет, что это и когда</p>
     <div class="grid3 rv">
       <div class="vcard hl">
         <span class="eyebrow">Флагман · недвижимость</span>
@@ -836,6 +905,31 @@ var secIO=new IntersectionObserver(function(es){
   });
 },{rootMargin:"-45% 0px -50% 0px"});
 navLinks.forEach(function(a){var t=document.querySelector(a.getAttribute("href"));if(t)secIO.observe(t)});
+
+
+/* карта портфеля: прорисовка при скролле + описания узлов */
+try{
+  var pmap=document.getElementById("pmap");
+  var mread=document.getElementById("map-read");
+  var mio=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){pmap.classList.add("on");mio.disconnect()}});
+  },{threshold:.35});
+  mio.observe(pmap);
+  var mns=[].slice.call(pmap.querySelectorAll(".mn"));
+  function mact(g){
+    mns.forEach(function(x){x.classList.remove("act")});
+    [].slice.call(pmap.querySelectorAll(".evo")).forEach(function(x){x.classList.remove("lit")});
+    g.classList.add("act");
+    var link=g.getAttribute("data-link");
+    if(link){var ln=document.getElementById(link);if(ln)ln.classList.add("lit")}
+    mread.textContent="— "+g.getAttribute("data-read");
+  }
+  mns.forEach(function(g){
+    g.addEventListener("pointerenter",function(){mact(g)});
+    g.addEventListener("click",function(){mact(g)});
+    g.addEventListener("focus",function(){mact(g)});
+  });
+}catch(e){}
 
 /* reveal */
 var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
