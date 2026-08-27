@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Концепт B · Слоновая кость</title>
+<style>
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;src:url(/fonts/playfairdisplay-400-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;src:url(/fonts/playfairdisplay-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;src:url(/fonts/playfairdisplay-400i-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;src:url(/fonts/playfairdisplay-400i-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;src:url(/fonts/ibmplexmono-400-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;src:url(/fonts/ibmplexmono-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#FBF8F1; --paper-2:#F4EFE4; --ink:#161310; --ink-soft:#4A443B;
+  --gold:#9A7B2D; --gold-leaf:linear-gradient(115deg,#8A6C22,#C9A84C 45%,#8A6C22);
+  --hair:#161310; --line:rgba(22,19,16,.16);
+  --serif:'Playfair Display',Georgia,serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+.cap{font-family:var(--mono);font-size:10px;letter-spacing:.26em;text-transform:uppercase}
+/* рамка-сертификат по краю вьюпорта */
+.frame{position:fixed;inset:14px;border:1px solid var(--line);pointer-events:none;z-index:40}
+.frame::after{content:'';position:absolute;inset:5px;border:1px solid rgba(22,19,16,.08)}
+
+/* ══ ОБЛОЖКА ══ */
+.hero{min-height:100svh;display:flex;flex-direction:column;position:relative}
+.hero-top{padding:52px 0 0;text-align:center}
+.crest{width:64px;height:64px;margin:0 auto 18px;border:1px solid var(--ink);display:grid;place-items:center;font-family:var(--serif);font-size:34px;position:relative}
+.crest::after{content:'';position:absolute;inset:4px;border:1px solid rgba(22,19,16,.25)}
+.hero-mid{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:30px 0 60px}
+.rule{width:120px;height:1px;margin:0 auto;background:var(--ink)}
+.rule.thin{width:56px;background:var(--line)}
+.kicker{margin:26px 0 30px;color:var(--gold)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,8.4vw,110px);line-height:1.04}
+h1 em{font-style:italic}
+h1 .leaf{background:var(--gold-leaf);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{max-width:520px;margin:36px auto 0;font-size:16.5px;line-height:1.8;color:var(--ink-soft)}
+.cta-row{display:flex;gap:0;justify-content:center;margin-top:44px}
+.btn{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:17px 34px;border:1px solid var(--ink);color:var(--ink);transition:.25s}
+.btn+.btn{border-left:0}
+.btn.fill{background:var(--ink);color:var(--paper)}
+.btn.fill:hover{background:transparent;color:var(--ink)}
+.btn:not(.fill):hover{background:var(--ink);color:var(--paper)}
+/* факты как строка сертификата */
+.deed{margin:64px auto 46px;display:flex;justify-content:center;gap:0;flex-wrap:wrap}
+.deed div{padding:18px 34px;border:1px solid var(--line);border-left:0;text-align:center}
+.deed div:first-child{border-left:1px solid var(--line)}
+.deed .v{font-family:var(--serif);font-size:26px}
+.deed .l{margin-top:6px;color:rgba(22,19,16,.5)}
+
+/* ══ РАЗВОРОТ ══ */
+.spread{border-top:1px solid var(--hair);padding:110px 0 130px;background:var(--paper-2)}
+.spreadhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:70px}
+.spreadhead .no{font-family:var(--serif);font-size:15px;letter-spacing:.1em}
+.manifesto{font-family:var(--serif);font-size:clamp(25px,3.1vw,40px);line-height:1.45;max-width:900px}
+.manifesto em{font-style:italic}
+.manifesto .gold{color:var(--gold)}
+/* системы: гравюрная таблица */
+.ledger{margin-top:80px;border-top:1px solid var(--hair)}
+.row{display:grid;grid-template-columns:80px 1.2fr 2fr auto;gap:26px;align-items:baseline;padding:22px 6px;border-bottom:1px solid var(--line);transition:background .25s}
+.row:hover{background:rgba(22,19,16,.03)}
+.row .no{font-family:var(--mono);font-size:10.5px;color:rgba(22,19,16,.4);letter-spacing:.18em}
+.row h3{font-family:var(--serif);font-weight:400;font-size:24px}
+.row p{font-size:13.5px;color:var(--ink-soft);line-height:1.65}
+.row .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(22,19,16,.45);white-space:nowrap}
+.row .st.on{color:var(--gold)}
+@media(max-width:820px){.row{grid-template-columns:1fr;gap:8px}}
+.figures{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:90px}
+.fig{background:var(--paper-2);padding:38px 30px}
+.fig .v{font-family:var(--serif);font-size:52px}
+.fig .v sup{font-size:22px;color:var(--gold)}
+.fig p{margin-top:10px;font-size:13px;line-height:1.7;color:var(--ink-soft)}
+@media(max-width:760px){.figures{grid-template-columns:1fr}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.reveal.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.tag{position:fixed;left:22px;bottom:22px;z-index:50;background:#B3402F;color:#FBF8F1;font-family:var(--mono);font-size:10px;letter-spacing:.14em;padding:6px 10px}
+</style>
+</head>
+<body>
+<div class="frame"></div>
+<div class="tag">КОНЦЕПТ B · СЛОНОВАЯ КОСТЬ</div>
+
+<header class="hero">
+  <div class="wrap hero-top">
+    <div class="crest">R</div>
+    <span class="cap" style="color:rgba(22,19,16,.5)">Rovensky · Lab — Сочи · Россия</span>
+  </div>
+  <div class="wrap hero-mid">
+    <div class="rule thin"></div>
+    <p class="cap kicker">Частный меморандум · подготовлен лично для получателя</p>
+    <h1>Автономные<br><em class="leaf">системы</em></h1>
+    <p class="lede">Компания нового формата: работу делают системы, человек один — архитектор. Настоящим предлагается участие в её первой сборке частным займом.</p>
+    <div class="cta-row">
+      <a class="btn fill" href="#">Условия займа</a>
+      <a class="btn" href="#">Telegram</a>
+    </div>
+    <div class="deed cap">
+      <div><div class="v">₽1,5 млн</div><div class="l">Сумма</div></div>
+      <div><div class="v">15–20%</div><div class="l">Годовых</div></div>
+      <div><div class="v">18 мес</div><div class="l">Срок</div></div>
+      <div><div class="v">М18</div><div class="l">Возврат</div></div>
+    </div>
+    <div class="rule"></div>
+  </div>
+</header>
+
+<section class="spread">
+  <div class="wrap">
+    <div class="spreadhead">
+      <span class="no">I.</span>
+      <span class="cap" style="color:var(--gold)">Зачем всё это</span>
+      <span class="no" style="color:rgba(22,19,16,.3)">стр. 2</span>
+    </div>
+    <p class="manifesto reveal">Рынок полон инструментов, которые помогают человеку работать быстрее. Мы строим другое — <em>системы, которые делают работу сами.</em> <span class="gold">Первый продукт студии — сама студия.</span></p>
+
+    <div class="ledger reveal">
+      <div class="row"><span class="no">С·01</span><h3>Инженерия</h3><p>Проектирует и собирает продукты в паре с архитектором. Три сайта и эта страница сделаны здесь.</p><span class="st on">Ежедневная практика</span></div>
+      <div class="row"><span class="no">С·02</span><h3>Исследования</h3><p>Глубокий анализ рынков: недвижимость, продуктивность, ~20 конкурентов с источниками.</p><span class="st on">Ежедневная практика</span></div>
+      <div class="row"><span class="no">С·03</span><h3>Редакция</h3><p>Семь агентов ведут контент от мониторинга до публикации. Та же система продаётся по подписке.</p><span class="st">Строится</span></div>
+      <div class="row"><span class="no">С·04</span><h3>Сделки</h3><p>AURA: система, которая продаёт недвижимость сама — от юрпроверки до покупателя.</p><span class="st">Проект</span></div>
+      <div class="row"><span class="no">С·05</span><h3>Операции</h3><p>MyBrain: операционный директор для одного человека — от мысли до результата.</p><span class="st">Тестируется</span></div>
+    </div>
+
+    <div class="figures">
+      <div class="fig reveal"><div class="v">70–80<sup>%</sup></div><p>вероятность первой компании одного человека на $1 млрд уже в 2026 — оценка Дарио Амодеи, CEO Anthropic</p></div>
+      <div class="fig reveal"><div class="v">$401<sup>млн</sup></div><p>выручка Medvi за первый год — два человека и дюжина ИИ-инструментов (Forbes)</p></div>
+      <div class="fig reveal"><div class="v">109</div><p>выпусков этой страницы с 13 июня — произведено самой лабораторией, цифры из журнала репозитория</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.2});
+document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+</script>
+</body>
+</html>
