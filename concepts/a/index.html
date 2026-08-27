@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Концепт A · Обсидиан</title>
+<style>
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;src:url(/fonts/playfairdisplay-400-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;src:url(/fonts/playfairdisplay-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;src:url(/fonts/playfairdisplay-400i-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;src:url(/fonts/playfairdisplay-400i-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;src:url(/fonts/ibmplexmono-400-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;src:url(/fonts/ibmplexmono-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --void:#0D0B09; --coal:#131110; --ash:#1B1815;
+  --ivory:#F2ECDF; --ivory-dim:rgba(242,236,223,.55); --ivory-faint:rgba(242,236,223,.28);
+  --gold:#D9A441; --gold-hot:#F2C879; --line:rgba(242,236,223,.10);
+  --serif:'Playfair Display',Georgia,serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ivory);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* зерно */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono)}
+.cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase}
+
+/* ══ ОБЛОЖКА ══ */
+.hero{min-height:100svh;display:flex;flex-direction:column;position:relative;isolation:isolate}
+.hero::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(58% 42% at 50% 108%, rgba(217,164,65,.20), transparent 62%),
+    radial-gradient(35% 28% at 50% 112%, rgba(242,200,121,.14), transparent 70%),
+    linear-gradient(180deg, var(--void) 0%, #12100D 60%, #161310 100%)}
+/* тонкое золотое солнце-горизонт */
+.horizon{position:absolute;left:50%;bottom:14vh;transform:translateX(-50%);width:min(760px,86vw);height:1px;z-index:-1;
+  background:linear-gradient(90deg,transparent, var(--gold) 18%, var(--gold-hot) 50%, var(--gold) 82%, transparent);
+  box-shadow:0 0 24px rgba(242,200,121,.55), 0 0 90px 6px rgba(217,164,65,.25)}
+.hero-top{display:flex;justify-content:space-between;align-items:center;padding:30px 0}
+.logo{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--ivory)}
+.logo-box{width:40px;height:40px;background:var(--ivory);color:var(--void);display:grid;place-items:center;font-family:var(--serif);font-size:22px}
+.hero-mid{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 0 120px}
+.kicker{color:var(--gold);margin-bottom:34px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(56px,10vw,132px);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;background:linear-gradient(100deg,var(--gold) 10%,var(--gold-hot) 45%,var(--gold) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{max-width:560px;margin:40px auto 0;font-size:17px;line-height:1.75;color:var(--ivory-dim)}
+.cta-row{display:flex;gap:14px;justify-content:center;margin-top:48px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:16px 30px;transition:.25s}
+.btn.gold{background:linear-gradient(100deg,var(--gold),var(--gold-hot));color:#141008}
+.btn.gold:hover{box-shadow:0 0 34px rgba(242,200,121,.4)}
+.btn.ghost{color:var(--ivory);border:1px solid rgba(242,236,223,.3)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold-hot)}
+.hero-foot{position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--line)}
+.hero-foot .wrap{display:flex;justify-content:space-between;gap:20px;padding-top:20px;padding-bottom:20px;color:var(--ivory-faint);flex-wrap:wrap}
+.hero-foot b{color:var(--ivory);font-weight:400}
+
+/* ══ РАЗВОРОТ: манифест ══ */
+.spread{padding:140px 0;border-top:1px solid var(--line);position:relative}
+.num{position:absolute;top:120px;right:32px;font-family:var(--serif);font-size:200px;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(242,236,223,.07);user-select:none}
+.spread .cap{color:var(--gold);margin-bottom:30px;display:block}
+.manifesto{font-family:var(--serif);font-size:clamp(26px,3.4vw,44px);line-height:1.4;max-width:980px;font-weight:400}
+.manifesto em{font-style:italic;color:var(--gold-hot)}
+.manifesto .dim{color:var(--ivory-faint)}
+
+/* ══ РАЗВОРОТ: системы ══ */
+.systems{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-right:0;margin-top:80px}
+.sys{border-right:1px solid var(--line);padding:34px 24px 30px;min-height:230px;display:flex;flex-direction:column;gap:12px;position:relative;transition:background .3s}
+.sys:hover{background:var(--ash)}
+.sys .no{font-family:var(--mono);font-size:10px;color:var(--ivory-faint);letter-spacing:.2em}
+.sys h3{font-family:var(--serif);font-weight:400;font-size:23px;margin-top:auto}
+.sys .st{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;color:var(--ivory-faint);text-transform:uppercase}
+.sys .st.on{color:var(--gold-hot)}
+.sys .st.on::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--gold-hot);margin-right:8px;box-shadow:0 0 8px var(--gold-hot);vertical-align:2px}
+@media(max-width:900px){.systems{grid-template-columns:1fr 1fr}.sys{border-bottom:1px solid var(--line)}}
+@media(max-width:520px){.systems{grid-template-columns:1fr}}
+
+/* ══ цифры ══ */
+.figures{display:grid;grid-template-columns:repeat(3,1fr);gap:60px;margin-top:110px}
+.fig .v{font-family:var(--serif);font-size:64px;background:linear-gradient(160deg,var(--ivory),rgba(242,236,223,.55));-webkit-background-clip:text;background-clip:text;color:transparent}
+.fig p{margin-top:12px;font-size:13.5px;line-height:1.7;color:var(--ivory-dim)}
+@media(max-width:760px){.figures{grid-template-columns:1fr;gap:36px}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.tag{position:fixed;left:14px;bottom:14px;z-index:50;background:#B3402F;color:#F2ECDF;font-family:var(--mono);font-size:10px;letter-spacing:.14em;padding:6px 10px}
+</style>
+</head>
+<body>
+<div class="tag">КОНЦЕПТ A · ОБСИДИАН</div>
+
+<header class="hero">
+  <div class="horizon"></div>
+  <div class="wrap hero-top">
+    <a class="logo" href="#"><div class="logo-box">R</div><span class="cap" style="color:var(--ivory-dim)">Rovensky · Lab</span></a>
+    <span class="cap" style="color:var(--ivory-faint)">Частный меморандум · 2026</span>
+  </div>
+  <div class="wrap hero-mid">
+    <span class="cap kicker">Студия Михаила Ровенского</span>
+    <h1>Автономные<br><em>системы</em></h1>
+    <p class="lede">Компания, в которой работу делают системы, а человек один — архитектор. Займ ₽1,5 млн на 18 месяцев финансирует её первую сборку.</p>
+    <div class="cta-row">
+      <a class="btn gold" href="#">Условия займа</a>
+      <a class="btn ghost" href="#">Telegram</a>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <div class="wrap cap">
+      <span>Сумма <b>₽1 500 000</b></span>
+      <span>Ставка <b>15–20%</b></span>
+      <span>Срок <b>18 месяцев</b></span>
+      <span>Возврат <b>к М18</b></span>
+    </div>
+  </div>
+</header>
+
+<section class="spread">
+  <div class="num">01</div>
+  <div class="wrap">
+    <span class="cap reveal">Зачем всё это</span>
+    <p class="manifesto reveal">Рынок полон инструментов, которые помогают человеку работать быстрее. Мы строим другое — <em>системы, которые делают работу сами</em>. <span class="dim">Не ассистент рядом с процессом — процесс целиком. Первый продукт студии — сама студия.</span></p>
+
+    <div class="systems reveal">
+      <div class="sys"><span class="no">С·01</span><h3>Инженерия</h3><span class="st on">Ежедневная практика</span></div>
+      <div class="sys"><span class="no">С·02</span><h3>Исследования</h3><span class="st on">Ежедневная практика</span></div>
+      <div class="sys"><span class="no">С·03</span><h3>Редакция</h3><span class="st">Строится</span></div>
+      <div class="sys"><span class="no">С·04</span><h3>Сделки</h3><span class="st">Проект</span></div>
+      <div class="sys"><span class="no">С·05</span><h3>Операции</h3><span class="st">Тестируется</span></div>
+    </div>
+
+    <div class="figures">
+      <div class="fig reveal"><div class="v">70–80%</div><p>вероятность первой компании одного человека на $1 млрд уже в 2026 — оценка Дарио Амодеи, CEO Anthropic</p></div>
+      <div class="fig reveal"><div class="v">$401 млн</div><p>выручка Medvi за первый год — два человека и дюжина ИИ-инструментов (Forbes)</p></div>
+      <div class="fig reveal"><div class="v">109</div><p>выпусков этой страницы с 13 июня — произведено самой лабораторией, цифры из журнала репозитория</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.2});
+document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+</script>
+</body>
+</html>
