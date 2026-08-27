@@ -229,6 +229,39 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 .q .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--taupe);margin-top:14px}
 
 
+
+/* лаборатория: оргсхема */
+.lab-wrap{overflow-x:auto;margin-bottom:12px;-webkit-overflow-scrolling:touch}
+#labchart{display:block;width:100%;min-width:820px}
+#labchart text{user-select:none}
+#labchart .ln{stroke:var(--ink);stroke-width:1.3;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .8s ease}
+#labchart.on .ln{stroke-dashoffset:0}
+#labchart.on .ln-arch{transition-delay:.15s}
+#labchart.on .ln-bus{transition-delay:.5s}
+#labchart.on .ln-dep{transition-delay:.9s}
+#labchart .nd{cursor:pointer;opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s ease}
+#labchart.on .nd{opacity:1;transform:none}
+#labchart.on .nd-arch{transition-delay:0s}
+#labchart.on .nd-d1{transition-delay:1.05s}#labchart.on .nd-d2{transition-delay:1.2s}#labchart.on .nd-d3{transition-delay:1.35s}#labchart.on .nd-d4{transition-delay:1.5s}#labchart.on .nd-d5{transition-delay:1.65s}
+#labchart .nd-arch rect{fill:var(--ink)}
+#labchart .nd-arch .t1{fill:var(--paper);font-family:var(--serif);font-size:18px}
+#labchart .nd-arch .t2{fill:rgba(243,238,229,.62);font-family:var(--mono);font-size:9.5px;letter-spacing:.08em}
+#labchart .dep rect{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+#labchart .dep.ghost rect{fill:none;stroke:var(--taupe);stroke-width:1.2;stroke-dasharray:6 5}
+#labchart .dep .t1{fill:var(--ink);font-family:var(--serif);font-size:15px}
+#labchart .dep .t2{fill:var(--taupe);font-family:var(--mono);font-size:8.5px;letter-spacing:.03em}
+#labchart .dep.ghost .t1{fill:var(--taupe)}
+#labchart .st{font-family:var(--mono);font-size:8.5px;letter-spacing:.1em}
+#labchart .st-on{fill:var(--ink)}
+#labchart .st-build{fill:var(--amber)}
+#labchart .st-plan{fill:var(--taupe)}
+#labchart .dot-build{fill:var(--amber);animation:mpulse 1.6s infinite}
+#labchart .nd.act rect{stroke:var(--amber);stroke-width:2;stroke-dasharray:none}
+#labchart .nd.act .t1{fill:var(--amber)}
+#labchart .nd-arch.act .t1{fill:var(--amber-bright, #F2C078)}
+#lab-read{font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);min-height:1.8em;margin-top:6px}
+@media(prefers-reduced-motion:reduce){#labchart .ln{stroke-dashoffset:0;transition:none}#labchart .nd{opacity:1;transform:none;transition:none}#labchart .dot-build{animation:none}}
+
 /* product map */
 .pmap-wrap{overflow-x:auto;margin-bottom:12px;-webkit-overflow-scrolling:touch}
 #pmap{display:block;width:100%;min-width:760px}
@@ -441,6 +474,40 @@ textarea{resize:vertical;min-height:90px}
 </section>
 
 <!-- ================= 01 СУТЬ ================= -->
+
+<!-- ================= ЛАБОРАТОРИЯ ================= -->
+<section id="lab" style="border-bottom:1px solid var(--line-soft)">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="section-no">Лаборатория</span><span class="eyebrow">Штатное расписание</span></div>
+    <div class="rv" style="max-width:700px;margin-bottom:44px">
+      <h2>Компания, где отделы — <em>системы</em></h2>
+      <p class="lede" style="margin-top:20px">Займ финансирует не офис и не штат. Он финансирует лабораторию — производственную систему, в которой роль сотрудников выполняют цифровые агенты, а человек один: архитектор. Первый продукт студии — сама студия.</p>
+    </div>
+    <div class="lab-wrap rv">
+      <svg id="labchart" viewBox="0 0 960 330" role="img" aria-label="Оргсхема лаборатории: архитектор и пять отделов из агентных систем">
+        <g class="nd nd-arch" data-read="Михаил Ровенский — стратегия, архитектура, контроль качества. Единственный человек в штатном расписании" tabindex="0">
+          <rect x="368" y="24" width="224" height="66" rx="8"/>
+          <text class="t1" x="384" y="52">Архитектор</text>
+          <text class="t2" x="384" y="74">ЕДИНСТВЕННЫЙ ЧЕЛОВЕК В ШТАТЕ</text>
+        </g>
+        <line class="ln ln-arch" pathLength="1" x1="480" y1="90" x2="480" y2="170"/>
+        <line class="ln ln-bus" pathLength="1" x1="104" y1="170" x2="856" y2="170"/>
+        <line class="ln ln-dep" pathLength="1" x1="104" y1="170" x2="104" y2="210"/>
+          <line class="ln ln-dep" pathLength="1" x1="292" y1="170" x2="292" y2="210"/>
+          <line class="ln ln-dep" pathLength="1" x1="480" y1="170" x2="480" y2="210"/>
+          <line class="ln ln-dep" pathLength="1" x1="668" y1="170" x2="668" y2="210"/>
+          <line class="ln ln-dep" pathLength="1" x1="856" y1="170" x2="856" y2="210"/>
+        <g class="nd dep nd-d1" data-read="Отдел разработки — проектирует и собирает продукты в паре с архитектором. Три сайта и эта страница — его изделия" tabindex="0"><rect x="20" y="210" width="168" height="104" rx="8"/><text class="t1" x="34" y="240">Отдел</text><text class="t1" x="34" y="260">разработки</text><text class="t2" x="34" y="280">CLAUDE CODE · АГЕНТЫ СБОРКИ</text><text class="st st-on" x="34" y="300">РАБОТАЕТ</text></g>
+        <g class="nd dep nd-d2" data-read="Отдел исследований — глубокий анализ рынков. Исследования недвижимости и ~20 конкурентов продуктивности легли в основу AURA и MyBrain" tabindex="0"><rect x="208" y="210" width="168" height="104" rx="8"/><text class="t1" x="222" y="240">Отдел</text><text class="t1" x="222" y="260">исследований</text><text class="t2" x="222" y="280">РЫНКИ · КОНКУРЕНТЫ · ДАННЫЕ</text><text class="st st-on" x="222" y="300">РАБОТАЕТ</text></g>
+        <g class="nd dep nd-d3" data-read="Редакция — семь агентов ведут контент от мониторинга до публикации. Первый коммерческий продукт лаборатории · выручка с М4" tabindex="0"><rect x="396" y="210" width="168" height="104" rx="8"/><text class="t1" x="410" y="240">Редакция</text><text class="t2" x="410" y="262">7 АГЕНТОВ SMM-КОНВЕЙЕРА</text><circle class="dot-build" cx="414" cy="297" r="3.5"/><text class="st st-build" x="424" y="300">СТРОИТСЯ</text></g>
+        <g class="nd dep nd-d4 ghost" data-read="Клиентский сервис AURA — юридическая проверка объектов и работа с покупателями" tabindex="0"><rect x="584" y="210" width="168" height="104" rx="8"/><text class="t1" x="598" y="240">Клиентский</text><text class="t1" x="598" y="260">сервис AURA</text><text class="t2" x="598" y="280">НЕДВИЖИМОСТЬ · ЮРПРОВЕРКА</text><text class="st st-plan" x="598" y="300">ПРОЕКТ · 2026–2027</text></g>
+        <g class="nd dep nd-d5 ghost" data-read="Персональный офис MyBrain — операционный директор для соло-профессионала" tabindex="0"><rect x="772" y="210" width="168" height="104" rx="8"/><text class="t1" x="786" y="240">Офис</text><text class="t1" x="786" y="260">MyBrain</text><text class="t2" x="786" y="280">ОТ МЫСЛИ ДО РЕЗУЛЬТАТА</text><text class="st st-plan" x="786" y="300">ПРОЕКТ · 2026–2027</text></g>
+      </svg>
+    </div>
+    <p id="lab-read" class="rv">— коснитесь отдела: кто в нём работает и что уже сделано</p>
+  </div>
+</section>
+
 <section id="summary">
   <div class="wrap">
     <div class="sec-head rv"><span class="section-no">01 / Суть предложения</span><span class="eyebrow">Одна минута чтения</span></div>
@@ -1047,6 +1114,28 @@ try{
     g.addEventListener("pointerenter",function(){cact(g)});
     g.addEventListener("click",function(){cact(g)});
     g.addEventListener("focus",function(){cact(g)});
+  });
+}catch(e){}
+
+
+/* лаборатория: прорисовка + описания отделов */
+try{
+  var lch=document.getElementById("labchart");
+  var lread=document.getElementById("lab-read");
+  var lio=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){lch.classList.add("on");lio.disconnect()}});
+  },{threshold:.3});
+  lio.observe(lch);
+  var lnds=[].slice.call(lch.querySelectorAll(".nd"));
+  function lact(g){
+    lnds.forEach(function(x){x.classList.remove("act")});
+    g.classList.add("act");
+    lread.textContent="— "+g.getAttribute("data-read");
+  }
+  lnds.forEach(function(g){
+    g.addEventListener("pointerenter",function(){lact(g)});
+    g.addEventListener("click",function(){lact(g)});
+    g.addEventListener("focus",function(){lact(g)});
   });
 }catch(e){}
 
