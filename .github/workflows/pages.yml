@@ -23,6 +23,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Stamp lab passport with live git stats
+        run: |
+          C=$(git rev-list --count HEAD)
+          F=$(git log --reverse --format=%ad --date=format:'%d.%m.%Y' | head -1)
+          L=$(git log -1 --format=%ad --date=format:'%d.%m.%Y')
+          H=$(git rev-parse --short HEAD)
+          for f in next/index.html pre-seed/index.html; do
+            [ -f "$f" ] || continue
+            sed -i -E "s|(id=\"pp-commits\">)[^<]*|\1$C|; s|(id=\"pp-first\">)[^<]*|\1$F|; s|(id=\"pp-last\">)[^<]*|\1$L|; s|(id=\"pp-hash\">)[^<]*|\1$H|" "$f"
+          done
+          echo "passport: $C releases, $F → $L ($H)"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

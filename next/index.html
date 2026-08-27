@@ -230,6 +230,17 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;bac
 
 
 
+
+/* паспорт изделия */
+.passport{background:var(--term-bg);border:1px solid var(--term-line);padding:34px 36px;margin-bottom:52px}
+.passport .pp-tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--term-dim);margin-bottom:24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.passport .pp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+@media(max-width:860px){.passport .pp-grid{grid-template-columns:repeat(2,1fr)}}
+.passport .pp-v{font-family:var(--mono);font-size:24px;color:var(--amber-bright, #F2C078);white-space:nowrap}
+.passport .pp-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--term-dim);margin-top:7px;line-height:1.6}
+.passport .pp-note{font-family:var(--mono);font-size:11px;color:var(--term-dim);margin-top:26px;padding-top:18px;border-top:1px solid var(--term-line);line-height:1.7}
+.passport .pp-note b{color:var(--amber);font-weight:400}
+
 /* лаборатория: оргсхема */
 .lab-wrap{overflow-x:auto;margin-bottom:12px;-webkit-overflow-scrolling:touch}
 #labchart{display:block;width:100%;min-width:820px}
@@ -878,10 +889,20 @@ textarea{resize:vertical;min-height:90px}
 <!-- ================= 09 ТРЕКШН ================= -->
 <section id="traction" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="wrap">
-    <div class="sec-head rv"><span class="section-no">09 / Трекшн</span><span class="eyebrow">Проверяемо · июль 2026</span></div>
+    <div class="sec-head rv"><span class="section-no">09 / Трекшн</span><span class="eyebrow">Проверяемо · август 2026</span></div>
     <div class="grid2" style="align-items:end;margin-bottom:44px">
       <div class="rv"><h2>Не обещания —<br>ссылки</h2></div>
       <div class="rv rv-d1"><p class="lede">Выручки нет, продукты в разработке — это сказано в первом разделе. Ниже — то, что уже существует и открывается по ссылке: домены, сайты-витрины и техническая база.</p></div>
+    </div>
+    <div class="passport rv" style="margin-bottom:56px">
+      <div class="pp-tag"><span>Rovensky · Lab — паспорт изделия</span><span>Изделие: эта страница</span></div>
+      <div class="pp-grid">
+        <div><div class="pp-v" id="pp-commits">105</div><div class="pp-l">выпусков с начала работ</div></div>
+        <div><div class="pp-v" id="pp-first">13.06.2026</div><div class="pp-l">первый коммит репозитория</div></div>
+        <div><div class="pp-v" id="pp-last">27.08.2026</div><div class="pp-l">текущая сборка · <span id="pp-hash">3cc62c8</span></div></div>
+        <div><div class="pp-v">3 сайта</div><div class="pp-l">выпущены той же линией параллельно</div></div>
+      </div>
+      <div class="pp-note">Произведено лабораторией: <b>архитектор + отдел разработки</b>. Все цифры — из журнала репозитория, вписываются автоматически при каждой публикации; выдумать их нельзя, ускорить — можно.</div>
     </div>
     <div class="rv">
       <div class="tr-row"><span class="live-tag">В эфире</span><div><div class="name">sochi.estate</div><div class="desc">AURA · тизер-сайт флагмана; сама система — в разработке</div></div><a href="https://www.sochi.estate" target="_blank" rel="noopener" class="cap">открыть ↗</a></div>
