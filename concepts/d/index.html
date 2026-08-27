@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Концепт D · Демонстрация</title>
+<style>
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;src:url(/fonts/playfairdisplay-400-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400;src:url(/fonts/playfairdisplay-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;src:url(/fonts/playfairdisplay-400i-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400;src:url(/fonts/playfairdisplay-400i-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;src:url(/fonts/ibmplexmono-400-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;src:url(/fonts/ibmplexmono-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;src:url(/fonts/ibmplexmono-500-cyrillic.woff2) format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:500;src:url(/fonts/ibmplexmono-500-latin.woff2) format('woff2');unicode-range:U+0000-00FF}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0A0C0B; --ink-2:#0E110F; --panel:#121513;
+  --bone:#ECE9E1; --bone-dim:rgba(236,233,225,.56); --bone-faint:rgba(236,233,225,.26);
+  --phos:#49E29B; --phos-hot:#8CF7C6; --line:rgba(236,233,225,.10);
+  --serif:'Playfair Display',Georgia,serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--bone);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:rgba(73,226,155,.28)}
+/* зерно */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;opacity:.045;z-index:6;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+.wrap{width:100%;max-width:1220px;margin:0 auto;padding:0 32px}
+.cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
+
+/* ══ ПРОЛОГ: лаборатория собирает страницу ══ */
+#boot{position:fixed;inset:0;z-index:90;background:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:transform .85s cubic-bezier(.76,0,.24,1)}
+#boot.out{transform:translateY(-101%)}
+.boot-inner{width:min(680px,90vw)}
+.boot-head{color:var(--bone-faint);padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:22px;display:flex;justify-content:space-between;gap:14px}
+.boot-head b{color:var(--phos);font-weight:400}
+#bootlog{font-family:var(--mono);font-size:13px;line-height:2.15;color:var(--bone-dim);white-space:pre-wrap;min-height:13em}
+#bootlog .cmd{color:var(--bone)}
+#bootlog .ln{display:block}
+#bootlog .arr{color:var(--phos)}
+#bootlog .cur{display:inline-block;width:8px;height:15px;background:var(--phos);vertical-align:-2px;animation:blink .9s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+#bootskip{position:absolute;right:28px;bottom:24px;background:none;border:0;color:var(--bone-faint);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;padding:10px}
+#bootskip:hover{color:var(--phos-hot)}
+@media(max-width:640px){#bootlog{font-size:11px}}
+
+/* ══ ОБЛОЖКА ══ */
+.hero{min-height:100svh;display:flex;flex-direction:column;position:relative;isolation:isolate}
+.hero::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(52% 38% at 50% 112%, rgba(73,226,155,.09), transparent 65%),
+             linear-gradient(180deg,var(--ink) 0%,#0C0F0D 70%,#0E120F 100%)}
+.hero-top{display:flex;justify-content:space-between;align-items:center;padding-top:26px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--bone)}
+.logo-box{width:36px;height:36px;border:1px solid var(--bone);display:grid;place-items:center;font-family:var(--serif);font-size:20px}
+.pill{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-dim);border:1px solid var(--line);padding:8px 16px}
+.pill i{width:6px;height:6px;border-radius:50%;background:var(--phos);box-shadow:0 0 10px var(--phos);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-mid{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:60px;padding-bottom:40px}
+.kicker{color:var(--phos);display:block;margin-bottom:30px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(54px,9.4vw,124px);line-height:1.02;letter-spacing:-.01em}
+h1 .mask{display:block;overflow:hidden}
+h1 .line{display:inline-block;transform:translateY(115%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+h1 .l2{transition-delay:.12s}
+h1 em{font-style:italic;color:var(--phos-hot)}
+body.go h1 .line{transform:none}
+.lede{max-width:600px;margin-top:36px;font-size:17px;line-height:1.75;color:var(--bone-dim);
+  opacity:0;transform:translateY(18px);transition:opacity .9s ease .5s,transform .9s cubic-bezier(.16,1,.3,1) .5s}
+body.go .lede{opacity:1;transform:none}
+/* строка сделки, которую печатает машина */
+.typeline{margin-top:40px;font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--bone);min-height:1.6em}
+.typeline .pfx{color:var(--phos)}
+.typeline .cur{display:inline-block;width:8px;height:16px;background:var(--phos);vertical-align:-2px;animation:blink .9s steps(1) infinite}
+.cta-row{display:flex;gap:12px;margin-top:38px;flex-wrap:wrap;
+  opacity:0;transform:translateY(18px);transition:opacity .9s ease .8s,transform .9s cubic-bezier(.16,1,.3,1) .8s}
+body.go .cta-row{opacity:1;transform:none}
+.btn{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;padding:16px 30px;transition:.22s}
+.btn.phos{background:var(--phos);color:#07120C;font-weight:500}
+.btn.phos:hover{background:var(--phos-hot);box-shadow:0 0 34px rgba(73,226,155,.35)}
+.btn.ghost{color:var(--bone);border:1px solid rgba(236,233,225,.25)}
+.btn.ghost:hover{border-color:var(--phos);color:var(--phos-hot)}
+.hero-foot{border-top:1px solid var(--line)}
+.hero-foot .wrap{display:flex;justify-content:space-between;gap:18px;padding-top:20px;padding-bottom:20px;color:var(--bone-faint);flex-wrap:wrap}
+.hero-foot b{color:var(--bone);font-weight:400}
+
+/* ══ РАЗВОРОТ ══ */
+.spread{padding:130px 0;border-top:1px solid var(--line);position:relative}
+.sec-head{display:flex;align-items:center;gap:18px;margin-bottom:56px}
+.sec-head .cap{color:var(--phos)}
+.sec-head .rule{flex:1;height:1px;background:var(--line)}
+/* манифест: слова проявляются чернилами по мере скролла */
+.manifesto{font-family:var(--serif);font-size:clamp(27px,3.5vw,46px);line-height:1.42;max-width:980px;font-weight:400}
+.manifesto .w{color:var(--bone-faint);transition:color .35s ease}
+.manifesto .w.on{color:var(--bone)}
+.manifesto em .w.on{color:var(--phos-hot)}
+.manifesto em{font-style:italic}
+/* системы: конвейер */
+.rail{position:relative;height:1px;background:var(--line);margin:84px 0 0;overflow:visible}
+.rail i{position:absolute;left:0;top:0;height:1px;width:100%;background:linear-gradient(90deg,var(--phos),var(--phos-hot));transform-origin:left;transform:scaleX(0);transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.rail.on i{transform:none}
+.sys-stack{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:-1px;padding-top:13px}
+@media(max-width:960px){.sys-stack{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.sys-stack{grid-template-columns:1fr}}
+.sysc{background:var(--panel);border:1px solid var(--line);padding:26px 20px;min-height:180px;display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+.sysc:hover{border-color:rgba(73,226,155,.5);transform:translateY(-3px)}
+.sysc .no{font-family:var(--mono);font-size:9.5px;color:var(--bone-faint);letter-spacing:.18em}
+.sysc h3{font-family:var(--serif);font-weight:400;font-size:22px;margin-top:auto}
+.sysc .st{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--bone-faint);text-transform:uppercase;margin-top:12px}
+.sysc .st.on{color:var(--phos-hot)}
+.sysc .st.on::before{content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--phos);box-shadow:0 0 8px var(--phos);margin-right:7px;vertical-align:1px}
+/* цифры со «слот-машиной» */
+.figures{display:grid;grid-template-columns:repeat(3,1fr);gap:56px;margin-top:110px}
+@media(max-width:760px){.figures{grid-template-columns:1fr;gap:40px}}
+.fig .v{font-family:var(--serif);font-size:62px;letter-spacing:-.01em;color:var(--bone)}
+.fig .v .u{color:var(--phos);font-size:.5em}
+.fig p{margin-top:12px;font-size:13.5px;line-height:1.7;color:var(--bone-dim)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.lede,.cta-row{opacity:1;transform:none;transition:none}
+  h1 .line{transform:none;transition:none}
+  .rail i{transform:none;transition:none}
+  .pill i,.typeline .cur{animation:none}
+}
+.tag{position:fixed;left:14px;bottom:72px;z-index:95;background:#B3402F;color:#ECE9E1;font-family:var(--mono);font-size:10px;letter-spacing:.14em;padding:6px 10px}
+</style>
+</head>
+<body>
+<div class="tag">КОНЦЕПТ D · ДЕМОНСТРАЦИЯ</div>
+
+<!-- пролог: лаборатория собирает страницу на глазах -->
+<div id="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <div class="boot-head cap"><span>Лаборатория Ровенского</span><b>изделие № 109</b></div>
+    <pre id="bootlog"></pre>
+  </div>
+  <button id="bootskip" type="button">Пропустить →</button>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-top">
+    <a class="logo" href="#"><div class="logo-box">R</div><span class="cap" style="color:var(--bone-dim)">Rovensky · Lab</span></a>
+    <span class="pill"><i></i>Лаборатория активна</span>
+  </div>
+  <div class="wrap hero-mid">
+    <span class="cap kicker">Студия Михаила Ровенского · частный меморандум</span>
+    <h1><span class="mask"><span class="line">Автономные</span></span><span class="mask"><span class="line l2"><em>системы</em></span></span></h1>
+    <p class="lede">Компания, в которой работу делают системы, а человек один — архитектор. Эта страница — её изделие: собрана, проверена и выпущена самой лабораторией.</p>
+    <div class="typeline"><span class="pfx">&gt;&nbsp;</span><span id="typetxt"></span><span class="cur" id="typecur" hidden></span></div>
+    <div class="cta-row">
+      <a class="btn phos" href="#">Условия займа</a>
+      <a class="btn ghost" href="#">Telegram</a>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <div class="wrap cap">
+      <span>Сумма <b>₽1 500 000</b></span>
+      <span>Ставка <b>15–20%</b></span>
+      <span>Срок <b>18 месяцев</b></span>
+      <span>Возврат <b>к М18</b></span>
+    </div>
+  </div>
+</header>
+
+<section class="spread">
+  <div class="wrap">
+    <div class="sec-head"><span class="cap">Зачем всё это</span><span class="rule"></span></div>
+    <p class="manifesto" id="mani">Рынок полон инструментов, которые помогают человеку работать быстрее. Мы строим другое — <em>системы, которые делают работу сами.</em> Не ассистент рядом с процессом — процесс целиком. Первый продукт студии — сама студия.</p>
+
+    <div class="rail" id="rail"><i></i></div>
+    <div class="sys-stack">
+      <div class="sysc reveal"><span class="no">С·01</span><h3>Инженерия</h3><span class="st on">Ежедневная практика</span></div>
+      <div class="sysc reveal"><span class="no">С·02</span><h3>Исследования</h3><span class="st on">Ежедневная практика</span></div>
+      <div class="sysc reveal"><span class="no">С·03</span><h3>Редакция</h3><span class="st">Строится</span></div>
+      <div class="sysc reveal"><span class="no">С·04</span><h3>Сделки</h3><span class="st">Проект</span></div>
+      <div class="sysc reveal"><span class="no">С·05</span><h3>Операции</h3><span class="st">Тестируется</span></div>
+    </div>
+
+    <div class="figures">
+      <div class="fig reveal"><div class="v" data-slot>70–80<span class="u">%</span></div><p>вероятность первой компании одного человека на $1 млрд уже в 2026 — оценка Дарио Амодеи, CEO Anthropic</p></div>
+      <div class="fig reveal"><div class="v" data-slot>$401<span class="u">млн</span></div><p>выручка Medvi за первый год — два человека и дюжина ИИ-инструментов (Forbes)</p></div>
+      <div class="fig reveal"><div class="v" data-slot>№ 109</div><p>выпусков этой страницы с 13 июня — произведено самой лабораторией, цифры из журнала репозитория</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var seen=false; try{seen=sessionStorage.getItem('d-boot')==='1'}catch(e){}
+var boot=document.getElementById('boot'), log=document.getElementById('bootlog');
+var aborted=false, timers=[];
+
+function later(fn,ms){timers.push(setTimeout(fn,ms))}
+function clearAll(){timers.forEach(clearTimeout);timers=[]}
+
+function finish(){
+  if(aborted)return; aborted=true; clearAll();
+  try{sessionStorage.setItem('d-boot','1')}catch(e){}
+  boot.classList.add('out');
+  later(function(){boot.remove()},900);
+  document.body.classList.add('go');
+  later(startTyped,1100);
+}
+
+function skipAll(){
+  if(boot){boot.remove()} aborted=true; clearAll();
+  document.body.classList.add('go');
+  startTyped(true);
+}
+
+/* ── пролог ── */
+var LINES=[
+  {html:'<span class="cmd">$ lab assemble --issue 109</span>', t:'$ lab assemble --issue 109'},
+  {t:'Инженерия — вёрстка собрана, ноль внешних запросов'},
+  {t:'Исследования — рынок и конкуренты сверены'},
+  {t:'Редакция — текст вычитан по словарю статусов'},
+  {t:'Операции — цифры взяты из git-журнала'},
+  {t:'Выпуск подтверждён архитектором. Показываю.'}
+];
+function runBoot(){
+  var li=0;
+  function nextLine(){
+    if(aborted)return;
+    if(li>=LINES.length){later(finish,650);return}
+    var L=LINES[li++], el=document.createElement('span');
+    el.className='ln'+(li===1?' cmd':'');
+    if(li>1){var a=document.createElement('span');a.className='arr';a.textContent='▸ ';el.appendChild(a)}
+    var txt=document.createTextNode(''); el.appendChild(txt);
+    var cur=document.createElement('span'); cur.className='cur'; el.appendChild(cur);
+    log.appendChild(el);
+    var s=L.t.replace(/^\$ lab.*$/,L.t), i2=0;
+    (function tick(){
+      if(aborted)return;
+      if(i2<s.length){txt.textContent=s.slice(0,++i2);later(tick,s[0]==='$'?16:9)}
+      else{cur.remove();later(nextLine,150)}
+    })();
+  }
+  nextLine();
+}
+boot.addEventListener('click',finish);
+document.getElementById('bootskip').addEventListener('click',function(e){e.stopPropagation();finish()});
+addEventListener('keydown',function(){if(!aborted&&boot&&boot.parentNode)finish()},{once:true});
+
+/* ── печатаемая строка сделки ── */
+var DEAL='займ ₽1 500 000 · 15–20% годовых · 18 месяцев · возврат к М18';
+var typed=false;
+function startTyped(instant){
+  if(typed)return; typed=true;
+  var t=document.getElementById('typetxt'), c=document.getElementById('typecur');
+  if(instant||RM){t.textContent=DEAL;c.hidden=false;return}
+  c.hidden=false; var i=0;
+  (function tk(){ if(i<DEAL.length){t.textContent=DEAL.slice(0,++i);setTimeout(tk,26)} })();
+}
+
+if(RM||seen){skipAll()} else {runBoot()}
+
+/* ── появления ── */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(i%5)*80+'ms';io.observe(el)});
+io.observe(document.getElementById('rail'));
+
+/* ── манифест: слова проявляются при скролле ── */
+var mani=document.getElementById('mani'), words=[];
+(function wrap(node){
+  Array.prototype.slice.call(node.childNodes).forEach(function(n){
+    if(n.nodeType===3){
+      var frag=document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(function(part){
+        if(/^\s+$/.test(part)||part===''){frag.appendChild(document.createTextNode(part))}
+        else{var s=document.createElement('span');s.className='w';s.textContent=part;frag.appendChild(s);words.push(s)}
+      });
+      node.replaceChild(frag,n);
+    } else if(n.nodeType===1){wrap(n)}
+  });
+})(mani);
+function inkWords(){
+  var r=mani.getBoundingClientRect(), wh=innerHeight;
+  var p=(wh*.85-r.top)/(r.height+wh*.45);
+  p=Math.max(0,Math.min(1,p));
+  var k=Math.round(p*words.length);
+  for(var i=0;i<words.length;i++){words[i].classList.toggle('on',i<k)}
+}
+if(RM){words.forEach(function(w){w.classList.add('on')})}
+else{
+  var raf=false;
+  addEventListener('scroll',function(){if(!raf){raf=true;requestAnimationFrame(function(){inkWords();raf=false})}},{passive:true});
+  inkWords();
+}
+
+/* ── цифры: слот-машина при появлении ── */
+if(!RM){
+  document.querySelectorAll('[data-slot]').forEach(function(v){
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return; io2.unobserve(v);
+        var nodes=[]; v.childNodes.forEach(function(n){if(n.nodeType===3)nodes.push({n:n,f:n.textContent})});
+        var frames=0, max=22;
+        (function spin(){
+          frames++;
+          nodes.forEach(function(o){
+            o.n.textContent=o.f.replace(/\d/g,function(){return frames>=max?'':Math.floor(Math.random()*10)});
+            if(frames>=max)o.n.textContent=o.f;
+          });
+          if(frames<max)setTimeout(spin,36);
+        })();
+      });
+    },{threshold:.5});
+    io2.observe(v);
+  });
+}
+})();
+</script>
+</body>
+</html>
