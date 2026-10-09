@@ -18,3 +18,85 @@ html.motion-off{scroll-behavior:auto}html.motion-off *,html.motion-off *:before,
 @media(max-width:700px){.mast{flex-wrap:wrap;gap:0;padding-top:18px;padding-bottom:5px}.wordmark{max-width:none;font-size:10px}.mast nav{width:100%;justify-content:space-between;gap:10px}.mast nav>a:first-child{display:inline-flex}}
 
 .icon-arrow{display:inline-block;vertical-align:-.15em;flex-shrink:0}.epigraph>div{font-size:12px}.epigraph span{font-size:11px}
+
+/* Phone composition: the same story, composed for a narrow page rather than scaled slides. */
+@media(max-width:700px){
+  .wrap,.mast,.hero-copy,.hero-note{width:calc(100% - 40px)}
+  .mast{min-height:0;padding:22px 0 8px;gap:8px}
+  .wordmark{font-size:10px;letter-spacing:.16em;max-width:none}
+  .mast nav{gap:8px;font-size:11px;justify-content:space-between}
+  .mast nav a{min-height:44px;padding-block:10px}
+  .hero-art{width:100%;margin:0;aspect-ratio:1672/650}
+  .hero-copy{margin-top:22px}
+  .hero h1{font-size:clamp(32px,8.4vw,45px);line-height:1.13;max-width:510px;margin:0 0 18px;letter-spacing:-.04em;text-wrap:balance}
+  .hero-copy p{font-size:11px;letter-spacing:.055em;line-height:1.65}
+  .enter{margin-top:24px;padding-bottom:16px;min-height:44px;font-size:13px}
+  .hero-note{font-size:10px;letter-spacing:.04em;margin-top:14px;padding-bottom:0}
+  .opening{padding-top:64px;padding-bottom:52px}
+  .section-label{font-size:10px;letter-spacing:.07em;align-items:baseline;gap:12px;line-height:1.7}
+  .section-label>span{flex-shrink:0}
+  h2,.opening h2,.synthesis h2,.company-heading h2,.inside h2,.invitation h2{font-size:clamp(30px,8.1vw,42px);line-height:1.15;letter-spacing:-.035em;text-wrap:balance}
+  h2 br,.venture-question br,.layer-heading h3 br{display:none}
+  .opening h2,.synthesis h2,.company-heading h2{margin:26px 0}
+  .opening-copy,.synthesis-copy,.company-heading p,.partner-copy,.invitation-bottom>p{font-size:16px;line-height:1.75}
+  .source-line{font-size:22px;gap:18px 24px;padding:24px 0;margin-top:28px}
+  .horizon-scene{min-height:0;display:block}
+  .horizon-copy{padding-top:64px;padding-bottom:36px}
+  .horizon-copy h2{font-size:clamp(37px,10vw,54px);line-height:1.08;margin:30px 0;text-wrap:balance}
+  .horizon-copy p{font-size:16px;line-height:1.75;margin-top:26px;max-width:none}
+  .horizon-image{object-position:60% center}
+  .horizon-shade{background:linear-gradient(180deg,#060d16 0%,rgba(6,13,22,.32) 25%,rgba(6,13,22,.65) 68%,#060d16 100%)}
+  .horizon-foot{position:relative;display:block;left:auto;right:auto;bottom:auto;max-width:none;width:calc(100% - 40px);margin:0 auto;padding-bottom:52px;font-size:9px;line-height:1.8;letter-spacing:.07em}
+  .synthesis{padding-block:58px 60px}
+  .principles summary{font-size:14px;gap:20px}
+  .principles p{font-size:15px}
+  .epigraph{margin-top:36px;padding-top:26px}
+  .epigraph>p{font-size:clamp(24px,6.5vw,31px)}
+  .epigraph>div{font-size:12px;line-height:1.7}
+  .human-bridge{min-height:0;display:block}
+  .bridge-art{display:none}
+  .bridge-shade{background:radial-gradient(ellipse at 95% 45%,rgba(159,94,77,.14),transparent 70%),linear-gradient(180deg,#060d16,#10131b 45%,#060d16)}
+  .bridge-copy{padding-block:64px}
+  .bridge-copy h2{font-size:clamp(31px,8.4vw,43px);line-height:1.15;max-width:none;margin:28px 0;text-wrap:balance}
+  .bridge-copy p{font-size:16px;max-width:none;line-height:1.75;margin:26px 0 0}
+  .inside{padding-block:58px}
+  .company-heading{margin-bottom:34px}
+  .company-root{align-items:flex-start;gap:18px;padding-block:24px;flex-wrap:nowrap}
+  .company-monogram{font-size:50px;margin-top:3px}
+  .company-root>div{min-width:0}
+  .company-root h3{font-size:23px;line-height:1.15;overflow-wrap:normal}
+  .company-root p{font-size:13px;line-height:1.7;margin-top:12px}
+  .system-layer{padding-top:38px}
+  .layer-heading{margin-bottom:28px}
+  .layer-heading h3{font-size:clamp(27px,7.1vw,36px);line-height:1.2;text-wrap:balance}
+  .capabilities{display:block}
+  .capabilities article,.capabilities article+article,.capabilities article:nth-child(n){display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:14px;padding:24px 0;border-left:0;border-top:0;background:none}
+  .capabilities article:nth-child(n+2){border-top:1px solid var(--line)}
+  .cap-number{grid-column:1;grid-row:1;padding-top:4px;font-size:11px}
+  .capabilities h4{grid-column:2;grid-row:1;margin:0 0 10px;font-size:19px;line-height:1.3}
+  .capabilities p{grid-column:2;margin:0;font-size:15px;line-height:1.7}
+  .cap-status{grid-column:2;justify-self:start;margin-top:13px;font-size:10px}
+  .shared-memory{padding-block:24px}
+  .shared-memory p,.commercial-note p{font-size:14px;line-height:1.75}
+  .map-connection{height:42px}
+  .portfolio-layer{padding-top:24px}
+  .layer-heading>p{font-size:13px;line-height:1.7}
+  .venture,.venture+.venture{padding:32px 0}
+  .venture h4{font-size:37px;margin:20px 0}
+  .venture .venture-question{font-size:25px;line-height:1.35;max-width:460px;text-wrap:balance}
+  .venture p{font-size:16px;line-height:1.75}
+  .venture-role{font-size:13px;line-height:1.75}
+  .partner-layer{padding:42px 0 32px}
+  .partner-copy{font-size:16px}
+  .inside-caution{font-size:13px;line-height:1.75}
+  .invitation{padding-block:58px}
+  .invitation h2{margin:26px 0}
+  .contact-actions{gap:16px;margin-top:26px}
+  .text-link{font-size:14px;line-height:1.6}
+  .primary-link{font-size:14px;padding:18px 20px}
+  .footer-top{grid-template-columns:60px minmax(0,1fr);gap:16px}
+  .footer-top p{font-size:12px;line-height:1.7}
+  .footer-top>a:last-child{font-size:14px}
+  .investor-main h1,.cooperation-main h1{font-size:clamp(31px,8.3vw,43px);text-wrap:balance}
+  .investor-section p,.investor-section li,.investor-aside p{font-size:16px}
+}
