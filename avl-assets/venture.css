@@ -94,7 +94,8 @@ html.motion-off{scroll-behavior:auto}html.motion-off *,html.motion-off *:before,
   .contact-actions{gap:16px;margin-top:26px}
   .text-link{font-size:14px;line-height:1.6}
   .primary-link{font-size:14px;padding:18px 20px}
-  .footer-top{grid-template-columns:60px minmax(0,1fr);gap:16px}
+  .footer-top{grid-template-columns:max-content minmax(0,1fr);gap:20px}
+  .footer-logo{white-space:nowrap;overflow-wrap:normal}
   .footer-top p{font-size:12px;line-height:1.7}
   .footer-top>a:last-child{font-size:14px}
   .investor-main h1,.cooperation-main h1{font-size:clamp(31px,8.3vw,43px);text-wrap:balance}
