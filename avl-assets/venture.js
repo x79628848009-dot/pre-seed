@@ -3,22 +3,14 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let explicit = null;
   try { explicit = localStorage.getItem('avl-motion'); } catch (_) {}
-  let motionOff = explicit === 'off' || (explicit !== 'on' && reduced.matches);
+  let motionOff = reduced.matches || explicit === 'off';
   const animations = new Set();
   function syncMotion() {
     document.documentElement.classList.toggle('motion-off', motionOff);
-    document.querySelectorAll('.motion-toggle').forEach(button => {
-      button.textContent = motionOff ? 'Включить движение' : 'Отключить движение';
-    });
     if (motionOff) { animations.forEach(animation => animation.finish()); animations.clear(); }
   }
   syncMotion();
-  document.querySelectorAll('.motion-toggle').forEach(button => button.addEventListener('click', () => {
-    motionOff = !motionOff; explicit = motionOff ? 'off' : 'on';
-    try { localStorage.setItem('avl-motion', explicit); } catch (_) {}
-    syncMotion();
-  }));
-  const onPreference = () => { if (explicit === null) { motionOff = reduced.matches; syncMotion(); } };
+  const onPreference = () => { motionOff = reduced.matches || explicit === 'off'; syncMotion(); };
   if (reduced.addEventListener) reduced.addEventListener('change', onPreference);
   if ('IntersectionObserver' in window && typeof Element.prototype.animate === 'function') {
     const observer = new IntersectionObserver(entries => {
